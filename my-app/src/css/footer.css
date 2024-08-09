@@ -1,0 +1,63 @@
+/* Footer Styling */
+.footer {
+    background-color: #CE8C29; /* Dark background color */
+    color: white; /* White text color */
+    padding: 10px 0; /* Padding for the footer */
+    text-align: center;
+    margin-top: auto; /* Pushes footer to the bottom if using flex layout */
+}
+
+.footer .container {
+    display: flex;
+    justify-content: space-between; /* Space between columns */
+    align-items: flex-start; /* Align items to the start of the container */
+    padding: 0 20px; /* Padding on left and right */
+    flex-wrap: wrap; /* Allow wrapping on smaller screens */
+}
+
+.footer .container .col-md-9 {
+    flex: 2; /* More space for contact info */
+    padding: 5px; /* Reduced padding inside columns */
+    text-align: left; /* Align text to the left */
+}
+
+.footer .container .col-md-3 {
+    flex: 1; /* Space for social icons */
+    padding: 5px; /* Reduced padding inside columns */
+    text-align: center; /* Center align the text */
+}
+
+.footer .container h4 {
+    margin-bottom: 5px; /* Reduced margin */
+    color: #ffffff; /* White color for the headers */
+    font-size: 1rem; /* Smaller font size for headers */
+}
+
+.footer .container p {
+    margin: 3px 0; /* Reduced spacing between paragraphs */
+    font-size: 0.8rem; /* Smaller font size for text */
+}
+
+.footer .social-icons {
+    display: flex;
+    justify-content: center; /* Center align icons horizontally */
+    gap: 20px; /* Reduced space between icons */
+    margin: 5px 0; /* Reduced margin above and below social icons */
+}
+
+.footer .social-icons a img {
+    width: 30px; /* Adjusted size for icons */
+    height: 30px; /* Adjusted size for icons */
+}
+
+.footer .bottom-bar {
+    margin-top: 10px; /* Space above the bottom bar */
+    background-color: #CE8C29; /* Consistent background for the bottom bar */
+    padding: 5px; /* Padding for the bottom bar */
+}
+
+.footer .bottom-bar p {
+    margin: 0;
+    color: white; /* White color for the bottom bar text */
+    font-size: 0.75rem; /* Smaller font size for the copyright text */
+}
