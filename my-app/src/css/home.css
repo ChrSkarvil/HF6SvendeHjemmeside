@@ -60,13 +60,15 @@ main {
   flex: 1;
   padding: 40px 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column; /* Ensure the content stacks vertically */
+  align-items: center; /* Center the content horizontally */
 }
 
 main .content {
   flex: 2;
-  margin-right: 20px;
+  width: 100%; /* Full width for the content */
+  max-width: 1200px; /* Optional: Max width for content */
+  margin-bottom: 20px; /* Space below the content */
 }
 
 main .sidebar {
@@ -80,30 +82,27 @@ main .sidebar {
 .search-container {
   display: flex;
   justify-content: center; /* Center align the search bar and button */
+  align-items: center; /* Vertically center align the items */
   margin: 20px 0; /* Margin above and below */
 }
 
 .search-bar {
-  justify-tracks: center;
   padding: 10px 15px; /* Padding inside the search bar */
-  border: none; /* Light border color */
+  border: none; /* Remove default border */
   border-radius: 25px; /* Rounded corners */
   width: 300px; /* Width of the search bar */
   outline: none; /* Remove default outline */
   font-size: 1rem; /* Font size for the input text */
   font-weight: bold;
-  background-color: rgba(241, 174, 73, 0.5);
-  color: #e6a13b;
-  
+  background-color: rgba(241, 174, 73, 0.5); /* Light background with opacity */
+  color: #e6a13b; /* Text color */
 }
 
 .search-bar::placeholder {
   color: #e6a13b; /* Placeholder text color */
-  text-decoration-style: solid;
 }
 
 .filter-button {
-  justify-content: center;
   padding: 10px 15px; /* Padding inside the button */
   margin-left: 10px; /* Space between the search bar and button */
   background-color: #e6a13b; /* Button background color */
@@ -118,4 +117,30 @@ main .sidebar {
 
 .filter-button:hover {
   background-color: #f1ae49; /* Darker button color on hover */
+}
+
+/* Image Gallery Styling */
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns of equal width */
+  gap: 20px; /* Space between images */
+  margin: 20px 0; /* Margin above and below the grid */
+}
+
+/* Card Container */
+.image-card {
+  display: flex;
+  justify-content: center; /* Center the image horizontally */
+  align-items: center; /* Center the image vertically */
+  background-color: rgba(241, 174, 73, 0.5); /* Light background with opacity */
+  border-radius: 10px; /* Rounded corners for the card */
+  padding: 10px; /* Padding around the image */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for card */
+}
+
+.image-card img {
+  max-width: 100%; /* Make sure the image doesn’t overflow the card */
+  max-height: 100%; /* Make sure the image doesn’t overflow the card */
+  border-radius: 8px; /* Rounded corners for the image */
+  object-fit: cover; /* Ensure images cover the area without distortion */
 }
