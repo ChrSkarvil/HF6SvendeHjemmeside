@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../css/home.css';
 import Footer from './Footer';
-import { useLocation, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+
+const products = [
+  { id: 1, name: 'Rolex', price: '$9000', description: 'This is a watch, nice and very good.', image: './assets/watch1.jpg' },
+  { id: 2, name: 'Omega', price: '$5000', description: 'Elegant and precise watch.', image: './assets/watch2.jpg' },
+  { id: 3, name: 'Tag Heuer', price: '$3000', description: 'Sporty and reliable watch.', image: './assets/watch3.jpg' },
+  { id: 4, name: 'Rolex', price: '$9000', description: 'This is a watch, nice and very good.', image: './assets/watch4.jpg' },
+  { id: 5, name: 'Rolex', price: '$9000', description: 'This is a watch, nice and very good.', image: './assets/watch3.jpg' },
+  { id: 6, name: 'Omega', price: '$5000', description: 'Elegant and precise watch.', image: './assets/watch2.jpg' },
+  { id: 7, name: 'Tag Heuer', price: '$3000', description: 'Sporty and reliable watch.', image: './assets/watch3.jpg' },
+  { id: 8, name: 'Rolex', price: '$9000', description: 'This is a watch, nice and very good.', image: './assets/watch4.jpg' },
+];
 
 function Home() {
-  const location = useLocation();
 
+  function Home() {
+    const [isMenuOpen, setisMenuOpen] = useState(false);
+
+    const toggleMenu = ()  => {
+      setisMenuOpen(!isMenuOpen);
+    }
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -16,6 +33,7 @@ function Home() {
             <li><Link to="/watches">Watches</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/contact">Contact</Link></li>
+            <Link to="/login" className='login-button'>Login</Link>
           </ul>
         </nav>
       </header>
@@ -31,33 +49,20 @@ function Home() {
         </div>
 
         <div className="image-gallery">
-        <div className="image-card">
-          <img src="./assets/watch1.jpg" alt="Image 1" />
-        </div>
-        <div className="image-card">
-          <img src="./assets/watch2.jpg" alt="Image 2" />
-        </div>
-        <div className="image-card">
-        <img src="./assets/watch3.jpg" alt="Image 3" />
-        </div>
-        <div className="image-card">
-          <img src="./assets/watch4.jpg" alt="Image 4" />
-        </div>
-        <div className="image-card">
-          <img src="./assets/watch1.jpg" alt="Image 5" />
-        </div>
-        <div className="image-card">
-          <img src="./assets/watch2.jpg" alt="Image 6" />
-        </div>
-        <div className="image-card">
-          <img src="./assets/watch3.jpg" alt="Image 7" />
-        </div>
-        <div className="image-card">
-          <img src="./assets/watch4.jpg" alt="Image 8" />
-        </div>
+          {products.map(product => (
+            <Link to={`/product/${product.id}`} key={product.id} className="image-card-link">
+              <div className="image-card">
+                <img src={product.image} alt={`Image ${product.id}`} />
+                <div className="image-info">
+                  <div className="image-name">Name: {product.name}</div>
+                  <div className="image-price">Price: {product.price}</div>
+                  <div className="image-description">Description: {product.description}</div>
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </main>
-
       <Footer />
     </div>
   );
