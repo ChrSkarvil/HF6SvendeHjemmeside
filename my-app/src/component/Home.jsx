@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import LoginModal from './LoginModal';
 import '../css/home.css';
 import Footer from './Footer';
-import { Link } from 'react-router-dom';
 
 const products = [
   { id: 1, name: 'Rolex', price: '$9000', description: 'This is a watch, nice and very good.', image: './assets/watch1.jpg' },
@@ -14,15 +15,14 @@ const products = [
   { id: 8, name: 'Rolex', price: '$9000', description: 'This is a watch, nice and very good.', image: './assets/watch4.jpg' },
 ];
 
+
 function Home() {
+  const [isModalOpen, setModalOpen] = useState(false);
 
-  function Home() {
-    const [isMenuOpen, setisMenuOpen] = useState(false);
+  const toggleModal = () => {
+    setModalOpen(!isModalOpen);
+  };
 
-    const toggleMenu = ()  => {
-      setisMenuOpen(!isMenuOpen);
-    }
-  }
   return (
     <div className="App">
       <header className="App-header">
@@ -33,7 +33,7 @@ function Home() {
             <li><Link to="/watches">Watches</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/contact">Contact</Link></li>
-            <Link to="/login" className='login-button'>Login</Link>
+            <li><button className='login-button' onClick={toggleModal}>Login</button></li>
           </ul>
         </nav>
       </header>
@@ -49,21 +49,22 @@ function Home() {
         </div>
 
         <div className="image-gallery">
-          {products.map(product => (
-            <Link to={`/product/${product.id}`} key={product.id} className="image-card-link">
-              <div className="image-card">
-                <img src={product.image} alt={`Image ${product.id}`} />
-                <div className="image-info">
-                  <div className="image-name">Name: {product.name}</div>
-                  <div className="image-price">Price: {product.price}</div>
-                  <div className="image-description">Description: {product.description}</div>
-                </div>
+        {products.map(product => (
+          <Link to={`/product/${product.id}`} key={product.id} className="image-card-link">
+            <div className="image-card">
+              <img src={product.image} alt={`Image ${product.id}`} />
+              <div className="image-info">
+                <div className="image-name">Name: {product.name}</div>
+                <div className="image-price">Price: {product.price}</div>
+                <div className="image-description">Description: {product.description}</div>
               </div>
-            </Link>
-          ))}
-        </div>
+            </div>
+          </Link>
+        ))}
+      </div>
       </main>
       <Footer />
+      <LoginModal isOpen={isModalOpen} onClose={toggleModal} />
     </div>
   );
 }

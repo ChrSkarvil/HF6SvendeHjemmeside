@@ -19,16 +19,15 @@ html, body {
 .App-header {
   background-color: #CE8C29;
   padding: 20px;
-  text-align: center;
   color: white;
   position: fixed;
   top: 0;
   width: 100%;
-  box-shadow: 0px 14px 6px rgba(0, 0, 0, 0.1); /* Shadow under the navbar */
-  z-index: 1000; /* Ensure it stays above other content */
+  box-shadow: 0px 14px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
   display: flex;
-  justify-content: space-between; /* Space between title and menu toggle */
-  align-items: center; /* Center items vertically */
+  justify-content: space-between;
+  align-items: center;
 }
 
 .App-header h1 {
@@ -41,12 +40,44 @@ html, body {
   align-items: center;
 }
 
+/* Responsive Adjustments */
+@media (max-width: 800px) {
+  .App-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .App-header nav ul {
+    flex-direction: column;  /* Stack navigation items vertically */
+    align-items: flex-start; /* Align items to the start of the container */
+    width: 100%;
+    padding-left: 0;
+    display: flex; /* Ensure it's visible */
+  }
+
+  .App-header nav ul li {
+    margin: 10px 0;
+    width: 100%;
+    text-align: left;
+  }
+
+  .App-header nav ul li a {
+    padding: 10px;
+    width: 100%;
+    display: block;
+  }
+
+
+}
+
 .App-header nav ul {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .App-header nav ul li {
@@ -67,52 +98,27 @@ html, body {
   color: white;
 }
 
-/* Hamburger Menu Button */
-.menu-toggle {
-  display: none; /* Hide the hamburger menu icon by default */
-  background: none;
-  border: none;
-  font-size: 1.5rem;
-  color: white;
-  cursor: pointer;
+/* Existing button styles */
+.login-button {
+  background-color: #ff6600; /*  background */
+  color: white; /* Text color */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px 20px; /* Padding */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+  margin-right: 10px;
+  font-weight: bold;
 }
 
-/* Dropdown Menu Styles */
-.nav-dropdown {
-  display: none; /* Hidden by default */
-  position: absolute;
-  top: 70px; /* Adjust according to header height */
-  left: 0;
-  right: 0;
-  background-color: #CE8C29; /* Same as header background */
-  z-index: 1000;
-  flex-direction: column; /* Stack menu items vertically */
+/* Hover effect */
+.login-button:hover {
+  background-color: #cc5200; /* Darker orange on hover */
+  
 }
 
-.nav-dropdown ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column; /* Stack menu items vertically */
-  align-items: center; /* Center align items horizontally */
-}
 
-.nav-dropdown ul li {
-  margin: 10px 0; /* Space between menu items */
-}
-
-.nav-dropdown ul li a {
-  color: #ffffff;
-  text-decoration: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
-}
-
-.nav-dropdown ul li a:hover {
-  background-color: #e6a13b;
-}
 
 /* Main Content Styling */
 main {
@@ -146,6 +152,7 @@ main .sidebar {
 }
 
 .search-bar {
+  margin-top: 40px;
   padding: 10px 15px; /* Padding inside the search bar */
   border: none; /* Remove default border */
   border-radius: 25px; /* Rounded corners */
@@ -162,6 +169,8 @@ main .sidebar {
 }
 
 .filter-button {
+  margin-top: 40px;
+
   padding: 10px 15px; /* Padding inside the button */
   margin-left: 10px; /* Space between the search bar and button */
   background-color: #e6a13b; /* Button background color */
@@ -240,39 +249,12 @@ main .sidebar {
   width: 200px; /* Limit width for the description */
 }
 
-.login-button {
-  margin-right: 50px;
-  background-color: #e6a13b; /* Button background color */
-  color: white; /* Text color */
-  padding: 10px 20px; /* Padding around the text */
-  border-radius: 5px; /* Rounded corners */
-  text-decoration: none; /* Remove underline from the link */
-  font-weight: bold;
-  transition: background-color 0.3s ease; /* Smooth transition on hover */
+.App-header .login-button {
+  background-color: #CE8C29; /* Match background color */
+  margin-left: -6px;
 }
 
-.login-button:hover {
-  background-color: #f1ae49; /* Slightly darker color on hover */
-}
 
-/* Responsive Adjustments */
-@media (max-width: 800px) {
-  .App-header nav {
-    position: relative;
-  }
-
-  .App-header nav ul {
-    display: none; /* Hide the default nav list */
-  }
-
-  .menu-toggle {
-    display: block; /* Show the hamburger menu icon */
-  }
-
-  .nav-dropdown {
-    display: flex; /* Show the dropdown menu when toggled */
-  }
-}
 
 @media (max-width: 600px) {
   .App-header h1 {
@@ -283,4 +265,8 @@ main .sidebar {
     font-size: 0.875rem; /* Smaller font size for links */
     padding: 8px 12px; /* Reduced padding */
   }
+  .image-gallery {
+    grid-template-columns: 1fr; /* 1 column on small screens */
+  }
+
 }

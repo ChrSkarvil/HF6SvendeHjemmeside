@@ -1,40 +1,111 @@
-.App {
-    text-align: center;
-    font-family: Arial, sans-serif;
-  }
-  
-  .App-header {
-    background-color: #282c34;
-    padding: 20px;
-    color: white;
-  }
-  
-  .App-header h1 {
-    font-size: 2.5rem;
-  }
-  
-  .App-header p {
-    font-size: 1.2rem;
-    margin: 20px 0;
-  }
-  
-  nav ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  nav ul li {
-    display: inline;
-    margin: 0 10px;
-  }
-  
-  nav ul li a {
-    color: #61dafb;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  nav ul li a:hover {
-    text-decoration: underline;
-  }
-  
+
+/* About Page Styles */
+.about-page {
+  margin-top: 80px; /* Adjust based on header height */
+  padding: 20px;
+  background-color: #FDF5D8;
+}
+
+.about-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.about-section {
+  margin-bottom: 40px;
+}
+
+.about-section h1 {
+  color: #CE8C29;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.about-section p {
+  font-size: 1.125rem;
+  line-height: 1.6;
+  color: #666;
+  text-align: center;
+}
+
+.services-section {
+  margin-top: 40px;
+}
+
+.services-section h2 {
+  color: #CE8C29;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/* Services Section */
+.services-section {
+  margin-top: 40px;
+  text-align: center; /* Center the content in this section */
+}
+
+.cta-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #e6a13b;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #f1ae49;
+}
+
+/* Team Section */
+.team-section {
+  margin-top: 40px;
+}
+
+.team-section h2 {
+  color: #CE8C29;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.team-members {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Ensure items wrap on smaller screens */
+}
+
+.team-member {
+  background-color: #FFF;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  max-width: 200px;
+  flex: 1;
+}
+
+.team-member img {
+  width: 100px;
+  height: 100px;
+  border-radius: 80%;
+}
+
+.team-member h3 {
+  margin: 10px 0;
+  color: #CE8C29;
+}
+
+.team-member p {
+  color: #666;
+}
