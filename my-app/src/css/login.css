@@ -74,3 +74,51 @@
   font-size: 12px;
   margin-top: 5px;
 }
+
+/* Logout button styling */
+.logout-button {
+  padding: 8px 13px;
+  border: none;
+  background-color: #CE8C29; /* Orange color for logout button */
+  color: rgb(99, 0, 0);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 3px;
+}
+
+.logout-button:hover {
+  background-color: #e66c3b; /* Slightly lighter orange on hover */
+}
+
+.login-modal input.error {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red; /* Red color for error messages */
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.phone-input-container {
+  width: calc(100% - 20px); /* Adjust width to fit padding */
+  margin: 10px 0;
+}
+
+
+.login-modal input,
+.phone-input-container input {
+  display: block;
+  width: calc(100% - 20px); /* Adjust width to fit padding */
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.country-select {
+  font-size: 14px;  
+}

@@ -100,12 +100,12 @@ html, body {
 
 /* Existing button styles */
 .login-button {
-  background-color: #ff6600; /*  background */
+  background-color: #CE8C29;
   color: white; /* Text color */
   border: none; /* No border */
   border-radius: 4px; /* Rounded corners */
   padding: 10px 20px; /* Padding */
-  font-size: 16px; /* Font size */
+  font-size: 1rem; /* Font size */
   cursor: pointer; /* Pointer cursor on hover */
   transition: background-color 0.3s ease; /* Smooth background color transition */
   margin-right: 10px;
@@ -114,7 +114,7 @@ html, body {
 
 /* Hover effect */
 .login-button:hover {
-  background-color: #cc5200; /* Darker orange on hover */
+  background-color: #e6a13b; /* Darker orange on hover */
   
 }
 
@@ -250,11 +250,22 @@ main .sidebar {
 }
 
 .App-header .login-button {
-  background-color: #CE8C29; /* Match background color */
   margin-left: -6px;
 }
 
+.profile-picture {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
 
+.profile-name{
+  font-size: 14px;
+}
+
+.profile-info{
+  cursor: pointer;
+}
 
 @media (max-width: 600px) {
   .App-header h1 {
@@ -268,5 +279,11 @@ main .sidebar {
   .image-gallery {
     grid-template-columns: 1fr; /* 1 column on small screens */
   }
+  .profile-picture{
+    margin-left: 8px;
+    padding-top: 2px;
+  }
+  
+  
 
 }

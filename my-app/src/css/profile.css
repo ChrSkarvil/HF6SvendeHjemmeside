@@ -1,0 +1,105 @@
+/* Profile Page Container */
+.profile-page-container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Profile Page Header */
+.profile-page-container h2 {
+    text-align: center;
+    color: #e67e22; /* Orange color */
+    margin-bottom: 20px;
+}
+
+/* Profile Form Styling */
+.profile-page-container .profile-form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Profile Picture Section */
+.profile-page-container .profile-pic-section {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Profile Picture Styling */
+.profile-page-container .profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #e67e22; /* Orange border */
+}
+
+/* Profile Picture Input Styling */
+.profile-page-container .profile-pic-input {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #e67e22; /* Orange text color */
+}
+
+/* Form Group Styling */
+.profile-page-container .form-group {
+    margin-bottom: 15px;
+}
+
+/* Label Styling */
+.profile-page-container label {
+    display: block;
+    font-weight: bold;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+/* Input Fields Styling */
+.profile-page-container input[type="text"],
+.profile-page-container input[type="email"],
+.profile-page-container input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 16px;
+}
+
+/* Focus State for Input Fields */
+.profile-page-container input[type="text"]:focus,
+.profile-page-container input[type="email"]:focus {
+    outline: none;
+    border-color: #e67e22; /* Orange focus border */
+}
+
+/* Save Button Styling */
+.profile-page-container .save-button {
+    background-color: #e67e22;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.profile-page-container .save-button:hover {
+    background-color: #d35400; /* Darker orange on hover */
+}
+
+/* Profile Picture Input File Selector Button */
+.profile-page-container .profile-pic-input::file-selector-button {
+    background-color: #e67e22;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.profile-page-container .profile-pic-input::file-selector-button:hover {
+    background-color: #d35400;
+}

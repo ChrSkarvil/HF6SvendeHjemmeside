@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LoginModal from './LoginModal';
 import "../css/watches.css";
+import { useUser } from '../component/UserContext';
+
 
 // Sample watch data
 const watches = [
@@ -19,6 +21,8 @@ const watches = [
 const Watches = () => {
 
   const [isModalOpen, setModalOpen] = useState(false);
+  const { user, logout } = useUser();
+
 
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
@@ -35,7 +39,19 @@ const Watches = () => {
             <li><Link to="/watches">Watches</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/contact">Contact</Link></li>
-            <li><button className='login-button' onClick={toggleModal}>Login</button></li>
+            {user ? (
+              <>
+                <li>
+                  <button className='logout-button' onClick={logout}>Logout</button>
+                </li>
+                <li className='profile-info'>
+                  <img src={user.profilePicture} alt="Profile" className='profile-picture' />
+                  <span style={{ marginRight: '20px' }}> FirstName</span>
+                  </li>
+              </>
+            ) : (
+              <li><button className='login-button' onClick={toggleModal}>Login</button></li>
+            )}
           </ul>
         </nav>
       </header>

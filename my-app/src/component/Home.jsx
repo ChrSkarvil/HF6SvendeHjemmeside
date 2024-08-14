@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import LoginModal from './LoginModal';
 import '../css/home.css';
 import Footer from './Footer';
+import { useUser } from '../component/UserContext';
+
 
 const products = [
   { id: 1, name: 'Rolex', price: '$9000', description: 'This is a watch, nice and very good.', image: './assets/watch1.jpg' },
@@ -18,6 +20,8 @@ const products = [
 
 function Home() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const { user, logout } = useUser();
+
 
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
@@ -33,7 +37,19 @@ function Home() {
             <li><Link to="/watches">Watches</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/contact">Contact</Link></li>
-            <li><button className='login-button' onClick={toggleModal}>Login</button></li>
+            {user ? (
+              <>
+                <li>
+                  <button className='logout-button' onClick={logout}>Logout</button>
+                </li>
+                <li className='profile-info'>
+                  <img src={user.profilePicture} alt="Profile" className='profile-picture' />
+                  <span style={{ marginRight: '20px', fontSize: '13px' }}> FirstName</span>
+                  </li>
+              </>
+            ) : (
+              <li><button className='login-button' onClick={toggleModal}>Login</button></li>
+            )}
           </ul>
         </nav>
       </header>

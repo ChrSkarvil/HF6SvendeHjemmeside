@@ -7,8 +7,10 @@ import Watches from './component/Watches';
 import About from './component/About';
 import Contact from './component/Contact';
 import Product from './component/Product';
+import ProfilePage from './component/Profile';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { UserProvider } from './component/UserContext';
 
 
 
@@ -16,15 +18,18 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/product/:id" element={<Product />} />
-          <Route path="/watches" element={<Watches />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </Router>
+      <UserProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/product/:id" element={<Product />} />
+            <Route path="/watches" element={<Watches />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/profile" element={<ProfilePage />} />
+          </Routes>
+        </Router>
+      </UserProvider>
     </Provider>
   </React.StrictMode>
 );

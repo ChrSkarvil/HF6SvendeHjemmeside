@@ -1,12 +1,13 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react'; // Import useState from React
+import { useParams, Link } from 'react-router-dom'; // Import useParams and Link
 import '../css/productDetail.css';
-import Footer from "./Footer.jsx";
-
+import Footer from './Footer.jsx';
+import { useUser } from '../component/UserContext'; 
 
 function Product() {
-  const { id } = useParams(); // Get the product ID from the URL
+  const { id } = useParams(); 
+  const [isModalOpen, setModalOpen] = useState(false);  
+  const { user, logout } = useUser(); // Use the context hook
 
   // Hardcoded data for the sake of example
   const products = [
@@ -14,7 +15,7 @@ function Product() {
     { id: '2', name: 'Omega', price: '$5000', description: 'Elegant and precise watch.', createdBy: 'Jane Smith', contactInfo: 'jane.smith@example.com', image: '/assets/watch2.jpg' },
     { id: '3', name: 'Tag Heuer', price: '$3000', description: 'Sporty and reliable watch.', createdBy: 'Robert Brown', contactInfo: 'robert.brown@example.com', image: '/assets/watch3.jpg' },
     { id: '4', name: 'Rolex', price: '$9000', description: 'This is a watch, nice and very good.', createdBy: 'Emily Davis', contactInfo: 'emily.davis@example.com', image: '/assets/watch4.jpg' }
-    // Add more products if needed
+ 
   ];
 
   // Find the product that matches the ID
@@ -25,33 +26,49 @@ function Product() {
     return <div>Product not found.</div>;
   }
 
+  const toggleModal = () => {
+    setModalOpen(!isModalOpen);
+  };
+
   return (
     <div className="App">
-    <header className="App-header">
-      <h1>Demmacs Watches</h1>
-      <nav>
-        <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/watches">Watches</Link></li>
-          <li><Link to="/about">About</Link></li>
-          <li><Link to="/contact">Contact</Link></li>
-          <li><Link to="/login" className='login-button'>Login</Link></li>
-        </ul>
-      </nav>
-    </header>
-    <div className="product-detail">
-      <div className="product-image">
-        <img src={product.image} alt={product.name} />
+      <header className="App-header">
+        <h1>Demmacs Watches</h1>
+        <nav>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/watches">Watches</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
+            {user ? (
+              <>
+                <li>
+                  <button className='logout-button' onClick={logout}>Logout</button>
+                </li>
+                <li className='profile-info'>
+                  <img src={user.profilePicture} alt="Profile" className='profile-picture' />
+                  <span style={{ marginRight: '20px' }}> FirstName</span>
+                </li>
+              </>
+            ) : (
+              <li><button className='login-button' onClick={toggleModal}>Login</button></li>
+            )}
+          </ul>
+        </nav>
+      </header>
+      <div className="product-detail">
+        <div className="product-image">
+          <img src={product.image} alt={product.name} />
+        </div>
+        <div className="product-info">
+          <h1>{product.name}</h1>
+          <p className="product-price">{product.price}</p>
+          <p className="product-description">{product.description}</p>
+          <p className="product-createdBy">Created by: {product.createdBy}</p>
+          <p className="product-contactInfo">Contact: {product.contactInfo}</p>
+        </div>
       </div>
-      <div className="product-info">
-        <h1>{product.name}</h1>
-        <p className="product-price">{product.price}</p>
-        <p className="product-description">{product.description}</p>
-        <p className="product-createdBy">Created by: {product.createdBy}</p>
-        <p className="product-contactInfo">Contact: {product.contactInfo}</p>
-      </div>
-    </div>
-    <Footer></Footer>
+      <Footer />
     </div>
   );
 }
