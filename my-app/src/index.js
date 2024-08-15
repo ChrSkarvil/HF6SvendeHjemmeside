@@ -7,7 +7,7 @@ import Watches from './component/Watches';
 import About from './component/About';
 import Contact from './component/Contact';
 import Product from './component/Product';
-import ProfilePage from './component/Profile';
+import Profile from './component/Profile';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { UserProvider } from './component/UserContext';
@@ -26,7 +26,7 @@ root.render(
             <Route path="/watches" element={<Watches />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </Router>
       </UserProvider>

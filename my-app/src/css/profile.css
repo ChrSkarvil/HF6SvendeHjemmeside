@@ -1,105 +1,144 @@
-/* Profile Page Container */
 .profile-page-container {
     max-width: 600px;
-    margin: 50px auto;
+    margin: 100px auto;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
 
-/* Profile Page Header */
-.profile-page-container h2 {
-    text-align: center;
-    color: #e67e22; /* Orange color */
-    margin-bottom: 20px;
-}
-
-/* Profile Form Styling */
-.profile-page-container .profile-form {
+/* Style adjustments for form elements */
+.profile-form {
     display: flex;
     flex-direction: column;
 }
 
-/* Profile Picture Section */
-.profile-page-container .profile-pic-section {
-    text-align: center;
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.profile-pic-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 20px;
 }
 
-/* Profile Picture Styling */
-.profile-page-container .profile-pic {
+.profile-pic {
     width: 100px;
     height: 100px;
     border-radius: 50%;
     object-fit: cover;
-    border: 2px solid #e67e22; /* Orange border */
+    margin-bottom: 10px;
 }
 
-/* Profile Picture Input Styling */
-.profile-page-container .profile-pic-input {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #e67e22; /* Orange text color */
-}
-
-/* Form Group Styling */
-.profile-page-container .form-group {
-    margin-bottom: 15px;
-}
-
-/* Label Styling */
-.profile-page-container label {
+.profile-pic-input {
     display: block;
-    font-weight: bold;
-    color: #555;
-    margin-bottom: 5px;
+    margin-top: 10px;
 }
 
-/* Input Fields Styling */
-.profile-page-container input[type="text"],
-.profile-page-container input[type="email"],
-.profile-page-container input[type="file"] {
+/* Adjust the phone number input container */
+.phone-input-container {
+    width: 100%; /* Ensure container takes full width */
+    display: flex;
+    align-items: center;
+}
+
+.phone-input-container .react-tel-input {
+    flex: 1; /* Make phone input take remaining space */
+    margin-right: 10px; /* Space between phone input and country select */
+}
+
+.phone-input-container .react-tel-input .form-control {
+    width: 100%; /* Ensure input takes full width of its container */
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+.country-select {
+    flex-shrink: 0; /* Prevent the country select from shrinking */
+    width: auto; /* Adjust width to fit content */
+}
+
+
+
+/* Button styling */
+.save-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
     width: 100%;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-    font-size: 16px;
+    margin-top: 20px;
 }
 
-/* Focus State for Input Fields */
-.profile-page-container input[type="text"]:focus,
-.profile-page-container input[type="email"]:focus {
-    outline: none;
-    border-color: #e67e22; /* Orange focus border */
+/* Media query for screens 768px and below (tablets and phones) */
+@media (max-width: 768px) {
+    .profile-page-container {
+        max-width: 80%;
+        margin: 80px auto;
+        padding: 15px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"] {
+        padding: 8px;
+    }
+
+    .save-button {
+        width: 100%; /* Button spans full width on smaller screens */
+        padding: 12px;
+    }
 }
 
-/* Save Button Styling */
-.profile-page-container .save-button {
-    background-color: #e67e22;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+/* Media query for screens 480px and below (small phones) */
+@media (max-width: 480px) {
+    .profile-page-container {
+        max-width: 80%;
+        margin-top: 100px;
+        padding: 20px;
+    }
 
-.profile-page-container .save-button:hover {
-    background-color: #d35400; /* Darker orange on hover */
-}
+    .form-group {
+        margin-bottom: 10px;
+    }
 
-/* Profile Picture Input File Selector Button */
-.profile-page-container .profile-pic-input::file-selector-button {
-    background-color: #e67e22;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"] {
+        padding: 10px;
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
 
-.profile-page-container .profile-pic-input::file-selector-button:hover {
-    background-color: #d35400;
+    .profile-pic-section {
+        margin-bottom: 15px;
+    }
+
+    .profile-pic {
+        width: 80px;
+        height: 80px;
+    }
+
+    .save-button {
+        width: 100%; /* Ensure button takes full width */
+        padding: 12px;
+    }
 }
