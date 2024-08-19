@@ -15,13 +15,13 @@ export default function Footer() {
           <h4>Follow Us</h4>
           <p>Stay connected on social media:</p>
           <div className="social-icons">
-            <a href="#" className="icon-link">
+            <a href="/" className="icon-link">
                 <img src="./assets/fb.png" alt="Facebook" />
             </a>
-            <a href="#" className="icon-link">
+            <a href="/" className="icon-link">
                 <img src="./assets/tw.png" alt="Twitter" />
             </a>
-            <a href="#" className="icon-link">
+            <a href="/" className="icon-link">
                 <img src="./assets/insta.png" alt="Instagram" />
             </a>
             </div>
