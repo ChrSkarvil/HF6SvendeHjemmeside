@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LoginModal from './LoginModal';
 import '../css/contact.css';
 import { useUser } from '../component/UserContext';
@@ -41,7 +41,7 @@ const Contact = () => {
     setFormData({ name: '', email: '', message: '' });
   };
 
-  const location = useLocation();
+  // const location = useLocation();
  
   return (
     <div className="App">
