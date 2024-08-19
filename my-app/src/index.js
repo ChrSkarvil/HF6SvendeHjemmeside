@@ -8,6 +8,7 @@ import About from './component/About';
 import Contact from './component/Contact';
 import Product from './component/Product';
 import Profile from './component/Profile';
+import AdminPanel from './component/AdminPanel';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import { UserProvider } from './component/UserContext';
@@ -27,6 +28,7 @@ root.render(
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/admin" element={<AdminPanel />} />
           </Routes>
         </Router>
       </UserProvider>

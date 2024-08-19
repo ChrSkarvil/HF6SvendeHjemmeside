@@ -1,0 +1,51 @@
+/* src/component/adminpanel.css */
+.admin-panel {
+    padding: 20px;
+    background-color: #f9f9f9;
+  }
+  
+  .sales-list {
+    margin-top: 20px;
+  }
+  
+  .sale-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .approve-btn {
+    color: white;
+    background-color: green;
+    border: none;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .deny-btn {
+    color: white;
+    background-color: red;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .admin-link {
+    margin-top: 20px;
+  }
+  
+  .admin-link a {
+    color: white;
+    background-color: blue;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  
