@@ -13,7 +13,7 @@ const About = () => {
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
   };
-
+ 
   return (
     <div className="about-page">
       <header className="App-header">

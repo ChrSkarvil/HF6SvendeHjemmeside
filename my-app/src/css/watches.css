@@ -45,7 +45,7 @@
   border-radius: 8px; /* Rounded corners for the image */
   object-fit: cover; /* Ensure images cover the area without distortion */
 }
-
+ 
 .watch-owner {
   display: flex;
   align-items: center; /* Align items vertically in the center */

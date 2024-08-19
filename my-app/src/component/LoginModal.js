@@ -7,7 +7,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
-
+ 
 const LoginModal = ({ isOpen, onClose }) => {
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');

@@ -42,7 +42,7 @@ const Contact = () => {
   };
 
   const location = useLocation();
-
+ 
   return (
     <div className="App">
       <header className="App-header">

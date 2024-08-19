@@ -6,7 +6,7 @@ html, body {
   color: #333;
   background-color: #FDF5D8; /* Set background color for the entire page */
 }
-
+ 
 /* Product Detail Styling */
 .product-detail {
   display: flex; /* Align items horizontally */

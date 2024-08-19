@@ -41,7 +41,7 @@ function Product() {
             <li><Link to="/about">About</Link></li>
             <li><Link to="/contact">Contact</Link></li>
             {user ? (
-              <>
+              <> 
                 <li>
                   <button className='logout-button' onClick={logout}>Logout</button>
                 </li>

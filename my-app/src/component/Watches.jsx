@@ -16,7 +16,7 @@ const watches = [
   { id: 7, name: 'Tag Heuer', price: '$3000', description: 'Sporty and reliable watch.', image: './assets/watch3.jpg', owner: { username: 'Owner7', profilePic: './assets/skele.jpg' } },
   { id: 8, name: 'Rolex', price: '$9000', description: 'This is a watch, nice and very good.', image: './assets/watch4.jpg', owner: { username: 'Owner8', profilePic: './assets/skele.jpg' } },
 ];
-
+ 
 
 const Watches = () => {
 

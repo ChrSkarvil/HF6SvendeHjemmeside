@@ -45,7 +45,7 @@
     .App-header nav ul {
       justify-content: center; /* Center align the navigation items */
     }
-  
+   
     .App-header nav ul li {
       margin: 0 8px; /* Reduced margin between links */
     }

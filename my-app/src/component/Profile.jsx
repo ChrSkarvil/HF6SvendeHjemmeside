@@ -8,7 +8,7 @@ import 'react-phone-input-2/lib/style.css';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
 import LoginModal from './LoginModal';
-
+ 
 const Profile = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const { user, logout } = useUser();

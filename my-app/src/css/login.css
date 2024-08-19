@@ -10,7 +10,7 @@
   align-items: center;
   z-index: 1000; /* Ensure it's on top of other content */
 }
-
+ 
 /* The modal box itself */
 .login-modal {
   background-color: white;

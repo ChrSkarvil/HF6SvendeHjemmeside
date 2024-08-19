@@ -17,11 +17,11 @@ const products = [
   { id: 8, name: 'Rolex', price: '$9000', description: 'This is a watch, nice and very good.', image: './assets/watch4.jpg' },
 ];
 
-
+ 
 function Home() {
   const [isModalOpen, setModalOpen] = useState(false);
   const { user, logout } = useUser();
-
+ 
 
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
