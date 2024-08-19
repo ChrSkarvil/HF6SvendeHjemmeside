@@ -211,9 +211,9 @@ const LoginModal = ({ isOpen, onClose }) => {
         </button>
         <p>
           {isRegistering ? (
-            <span>Already have an account? <a href="#" onClick={() => setIsRegistering(false)}>Login</a></span>
+            <span>Already have an account? <a href="/" onClick={() => setIsRegistering(false)}>Login</a></span>
           ) : (
-            <span>Don't have an account? <a href="#" onClick={() => setIsRegistering(true)}>Register</a></span>
+            <span>Don't have an account? <a href="/" onClick={() => setIsRegistering(true)}>Register</a></span>
           )}
         </p>
       </div>
