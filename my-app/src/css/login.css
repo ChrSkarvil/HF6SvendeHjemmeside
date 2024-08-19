@@ -1,0 +1,124 @@
+.login-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Darkened background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Ensure it's on top of other content */
+}
+ 
+/* The modal box itself */
+.login-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Close button styling */
+.login-modal button.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  font-size: 40px;
+  color: #ff6600; /* Orange color for close button */
+  cursor: pointer;
+}
+
+.login-modal button.close-button:hover {
+  background-color: #fdb788;
+  border-radius: 4px;
+}
+
+/* Body styling for inputs and buttons */
+.login-modal input {
+  display: block;
+  width: calc(100% - 20px); /* Adjust width to fit padding */
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login-modal button.login-button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #ff6600; /* Orange color for login button */
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  align-self: flex-start; /* Align button to the start (left) */
+  margin-top: 10px; /* Space above button */
+}
+
+.login-modal p {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.login-modal a {
+  color: #ff6600; /* Orange color for links */
+  text-decoration: none;
+}
+
+.error-message {
+  color: red; /* Red color for error messages */
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Logout button styling */
+.logout-button {
+  padding: 8px 13px;
+  border: none;
+  background-color: #CE8C29; /* Orange color for logout button */
+  color: rgb(99, 0, 0);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 3px;
+}
+
+.logout-button:hover {
+  background-color: #e66c3b; /* Slightly lighter orange on hover */
+}
+
+.login-modal input.error {
+  border: 1px solid red;
+}
+
+.error-message {
+  color: red; /* Red color for error messages */
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.phone-input-container {
+  width: calc(100% - 20px); /* Adjust width to fit padding */
+  margin: 10px 0;
+}
+
+
+.login-modal input,
+.phone-input-container input {
+  display: block;
+  width: calc(100% - 20px); /* Adjust width to fit padding */
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.country-select {
+  font-size: 14px;  
+}

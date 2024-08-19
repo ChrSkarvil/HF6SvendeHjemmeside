@@ -19,9 +19,15 @@ html, body {
 .App-header {
   background-color: #CE8C29;
   padding: 20px;
-  text-align: center;
   color: white;
-  box-shadow: 0px 14px 6px rgba(0, 0, 0, 0.1); /* Shadow under the navbar */
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-shadow: 0px 14px 6px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .App-header h1 {
@@ -29,12 +35,49 @@ html, body {
   font-size: 2rem;
 }
 
+.App-header nav {
+  display: flex;
+  align-items: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 800px) {
+  .App-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .App-header nav ul {
+    flex-direction: column;  /* Stack navigation items vertically */
+    align-items: flex-start; /* Align items to the start of the container */
+    width: 100%;
+    padding-left: 0;
+    display: flex; /* Ensure it's visible */
+  }
+
+  .App-header nav ul li {
+    margin: 10px 0;
+    width: 100%;
+    text-align: left;
+  }
+
+  .App-header nav ul li a {
+    padding: 10px;
+    width: 100%;
+    display: block;
+  }
+
+
+}
+
 .App-header nav ul {
   list-style: none;
   padding: 0;
-  margin: 20px 0 0;
+  margin: 0;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .App-header nav ul li {
@@ -43,7 +86,7 @@ html, body {
 
 .App-header nav ul li a {
   color: #ffffff;
-  text-decoration: none;
+  text-decoration: none; 
   font-weight: bold;
   padding: 10px 15px;
   border-radius: 5px;
@@ -54,19 +97,43 @@ html, body {
   background-color: #e6a13b;
   color: white;
 }
+ 
+/* Existing button styles */
+.login-button {
+  background-color: #CE8C29;
+  color: white; /* Text color */
+  border: none; /* No border */
+  border-radius: 4px; /* Rounded corners */
+  padding: 10px 20px; /* Padding */
+  font-size: 1rem; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease; /* Smooth background color transition */
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+/* Hover effect */
+.login-button:hover {
+  background-color: #e6a13b; /* Darker orange on hover */
+  
+}
+
+
 
 /* Main Content Styling */
 main {
   flex: 1;
   padding: 40px 20px;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  flex-direction: column; /* Ensure the content stacks vertically */
+  align-items: center; /* Center the content horizontally */
 }
 
 main .content {
   flex: 2;
-  margin-right: 20px;
+  width: 100%; /* Full width for the content */
+  max-width: 1200px; /* Optional: Max width for content */
+  margin-bottom: 20px; /* Space below the content */
 }
 
 main .sidebar {
@@ -80,30 +147,30 @@ main .sidebar {
 .search-container {
   display: flex;
   justify-content: center; /* Center align the search bar and button */
+  align-items: center; /* Vertically center align the items */
   margin: 20px 0; /* Margin above and below */
 }
 
 .search-bar {
-  justify-tracks: center;
+  margin-top: 40px;
   padding: 10px 15px; /* Padding inside the search bar */
-  border: none; /* Light border color */
+  border: none; /* Remove default border */
   border-radius: 25px; /* Rounded corners */
   width: 300px; /* Width of the search bar */
   outline: none; /* Remove default outline */
   font-size: 1rem; /* Font size for the input text */
   font-weight: bold;
-  background-color: rgba(241, 174, 73, 0.5);
-  color: #e6a13b;
-  
+  background-color: rgba(241, 174, 73, 0.5); /* Light background with opacity */
+  color: #e6a13b; /* Text color */
 }
 
 .search-bar::placeholder {
   color: #e6a13b; /* Placeholder text color */
-  text-decoration-style: solid;
 }
 
 .filter-button {
-  justify-content: center;
+  margin-top: 40px;
+
   padding: 10px 15px; /* Padding inside the button */
   margin-left: 10px; /* Space between the search bar and button */
   background-color: #e6a13b; /* Button background color */
@@ -118,4 +185,105 @@ main .sidebar {
 
 .filter-button:hover {
   background-color: #f1ae49; /* Darker button color on hover */
+}
+
+/* Image Gallery Styling */
+.image-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns of equal width on large screens */
+  gap: 20px; /* Space between images */
+  margin: 20px 0; /* Margin above and below the grid */
+}
+
+/* Card Container */
+.image-card-link {
+  text-decoration: none; /* Remove underline from links */
+}
+
+.image-card {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  background-color: rgba(241, 174, 73, 0.5); /* Light background with opacity */
+  border-radius: 10px; /* Rounded corners for the card */
+  padding: 10px; /* Padding around the image */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for card */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition effects */
+  cursor: pointer; /* Pointer cursor to indicate clickable */
+  width: 100%; /* Ensure full width in the grid column */
+  height: 350px; /* Fixed height for uniform card sizes */
+  max-width: 300px; /* Fixed maximum width for cards */
+  box-sizing: border-box; /* Ensure padding is included in the total width and height */
+}
+
+.image-card:hover {
+  transform: scale(1.05); /* Slightly enlarge the card on hover */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.image-card img {
+  width: 100%; /* Ensure the image fills the card width */
+  height: 200px; /* Fixed height for images */
+  border-radius: 8px; /* Rounded corners for the image */
+  object-fit: cover; /* Ensure images cover the area without distortion */
+}
+
+.image-info {
+  margin-top: 10px; /* Space between the image and the info */
+  display: flex;
+  flex-direction: column; /* Stack info vertically */
+  align-items: center; /* Center align text horizontally */
+}
+
+.image-name, .image-price, .image-description {
+  margin: 5px 0; /* Space between the lines of text */
+  font-size: 0.875rem; /* Smaller font size */
+  color: #CE8C29; /* Text color */
+  font-weight: bold;
+}
+
+.image-description {
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis when text overflows */
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
+  width: 200px; /* Limit width for the description */
+}
+
+.App-header .login-button {
+  margin-left: -6px;
+}
+
+.profile-picture {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.profile-name{
+  font-size: 14px;
+}
+
+.profile-info{
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  .App-header h1 {
+    font-size: 1.5rem; /* Smaller font size for header title */
+  }
+
+  .App-header nav ul li a {
+    font-size: 0.875rem; /* Smaller font size for links */
+    padding: 8px 12px; /* Reduced padding */
+  }
+  .image-gallery {
+    grid-template-columns: 1fr; /* 1 column on small screens */
+  }
+  .profile-picture{
+    margin-left: 8px;
+    padding-top: 2px;
+  }
+  
+  
+
 }

@@ -1,40 +1,110 @@
-.App {
-    text-align: center;
-    font-family: Arial, sans-serif;
+/* Watches Page Styles */
+.watches-page {
+  margin-top: 80px; /* Adjust based on header height */
+  padding: 20px;
+  background-color: #FDF5D8;
+}
+
+.watches-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 20px;
+}
+
+.watches-gallery {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+  gap: 20px;
+}
+
+.watch-card {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  background-color: rgba(241, 174, 73, 0.5); /* Light background with opacity */
+  border-radius: 10px; /* Rounded corners for the card */
+  padding: 10px; /* Padding around the image */
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for card */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transition effects */
+  cursor: pointer; /* Pointer cursor to indicate clickable */
+  width: 100%; /* Ensure full width in the grid column */
+  height: auto; /* Adjust height based on content */
+  max-width: 300px; /* Fixed maximum width for cards */
+  box-sizing: border-box; /* Ensure padding is included in the total width and height */
+  text-decoration: none; /* Remove underline from links */
+  color: inherit; /* Inherit text color */
+}
+.watch-card:hover{
+  transform: scale(1.05); /* Slightly enlarge the card on hover */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2); /* Enhanced shadow on hover */
+}
+
+.watch-card img {
+  width: 100%; /* Ensure the image fills the card width */
+  height: 200px; /* Fixed height for images */
+  border-radius: 8px; /* Rounded corners for the image */
+  object-fit: cover; /* Ensure images cover the area without distortion */
+}
+ 
+.watch-owner {
+  display: flex;
+  align-items: center; /* Align items vertically in the center */
+  margin-bottom: 10px; /* Space between owner section and watch details */
+}
+
+.owner-pic {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50%; /* Make the image round */
+  margin-right: 10px; /* Space between profile picture and username */
+  object-fit: cover; /* Ensure the image covers the circle area */
+  display: block; /* Ensure proper block-level sizing */
+}
+
+
+.owner-username {
+  color: #333; /* Color for the username */
+  font-size: 0.875rem; /* Font size for the username */
+}
+
+.watch-info {
+  margin-top: 10px; /* Space between the image and the info */
+  display: flex;
+  flex-direction: column; /* Stack info vertically */
+  align-items: center; /* Center align text horizontally */
+}
+
+.watch-name, .watch-price, .watch-description {
+  color: #CE8C29; /* Consistent text color */
+  font-size: 0.875rem; /* Font size */
+  font-weight: bold; /* Font weight */
+  margin: 5px 0; /* Space between the lines of text */
+  text-align: center; /* Center align text */
+}
+
+.watch-description {
+  overflow: hidden; /* Hide overflowing text */
+  text-overflow: ellipsis; /* Add ellipsis when text overflows */
+  white-space: nowrap; /* Prevent text from wrapping to the next line */
+  width: 200px; /* Limit width for the description */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1200px) {
+  .watches-gallery {
+    grid-template-columns: repeat(3, 1fr); /* 3 items per row on medium screens */
   }
-  
-  .App-header {
-    background-color: #282c34;
-    padding: 20px;
-    color: white;
+}
+
+@media (max-width: 800px) {
+  .watches-gallery {
+    grid-template-columns: repeat(2, 1fr); /* 2 items per row on small screens */
   }
-  
-  .App-header h1 {
-    font-size: 2.5rem;
+}
+
+@media (max-width: 500px) {
+  .watches-gallery {
+    grid-template-columns: 1fr; /* 1 item per row on extra small screens */
+    justify-items: center;
   }
-  
-  .App-header p {
-    font-size: 1.2rem;
-    margin: 20px 0;
-  }
-  
-  nav ul {
-    list-style: none;
-    padding: 0;
-  }
-  
-  nav ul li {
-    display: inline;
-    margin: 0 10px;
-  }
-  
-  nav ul li a {
-    color: #61dafb;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  nav ul li a:hover {
-    text-decoration: underline;
-  }
-  
+}

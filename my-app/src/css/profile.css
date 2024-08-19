@@ -1,0 +1,144 @@
+.profile-page-container {
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+ 
+/* Style adjustments for form elements */
+.profile-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.profile-pic-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.profile-pic-input {
+    display: block;
+    margin-top: 10px;
+}
+
+/* Adjust the phone number input container */
+.phone-input-container {
+    width: 100%; /* Ensure container takes full width */
+    display: flex;
+    align-items: center;
+}
+
+.phone-input-container .react-tel-input {
+    flex: 1; /* Make phone input take remaining space */
+    margin-right: 10px; /* Space between phone input and country select */
+}
+
+.phone-input-container .react-tel-input .form-control {
+    width: 100%; /* Ensure input takes full width of its container */
+    box-sizing: border-box; /* Include padding and border in width */
+}
+
+.country-select {
+    flex-shrink: 0; /* Prevent the country select from shrinking */
+    width: auto; /* Adjust width to fit content */
+}
+
+
+
+/* Button styling */
+.save-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Media query for screens 768px and below (tablets and phones) */
+@media (max-width: 768px) {
+    .profile-page-container {
+        max-width: 80%;
+        margin: 80px auto;
+        padding: 15px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"] {
+        padding: 8px;
+    }
+
+    .save-button {
+        width: 100%; /* Button spans full width on smaller screens */
+        padding: 12px;
+    }
+}
+
+/* Media query for screens 480px and below (small phones) */
+@media (max-width: 480px) {
+    .profile-page-container {
+        max-width: 80%;
+        margin-top: 100px;
+        padding: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="password"] {
+        padding: 10px;
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+
+    .profile-pic-section {
+        margin-bottom: 15px;
+    }
+
+    .profile-pic {
+        width: 80px;
+        height: 80px;
+    }
+
+    .save-button {
+        width: 100%; /* Ensure button takes full width */
+        padding: 12px;
+    }
+}

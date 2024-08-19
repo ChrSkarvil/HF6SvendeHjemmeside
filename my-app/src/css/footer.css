@@ -13,7 +13,7 @@
     align-items: flex-start; /* Align items to the start of the container */
     padding: 0 20px; /* Padding on left and right */
     flex-wrap: wrap; /* Allow wrapping on smaller screens */
-}
+} 
 
 .footer .container .col-md-9 {
     flex: 2; /* More space for contact info */
