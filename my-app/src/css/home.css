@@ -20,7 +20,7 @@ html, body {
   background-color: #CE8C29;
   padding: 20px;
   color: white;
-  position: fixed;
+  position: fixed; /* Default behavior for larger screens */
   top: 0;
   width: 100%;
   box-shadow: 0px 14px 6px rgba(0, 0, 0, 0.1);
@@ -40,6 +40,46 @@ html, body {
   align-items: center;
 }
 
+.App-header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center; /* Center nav items horizontally */
+  align-items: center; /* Align items vertically */
+}
+
+
+.App-header nav ul li a,
+.App-header nav ul li button {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  display: block; /* Ensure buttons take full width in mobile view */
+}
+
+.App-header nav ul li a:hover,
+.App-header nav ul li button:hover {
+  background-color: #e6a13b;
+  color: white;
+}
+
+
+.burger-menu {
+  display: none; /* Hide by default */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 1.5rem; /* Icon size */
+  color: white; /* Icon color */
+}
+
+/* Add styles for the menu when it's active */
+.nav-menu {
+  display: flex; /* Default display for larger screens */
+}
+
 /* Responsive Adjustments */
 @media (max-width: 800px) {
   .App-header {
@@ -48,28 +88,49 @@ html, body {
     padding: 10px;
   }
 
-  .App-header nav ul {
-    flex-direction: column;  /* Stack navigation items vertically */
-    align-items: flex-start; /* Align items to the start of the container */
-    width: 100%;
-    padding-left: 0;
-    display: flex; /* Ensure it's visible */
+  .burger-menu {
+    display: block; /* Show the burger menu icon */
   }
 
-  .App-header nav ul li {
+  .App-header nav {
+    display: none; /* Hide the navigation by default */
+    flex-direction: column; /* Stack items vertically */
+    width: 100%; /* Full width for the menu */
+    background-color: #CE8C29; /* Background color for the menu */
+    position: absolute; /* Position absolutely */
+    top: 80px; /* Position it below the header */
+    left: 0;
+  }
+
+  .App-header nav.active {
+    display: flex; /* Show the menu when it's active */
+  }
+
+  .App-header nav ul {
+    flex-direction: column; /* Stack navigation items vertically */
+    align-items: center; /* Center items horizontally */
+    width: 100%;
+    padding: 0;
+  }
+
+  .App-header nav ul li
+  .App-header nav ul li button {
     margin: 10px 0;
     width: 100%;
-    text-align: left;
+    text-align: center;
   }
-
-  .App-header nav ul li a {
-    padding: 10px;
-    width: 100%;
-    display: block;
-  }
-
-
 }
+
+.App-header nav ul li a{
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px 15px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  display: block; 
+}
+
 
 .App-header nav ul {
   list-style: none;
@@ -97,7 +158,7 @@ html, body {
   background-color: #e6a13b;
   color: white;
 }
- 
+
 /* Existing button styles */
 .login-button {
   background-color: #CE8C29;
@@ -115,10 +176,7 @@ html, body {
 /* Hover effect */
 .login-button:hover {
   background-color: #e6a13b; /* Darker orange on hover */
-  
 }
-
-
 
 /* Main Content Styling */
 main {
@@ -170,7 +228,6 @@ main .sidebar {
 
 .filter-button {
   margin-top: 40px;
-
   padding: 10px 15px; /* Padding inside the button */
   margin-left: 10px; /* Space between the search bar and button */
   background-color: #e6a13b; /* Button background color */
@@ -268,22 +325,29 @@ main .sidebar {
 }
 
 @media (max-width: 600px) {
+  .App-header {
+    position: static; /* Change position to static on small screens */
+    box-shadow: none; /* Optionally remove the shadow on small screens */
+  }
+
   .App-header h1 {
     font-size: 1.5rem; /* Smaller font size for header title */
   }
 
-  .App-header nav ul li a {
+  .App-header nav ul li a,
+  .App-header nav ul li button{
     font-size: 0.875rem; /* Smaller font size for links */
     padding: 8px 12px; /* Reduced padding */
   }
+
   .image-gallery {
     grid-template-columns: 1fr; /* 1 column on small screens */
   }
-  .profile-picture{
+
+  .profile-picture {
     margin-left: 8px;
     padding-top: 2px;
   }
-  
-  
+
 
 }

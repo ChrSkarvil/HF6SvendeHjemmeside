@@ -48,6 +48,34 @@
   border-radius: 4px;
 }
 
+/* Close button styling */
+.login-modal button.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  font-size: 40px;
+  color: #ff6600; /* Orange color for close button */
+  cursor: pointer;
+}
+
+.login-modal button.close-button:hover {
+  background-color: #fdb788;
+  border-radius: 4px;
+}
+
+/* Body styling for inputs and buttons */
+.login-modal input {
+  display: block;
+  width: calc(100% - 20px); /* Adjust width to fit padding */
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Style for login button */
 .login-modal button.login-button {
   padding: 10px 20px;
   border: none;
@@ -59,66 +87,45 @@
   margin-top: 10px; /* Space above button */
 }
 
+.login-modal button.login-button:hover {
+  background-color: #e65c00; /* Darker orange for hover effect */
+}
+
+/* Style for link buttons */
+.login-modal button.link-button {
+  border: none;
+  background: none;
+  color: #ff6600; /* Orange color for link buttons */
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0; /* Remove default padding */
+}
+
+.login-modal button.link-button:hover {
+  color: #e65c00; /* Darker orange on hover */
+}
+
+/* Styling for link text in paragraph */
 .login-modal p {
   margin-top: 10px;
   text-align: center;
 }
 
-.login-modal a {
-  color: #ff6600; /* Orange color for links */
-  text-decoration: none;
-}
-
+/* Error message styling */
 .error-message {
   color: red; /* Red color for error messages */
   font-size: 12px;
   margin-top: 5px;
 }
 
-/* Logout button styling */
-.logout-button {
-  padding: 8px 13px;
-  border: none;
-  background-color: #CE8C29; /* Orange color for logout button */
-  color: rgb(99, 0, 0);
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-weight: bold;
-  font-size: 1rem;
-  margin-bottom: 3px;
-}
-
-.logout-button:hover {
-  background-color: #e66c3b; /* Slightly lighter orange on hover */
-}
-
-.login-modal input.error {
-  border: 1px solid red;
-}
-
-.error-message {
-  color: red; /* Red color for error messages */
-  font-size: 12px;
-  margin-top: 5px;
-}
-
+/* Styling for phone input container */
 .phone-input-container {
   width: calc(100% - 20px); /* Adjust width to fit padding */
   margin: 10px 0;
 }
 
-
-.login-modal input,
-.phone-input-container input {
-  display: block;
-  width: calc(100% - 20px); /* Adjust width to fit padding */
-  padding: 10px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
+/* Styling for country select dropdown */
 .country-select {
   font-size: 14px;  
 }
