@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import { loginSuccess } from '../redux/action/authActions';
 import '../css/login.css';
 import { useUser } from '../component/UserContext';
@@ -7,7 +8,9 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
- 
+
+const apiBaseURL = 'https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api';
+
 const LoginModal = ({ isOpen, onClose }) => {
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
@@ -45,7 +48,7 @@ const LoginModal = ({ isOpen, onClose }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (validateForm()) {
       const user = { 
         email, 
@@ -57,21 +60,43 @@ const LoginModal = ({ isOpen, onClose }) => {
         postalCode,
         country: countryValue ? countryValue.label : 'Unknown'
       };
-      login(user);
-      dispatch(loginSuccess(user));
-      onClose();
+      
+      try {
+        const response = await axios.post(`${apiBaseURL}/Customer`, user);
+        login(response.data);
+        dispatch(loginSuccess(response.data));
+        onClose();
+      } catch (error) {
+        console.error('Registration error:', error);
+      }
     }
   };
 
-  const handleLogin = () => {
-    // Implement login functionality here if needed
-    console.log('Login button clicked');
-    // For now, we'll just close the modal on login button click
-    onClose();
+  const handleLogin = async () => {
+    const credentials = { email, password };
+
+    try {
+      const response = await axios.post(`${apiBaseURL}/Login`, credentials);
+      const user = response.data;
+
+      if (user.UserType === 'Admin') {
+        // Handle admin login
+        dispatch(loginSuccess(user));
+        onClose();
+      } else if (user.UserType === 'Customer') {
+        // Handle customer login
+        const customerResponse = await axios.get(`${apiBaseURL}/Customer/${user.CustomerId}`);
+        const customer = customerResponse.data;
+        login(customer);
+        dispatch(loginSuccess(customer));
+        onClose();
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+    }
   };
 
   const handlePhoneChange = (value, countryData) => {
-    // Handle case where countryData or countryCode might be undefined
     const countryCode = countryData?.countryCode || 'dk';
     setNumber(value);
     setCountryValue(
@@ -211,9 +236,33 @@ const LoginModal = ({ isOpen, onClose }) => {
         </button>
         <p>
           {isRegistering ? (
-            <span>Already have an account? <a href="/" onClick={() => setIsRegistering(false)}>Login</a></span>
+            <span>
+              Already have an account?{' '}
+              <button
+                type="button"
+                className="link-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsRegistering(false);
+                }}
+              >
+                Login
+              </button>
+            </span>
           ) : (
-            <span>Don't have an account? <a href="/" onClick={() => setIsRegistering(true)}>Register</a></span>
+            <span>
+              Don't have an account?{' '}
+              <button
+                type="button"
+                className="link-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setIsRegistering(true);
+                }}
+              >
+                Register
+              </button>
+            </span>
           )}
         </p>
       </div>

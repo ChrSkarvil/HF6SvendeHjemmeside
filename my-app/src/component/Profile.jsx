@@ -1,6 +1,5 @@
 import React, { useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import '../css/profile.css';
 import { useUser } from '../component/UserContext';
 import PhoneInput from 'react-phone-input-2';
@@ -8,10 +7,10 @@ import 'react-phone-input-2/lib/style.css';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
 import LoginModal from './LoginModal';
- 
+
 const Profile = () => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const { user, logout } = useUser();
+  const { user } = useUser(); // Removed logout as it is not used
 
   const reduxUser = useSelector((state) => state.auth.user) || {
     firstname: 'John',
@@ -70,31 +69,6 @@ const Profile = () => {
 
   return (
     <div className="profile-page-container">
-      <header className="App-header">
-        <h1>Demmacs Watches</h1>
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/watches">Watches</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
-            {user ? (
-              <>
-                <li>
-                  <button className='logout-button' onClick={logout}>Logout</button>
-                </li>
-                <li className='profile-info'>
-                  <img src={user.profilePicture} alt="Profile" className='profile-picture' />
-                  <span style={{ marginRight: '20px', fontSize: '13px' }}>{user.firstname}</span>
-                </li>
-              </>
-            ) : (
-              <li><button className='login-button' onClick={() => setModalOpen(true)}>Login</button></li>
-            )}
-          </ul>
-        </nav>
-      </header>
-
       <div className="profile-content">
         <h2>Edit Profile</h2>
         <form onSubmit={handleProfileUpdate} className="profile-form">
@@ -158,7 +132,7 @@ const Profile = () => {
               value={number}
               onChange={handlePhoneChange}
               inputClass="form-control"
-              />
+            />
           </div>
 
           <div className="form-group">

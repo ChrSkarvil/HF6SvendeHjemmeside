@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import LoginModal from './LoginModal';
 import '../css/about.css';
-import { useUser } from '../component/UserContext';
 
 
 const About = () => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const { user, logout } = useUser();
 
 
   const toggleModal = () => {
@@ -16,30 +14,6 @@ const About = () => {
  
   return (
     <div className="about-page">
-      <header className="App-header">
-        <h1>Demmacs Watches</h1>
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/watches">Watches</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
-            {user ? (
-              <>
-                <li>
-                  <button className='logout-button' onClick={logout}>Logout</button>
-                </li>
-                <li className='profile-info'>
-                  <img src={user.profilePicture} alt="Profile" className='profile-picture' />
-                  <span style={{ marginRight: '20px' }}> FirstName</span>
-                  </li>
-              </>
-            ) : (
-              <li><button className='login-button' onClick={toggleModal}>Login</button></li>
-            )}
-          </ul>
-        </nav>
-      </header>
       <main className="about-content">
         <section className="about-section">
           <h1>About Demmacs Watches</h1>
