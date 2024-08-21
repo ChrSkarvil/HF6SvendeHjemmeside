@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../redux/action/authActions';
-import '../css/login.css';
 import { useUser } from '../component/UserContext';
 import { useNavigate } from 'react-router-dom';
+import '../css/login.css';
 
 const apiBaseURL = 'https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api';
 
@@ -24,31 +24,37 @@ const LoginModal = ({ isOpen, onClose }) => {
     }
   
     try {
-      const response = await axios.post(`${apiBaseURL}/Login`, {
+      const response = await axios.get(`${apiBaseURL}/Login`, {
         email,
         password
       });
   
-      if (response.status === 200) {
-        const user = response.data;
-        if (user) {
-          console.log("Login Successful");
-          const userData = { email: user.email, isLoggedIn: true, userRole: user.role };
-          setUserRole(user.role);
-          setLoggedIn(true);
-          dispatch(loginSuccess(userData)); // Dispatch the login action with user data
+      const user = response.data;
   
-          // Redirect to home page
-          navigate("/", { state: { userData } });
-        } else {
-          setLoginError("User not found");
-        }
+      if (user) {
+        const userData = { 
+          email: user.email, 
+          id: user.id, 
+          isLoggedIn: true 
+        };
+  
+        setUserRole(user.role);
+        setLoggedIn(true);
+        dispatch(loginSuccess(userData));
+  
+        navigate("/", { state: { userData } });
       } else {
-        setLoginError('Incorrect email or password');
+        setLoginError("Invalid email or password");
       }
     } catch (error) {
-      console.error("Error:", error);
-      setLoginError('An error occurred. Please try again.');
+      console.error("Login Error:", error);
+      if (error.response) {
+        setLoginError(`Server responded with: ${error.response.data}`);
+      } else if (error.request) {
+        setLoginError('No response received from server');
+      } else {
+        setLoginError('Error setting up the request');
+      }
     }
   };
 
@@ -94,7 +100,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             className="link-button"
             onClick={(e) => {
               e.preventDefault();
-              onClose(); // Assuming you want to switch to the Register component from here
+              onClose(); 
             }}
           >
             Register
