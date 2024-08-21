@@ -307,7 +307,7 @@ main .sidebar {
 }
 
 .App-header .login-button {
-  margin-left: -6px;
+  margin-left: 6px;
 }
 
 .profile-picture {
