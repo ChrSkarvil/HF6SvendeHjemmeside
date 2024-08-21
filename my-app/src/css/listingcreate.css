@@ -1,0 +1,189 @@
+/* Container for the listing form */
+.listing-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #FDF5D8;
+}
+
+/* Form layout */
+.listing-form {
+  width: 100%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Section styling */
+.image-section,
+.details-section {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #CE8C29;
+  border-radius: 8px;
+  background-color: #FFF4E6;
+}
+
+/* Image section title */
+h3 {
+  margin: 0 0 15px 0;
+}
+
+/* File input */
+/* Wrapper for custom file input button and message */
+.file-input-wrapper {
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Center items vertically */
+}
+
+/* Custom file input button */
+.custom-file-button {
+  background-color: #CE8C29;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+  margin-right: 20px; /* Space between button and message */
+}
+
+.custom-file-button:hover {
+  background-color: #B06D22;
+}
+
+/* Information message about maximum images */
+.info-message {
+  color: #333;
+  font-style: italic;
+}
+
+.image-section input {
+  margin-top: 10px;
+}
+
+/* Container for image previews */
+.image-preview-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr); /* Show up to 5 images per row */
+  gap: 10px; /* Space between images */
+  margin-top: 10px; /* Margin above image previews */
+  max-width: 100%; /* Ensure container width adapts to its parent */
+}
+
+/* Style for each image preview */
+.image-preview {
+  position: relative;
+  width: 100%; /* Ensure it fills the grid cell */
+  padding-top: 100%; /* Maintain a square aspect ratio */
+  overflow: hidden; /* Hide overflow */
+  border-radius: 5px; /* Rounded corners */
+  border: 2px solid #CE8C29; /* Border color */
+  background-color: #FFF4E6; /* Background color */
+  box-sizing: border-box; /* Include border in element's width and height */
+}
+
+/* Style for the image itself */
+.image-preview img {
+  position: absolute; /* Position absolutely to fit the container */
+  top: 0;
+  left: 0;
+  width: 100%; /* Ensure the image covers the container */
+  height: 100%; /* Ensure the image covers the container */
+  object-fit: cover; /* Crop image to fit the container */
+}
+
+/* Style for the remove button on images */
+.image-preview button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  color: #CE8C29;
+}
+
+.image-preview button:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+/* Details section styling */
+.details-section label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.details-section input,
+.details-section textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #CE8C29;
+  font-size: 1rem;
+  background-color: #FFF4E6;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.details-section textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.details-section button {
+  width: 100%;
+  margin-top: 20px;
+  padding: 12px;
+  background-color: #CE8C29;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+.details-section button:hover {
+  background-color: #B06D22;
+}
+
+/* Status message styling */
+.status-message {
+  margin-top: 20px;
+  color: green;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Responsive design */
+@media (min-width: 600px) {
+  .image-preview-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 images per row on small screens */
+  }
+}
+
+@media (min-width: 900px) {
+  .image-preview-container {
+    grid-template-columns: repeat(3, 1fr); /* 3 images per row on medium screens */
+  }
+}
+
+@media (min-width: 1200px) {
+  .image-preview-container {
+    grid-template-columns: repeat(5, 1fr); /* 5 images per row on large screens */
+  }
+}
