@@ -15,9 +15,10 @@ const LoginModal = ({ isOpen, onClose }) => {
   const [loginError, setLoginError] = useState('');
 
   const dispatch = useDispatch();
-  const [userRole, setUserRole] = useState("");
-  const [isLoggedIn, setLoggedIn] = useState(false);
   const navigate = useNavigate();
+  
+  // const [userRole, setUserRole] = useState("");
+  // const [isLoggedIn, setLoggedIn] = useState(false);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -26,37 +27,36 @@ const LoginModal = ({ isOpen, onClose }) => {
     }
   
     try {
-      const response = await axios.get(`${apiBaseURL}/Login/${email}`);
+      const response = await axios.post(`${apiBaseURL}/Token/login`, {
+        email,
+        password
+      });
   
-      const user = response.data;
-  
-      if (user) {
-        const passwordMatch = await bcrypt.compare(password, user.password);
-        if (passwordMatch) {
-          // Passwords match, login successful
-          // Save login data to context
-          console.log("Login Successfully");
-          const userData = { email: user.email, isLoggedIn: true, userRole: user.role };
-          setUserRole(user.role);
-          setLoggedIn(true); // Update login status
-          setEmail(user.email);
-          console.log("Role: " + userData.userRole);
-          dispatch(login(userData)); // Dispatch the login action with user data
-          // Redirect to home page
-          navigate("/", { state: { userData } });
-          onClose();
-        } else {
-          // Passwords do not match, login failed
-          setLoginError("Invalid email or password");
-          console.log("Login Failed");
-        }
-        const userData = { 
-          email: user.email, 
-          id: user.id, 
-          isLoggedIn: true 
-        };
+      const { authResponse } = response.data;
+
+      const { token, user } = authResponse;
+
+      if (token && user) {
+        // Save token and user data to local storage
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+
+        // Update Redux state
+        dispatch(login({
+          email: user.email,
+          isLoggedIn: true,
+          userRole: user.role,
+          token 
+        }));
+
+        console.log("Login Successfully");
+
+        // Redirect to home page
+        navigate("/", { state: { user } });
+        onClose();
       } else {
         setLoginError("Invalid email or password");
+        console.log("Login Failed");
       }
     } catch (error) {
       console.error("Login Error:", error);
@@ -69,6 +69,7 @@ const LoginModal = ({ isOpen, onClose }) => {
       }
     }
   };
+
 
   const handleClose = () => {
     setEmail('');

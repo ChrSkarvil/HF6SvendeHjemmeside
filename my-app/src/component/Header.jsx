@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/action/authActions'; 
@@ -6,24 +6,44 @@ import { FaUser } from 'react-icons/fa';
 import "../css/home.css";
 
 const Header = ({ toggleModal }) => {
-  const [menuOpen, setMenuOpen] = useState(false); // State for menu toggle
-  const [dropdownOpen, setDropdownOpen] = useState(false); // State for the dropdown menu
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn); // Check if the user is logged in
   // const user = useSelector(state => state.auth.user);
 
   const handleLogout = () => {
     dispatch(logout());
+    localStorage.removeItem('user');
     window.location.href = '/'; 
   };
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen); // Toggle the menu state
+    setMenuOpen(!menuOpen);
   };
 
   const toggleDropdown = () => {
-    setDropdownOpen(!dropdownOpen); // Toggle the dropdown menu state
+    setDropdownOpen(!dropdownOpen);
   };
+
+  const closeDropdown = () => {
+    setDropdownOpen(false);
+  };
+
+  // Close dropdown when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  
 
   return (
     <header className="App-header">
@@ -40,12 +60,12 @@ const Header = ({ toggleModal }) => {
           {isLoggedIn ? (
             <li className='profile-container'>
               <div className='profile-placeholder' onClick={toggleDropdown}>
-                <FaUser size={40} />
+                <FaUser size={30} />
               </div>
               {dropdownOpen && (
-                <div className='dropdown-menu'>
-                  <Link to="/profile">Profile</Link>
-                  <button className='logout-button' onClick={handleLogout}>Logout</button>
+                  <div className={`dropdown-menu ${dropdownOpen ? 'open' : ''}`} ref={dropdownRef}>
+                  <Link to="/profile" className='dropdown-item' onClick={closeDropdown}>Profile</Link>
+                  <button className='dropdown-item button' onClick={() => { handleLogout(); closeDropdown(); }}>Logout</button>
                 </div>
               )}
             </li>
