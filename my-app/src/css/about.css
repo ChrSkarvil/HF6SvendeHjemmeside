@@ -1,7 +1,7 @@
 
 /* About Page Styles */
 .about-page {
-  margin-top: 80px; /* Adjust based on header height */
+  margin-top: 80px;
   padding: 20px;
   background-color: #FDF5D8;
 }
@@ -47,7 +47,7 @@
 /* Services Section */
 .services-section {
   margin-top: 40px;
-  text-align: center; /* Center the content in this section */
+  text-align: center;
 }
 
 .cta-button {
@@ -82,7 +82,7 @@
   display: flex;
   justify-content: center;
   gap: 20px;
-  flex-wrap: wrap; /* Ensure items wrap on smaller screens */
+  flex-wrap: wrap;
 }
 
 .team-member {

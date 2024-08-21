@@ -7,6 +7,7 @@ import "../css/home.css";
 const Header = ({ toggleModal }) => {
   const [menuOpen, setMenuOpen] = useState(false); // State for menu toggle
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn); // Check if the user is logged in
   const user = useSelector(state => state.auth.user);
 
   const handleLogout = () => {
@@ -30,15 +31,15 @@ const Header = ({ toggleModal }) => {
           <li><Link to="/watches">Watches</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/contact">Contact</Link></li>
-          {user ? (
+          {isLoggedIn ? (
             <>
               <li>
                 <button className='logout-button' onClick={handleLogout}>Logout</button>
               </li>
-              <li className='profile-info'>
+              {/* <li className='profile-info'>
                 <img src={user.profilePicture} alt="Profile" className='profile-picture' />
                 <span style={{ marginRight: '20px', fontSize: '13px' }}>{user.FirstName}</span>
-              </li>
+              </li> */}
             </>
           ) : (
             <li><button className='login-button' onClick={toggleModal}>Login</button></li>
