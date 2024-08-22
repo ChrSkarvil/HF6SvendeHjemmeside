@@ -1,4 +1,3 @@
-/* General Reset */
 html, body {
   height: 100%;
   margin: 0;
@@ -7,7 +6,6 @@ html, body {
   color: #333;
 }
 
-/* App Container */
 .App {
   display: flex;
   flex-direction: column;
@@ -15,7 +13,6 @@ html, body {
   background-color: #FDF5D8;
 }
 
-/* Header Styling */
 .App-header {
   background-color: #CE8C29;
   padding: 20px;
@@ -49,6 +46,14 @@ html, body {
   align-items: center; /* Align items vertically */
 }
 
+.loading-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1rem;
+  color: #CE8C29;  
+}
 
 .App-header nav ul li a,
 .App-header nav ul li button {
@@ -67,20 +72,86 @@ html, body {
   color: white;
 }
 
-
 .burger-menu {
   display: none; /* Hide by default */
   cursor: pointer; /* Pointer cursor on hover */
   font-size: 1.5rem; /* Icon size */
   color: white; /* Icon color */
+  display: none; 
+  cursor: pointer;
+  font-size: 1.5rem; 
+  color: white; 
 }
 
-/* Add styles for the menu when it's active */
+.profile-container {
+  position: relative;
+}
+
+.profile-placeholder {
+  margin-right: 30px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #CE8C29;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 0;
+  z-index: 1000;
+  width: 150px;
+  display: none;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.dropdown-menu.open {
+  display: block;
+}
+
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.dropdown-item {
+  width: 100%; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #ffffff; 
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+  box-sizing: border-box; 
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+  color: #333; 
+}
+
+.dropdown-item.button {
+  background-color: #CE8C29;
+  color: white;
+}
+
+.dropdown-item.button:hover {
+  background-color: #e6a13b;
+}
+
 .nav-menu {
   display: flex; /* Default display for larger screens */
 }
 
-/* Responsive Adjustments */
 @media (max-width: 800px) {
   .App-header {
     flex-direction: column;
@@ -113,7 +184,7 @@ html, body {
     padding: 0;
   }
 
-  .App-header nav ul li
+  .App-header nav ul li,
   .App-header nav ul li button {
     margin: 10px 0;
     width: 100%;
@@ -121,7 +192,7 @@ html, body {
   }
 }
 
-.App-header nav ul li a{
+.App-header nav ul li a {
   color: #ffffff;
   text-decoration: none;
   font-weight: bold;
@@ -130,7 +201,6 @@ html, body {
   transition: background-color 0.3s ease;
   display: block; 
 }
-
 
 .App-header nav ul {
   list-style: none;
@@ -173,12 +243,28 @@ html, body {
   font-weight: bold;
 }
 
-/* Hover effect */
 .login-button:hover {
   background-color: #e6a13b; /* Darker orange on hover */
+  background-color: #e6a13b; 
 }
 
-/* Main Content Styling */
+.logout-button {
+  background-color: #CE8C29;
+  color: white;
+  border: none; 
+  border-radius: 4px;
+  padding: 10px 20px;
+  font-size: 1rem; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.logout-button:hover {
+  background-color: #e6a13b;
+}
+
 main {
   flex: 1;
   padding: 40px 20px;
@@ -201,7 +287,6 @@ main .sidebar {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Styling for the search container */
 .search-container {
   display: flex;
   justify-content: center; /* Center align the search bar and button */
@@ -244,15 +329,19 @@ main .sidebar {
   background-color: #f1ae49; /* Darker button color on hover */
 }
 
-/* Image Gallery Styling */
 .image-gallery {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 columns of equal width on large screens */
   gap: 20px; /* Space between images */
   margin: 20px 0; /* Margin above and below the grid */
+  grid-template-columns: repeat(4, 1fr);  
+  gap: 20px;  
+  margin: 20px auto; 
+  max-width: 1200px;  
+  width: 100%; 
+  box-sizing: border-box;  
 }
 
-/* Card Container */
 .image-card-link {
   text-decoration: none; /* Remove underline from links */
 }
@@ -271,6 +360,18 @@ main .sidebar {
   height: 350px; /* Fixed height for uniform card sizes */
   max-width: 300px; /* Fixed maximum width for cards */
   box-sizing: border-box; /* Ensure padding is included in the total width and height */
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(241, 174, 73, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  width: 100%;
+  max-width: 250px;  
+  box-sizing: border-box;
+  margin: 0 auto;  
 }
 
 .image-card:hover {
@@ -279,10 +380,16 @@ main .sidebar {
 }
 
 .image-card img {
+
   width: 100%; /* Ensure the image fills the card width */
   height: 200px; /* Fixed height for images */
   border-radius: 8px; /* Rounded corners for the image */
   object-fit: cover; /* Ensure images cover the area without distortion */
+  width: 100%;
+  height: 200px;  
+  object-fit: cover; 
+  border-radius: 8px;  
+
 }
 
 .image-info {
@@ -316,13 +423,33 @@ main .sidebar {
   border-radius: 50%;
 }
 
-.profile-name{
+.profile-name {
   font-size: 14px;
+  color: #CE8C29;
+  opacity: 0.8;
+  font-style: italic;
 }
 
-.profile-info{
+.profile-info {
   cursor: pointer;
 }
+
+.customer-info {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.image-card {
+  position: relative;
+  padding: 20px 10px 10px 10px;
+}
+
+.image-card:hover .customer-info {
+  display: flex;
+}
+
 
 @media (max-width: 600px) {
   .App-header {
@@ -338,10 +465,13 @@ main .sidebar {
   .App-header nav ul li button{
     font-size: 0.875rem; /* Smaller font size for links */
     padding: 8px 12px; /* Reduced padding */
+  .App-header nav ul li button {
+    font-size: 0.875rem;
+    padding: 8px 12px; 
   }
 
   .image-gallery {
-    grid-template-columns: 1fr; /* 1 column on small screens */
+    grid-template-columns: 1fr; 
   }
 
   .profile-picture {
@@ -349,5 +479,14 @@ main .sidebar {
     padding-top: 2px;
   }
 
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative; 
+  }
 
+  .profile-placeholder {
+    margin-right: 0px;
+  }
 }

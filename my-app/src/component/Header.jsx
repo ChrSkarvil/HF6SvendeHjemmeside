@@ -5,7 +5,7 @@ import { logout } from '../redux/action/authActions';
 import "../css/home.css";
 
 const Header = ({ toggleModal }) => {
-  const [menuOpen, setMenuOpen] = useState(false); // State for menu toggle
+  const [menuOpen, setMenuOpen] = useState(false);  
   const dispatch = useDispatch();
   const user = useSelector(state => state.auth.user);
 
@@ -15,8 +15,12 @@ const Header = ({ toggleModal }) => {
   };
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen); // Toggle the menu state
+    setMenuOpen(!menuOpen);  
   };
+
+
+
+  
 
   return (
     <header className="App-header">

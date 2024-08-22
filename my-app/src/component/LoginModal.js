@@ -4,6 +4,7 @@ import axios from 'axios';
 import { loginSuccess } from '../redux/action/authActions';
 import '../css/login.css';
 import { useUser } from '../component/UserContext';
+import { login } from '../redux/reducer/authReducer'; 
 import { useNavigate } from 'react-router-dom';
 
 const apiBaseURL = 'https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api';
@@ -36,9 +37,9 @@ const LoginModal = ({ isOpen, onClose }) => {
           const userData = { email: user.email, isLoggedIn: true, userRole: user.role };
           setUserRole(user.role);
           setLoggedIn(true);
-          dispatch(loginSuccess(userData)); // Dispatch the login action with user data
+          dispatch(loginSuccess(userData));  
   
-          // Redirect to home page
+ 
           navigate("/", { state: { userData } });
         } else {
           setLoginError("User not found");

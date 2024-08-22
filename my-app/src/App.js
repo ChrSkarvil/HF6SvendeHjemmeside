@@ -8,6 +8,7 @@ import Product from './component/Product';
 import Profile from './component/Profile';
 import AdminPanel from './component/AdminPanel';
 import Header from './component/Header';
+import Breadcrumb from './component/Breadcrumb';
 import LoginModal from './component/LoginModal';
 import { UserProvider } from './component/UserContext';
 import './css/home.css';
@@ -23,6 +24,7 @@ function App() {
     <UserProvider>
       <Router>
         <Header toggleModal={toggleModal} />
+        <Breadcrumb />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<Product />} />
