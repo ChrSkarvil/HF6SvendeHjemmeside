@@ -60,8 +60,13 @@ const LoginModal = ({ isOpen, onClose }) => {
       }
     } catch (error) {
       console.error("Login Error:", error);
+
       if (error.response) {
-        setLoginError(`Server responded with: ${error.response.data}`);
+        if (error.response.status === 401) {
+          setLoginError("Invalid email or password");
+        } else {
+          setLoginError(`Server responded with: ${error.response.data.message || error.response.statusText}`);
+        }
       } else if (error.request) {
         setLoginError('No response received from server');
       } else {

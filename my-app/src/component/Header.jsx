@@ -64,7 +64,7 @@ const Header = ({ toggleModal }) => {
               </div>
               {dropdownOpen && (
                   <div className={`dropdown-menu ${dropdownOpen ? 'open' : ''}`} ref={dropdownRef}>
-                  <Link to="/profile" className='dropdown-item' onClick={closeDropdown}>Profile</Link>
+                  <Link to="/customerDashboard" className='dropdown-item' onClick={closeDropdown}>Listing & Profile</Link>
                   <button className='dropdown-item button' onClick={() => { handleLogout(); closeDropdown(); }}>Logout</button>
                 </div>
               )}

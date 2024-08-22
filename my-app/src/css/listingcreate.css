@@ -22,8 +22,8 @@
 
 /* Section styling */
 .image-section,
-.details-section {
-  margin: 20px;
+.details-section,
+.product-section {
   padding: 20px;
   border: 1px solid #CE8C29;
   border-radius: 8px;
@@ -38,8 +38,8 @@ h3 {
 /* File input */
 /* Wrapper for custom file input button and message */
 .file-input-wrapper {
-  display: flex; /* Use flexbox for alignment */
-  align-items: center; /* Center items vertically */
+  display: flex;
+  align-items: center;
 }
 
 /* Custom file input button */
@@ -52,7 +52,7 @@ h3 {
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.3s ease;
-  margin-right: 20px; /* Space between button and message */
+  margin-right: 20px;
 }
 
 .custom-file-button:hover {
@@ -72,32 +72,32 @@ h3 {
 /* Container for image previews */
 .image-preview-container {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Show up to 5 images per row */
-  gap: 10px; /* Space between images */
-  margin-top: 10px; /* Margin above image previews */
-  max-width: 100%; /* Ensure container width adapts to its parent */
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+  margin-top: 10px;
+  max-width: 100%; 
 }
 
 /* Style for each image preview */
 .image-preview {
   position: relative;
-  width: 100%; /* Ensure it fills the grid cell */
-  padding-top: 100%; /* Maintain a square aspect ratio */
-  overflow: hidden; /* Hide overflow */
-  border-radius: 5px; /* Rounded corners */
-  border: 2px solid #CE8C29; /* Border color */
-  background-color: #FFF4E6; /* Background color */
-  box-sizing: border-box; /* Include border in element's width and height */
+  width: 100%;
+  padding-top: 100%;
+  overflow: hidden; 
+  border-radius: 5px; 
+  border: 2px solid #CE8C29; 
+  background-color: #FFF4E6; 
+  box-sizing: border-box; 
 }
 
 /* Style for the image itself */
 .image-preview img {
-  position: absolute; /* Position absolutely to fit the container */
+  position: absolute; 
   top: 0;
   left: 0;
-  width: 100%; /* Ensure the image covers the container */
-  height: 100%; /* Ensure the image covers the container */
-  object-fit: cover; /* Crop image to fit the container */
+  width: 100%;
+  height: 100%; 
+  object-fit: cover; 
 }
 
 /* Style for the remove button on images */
@@ -144,7 +144,66 @@ h3 {
   min-height: 100px;
 }
 
-.details-section button {
+/* Product section styling */
+.gender-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.gender-section label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+.gender-section input[type="radio"] {
+  background-color: #fff;
+  color: #CE8C29;
+  width: 1.15em;
+  height: 1.15em;
+  border: 0.15em solid #CE8C29;
+  border-radius: 50%;
+}
+
+.gender-section input[type="radio"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  box-shadow: inset 1em 1em var(#CE8C29);
+}
+
+.gender-section input[type="radio"]:checked::before {
+  background-color:#CE8C29;
+  color: #CE8C29;
+}
+
+.product-section label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #333;
+}
+
+.product-section input,
+.product-section textarea {
+  width: 100%;
+  padding: 12px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #CE8C29;
+  font-size: 1rem;
+  background-color: #FFF4E6;
+  color: #333;
+  box-sizing: border-box;
+}
+
+.product-section button {
   width: 100%;
   margin-top: 20px;
   padding: 12px;
@@ -157,8 +216,46 @@ h3 {
   transition: background-color 0.3s ease;
 }
 
-.details-section button:hover {
+.product-section button:hover {
   background-color: #B06D22;
+}
+
+.select-container {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.select-container .select__control {
+  border: 1px solid #CE8C29;
+  background-color: #FFF4E6;
+  border-radius: 5px; 
+  padding: 4px;
+}
+
+.select-container .select__multi-value {
+  background-color: #CE8C29;
+  border-radius: 5px;
+}
+
+.select-container .select__multi-value__label {
+  color: #fff;
+}
+
+.select-container .select__multi-value__remove {
+  color: #fff; 
+}
+
+.select-container .select__multi-value__remove:hover {
+  background-color: #B06D22; 
+  color: red;
+}
+
+.select-container .select__placeholder {
+  color: #CE8C29;
+}
+
+.select-container .select__single-value {
+  color: #333;
 }
 
 /* Status message styling */
