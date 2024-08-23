@@ -4,54 +4,54 @@ html, body {
   padding-top: 70px;
   font-family: Arial, sans-serif;
   color: #333;
-  background-color: #FDF5D8; /* Set background color for the entire page */
+  background-color: #FDF5D8;
 }
  
 /* Product Detail Styling */
 .product-detail {
-  display: flex; /* Align items horizontally */
-  align-items: flex-start; /* Align items at the start (top) */
-  justify-content: center; /* Center items horizontally */
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
   padding: 20px;
-  background-color: #FDF5D8; /* Ensure background color */
-  min-height: 100vh; /* Full height to center content vertically */
+  background-color: #FDF5D8;
+  min-height: 100vh;
 }
 
 /* Image styling */
 .product-image {
-  flex: content; /* Allow image to take up space */
+  flex: content;
   padding: 20px;
   display: flex;
-  justify-content: center; /* Center image horizontally */
+  justify-content: center; 
 }
 
 .product-image img {
-  max-width: 100%; /* Make image responsive */
-  max-width: 400px; /* Limit image width */
-  height: auto; /* Maintain aspect ratio */
-  border-radius: 10px; /* Rounded corners for the image */
+  max-width: 100%;
+  max-width: 400px; 
+  height: auto; 
+  border-radius: 10px; 
 }
 
 /* Info styling */
 .product-info {
-  flex: 1; /* Allow text to take up space */
+  flex: 1; 
   padding: 20px;
   display: flex;
-  flex-direction: column; /* Stack text vertically */
-  justify-content: center; /* Center the content vertically */
+  flex-direction: column; 
+  justify-content: center; 
 }
 
 /* Product Info Text Styling */
 .product-info h1 {
-  margin: 0 0 10px 0; /* Space below the title */
+  margin: 0 0 10px 0;
   font-size: 2rem;
-  color: #CE8C29; /* Title color */
+  color: #CE8C29; 
 }
 
 .product-price, .product-description, .product-createdBy, .product-contactInfo {
-  margin: 5px 0; /* Space between lines */
-  font-size: 1rem; /* Font size for text */
-  color: #333; /* Text color */
+  margin: 5px 0; 
+  font-size: 1rem; 
+  color: #333;
 }
 
 .product-description {
@@ -68,12 +68,12 @@ html, body {
   top: 0;
   left: 0;
   width: 100%;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Shadow under the navbar */
-  z-index: 1000; /* Ensure it stays above other content */
-  transition: top 0.3s; /* Smooth transition for sticky effect */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+  z-index: 1000; 
+  transition: top 0.3s; 
 }
 
 /* Ensure content is not hidden under the fixed navbar */
 .App-content {
-  padding-top: 80px; /* Adjust based on navbar height */
+  padding-top: 80px;
 }

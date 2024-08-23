@@ -1,25 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/action/authActions'; 
+import { FaUser } from 'react-icons/fa';
 import "../css/home.css";
 
 const Header = ({ toggleModal }) => {
-  const [menuOpen, setMenuOpen] = useState(false);  
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const dispatch = useDispatch();
-  const user = useSelector(state => state.auth.user);
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn); // Check if the user is logged in
+  // const user = useSelector(state => state.auth.user);
 
   const handleLogout = () => {
     dispatch(logout());
+    localStorage.removeItem('user');
     window.location.href = '/'; 
   };
 
   const toggleMenu = () => {
-    setMenuOpen(!menuOpen);  
+    setMenuOpen(!menuOpen);
   };
 
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
 
+  const closeDropdown = () => {
+    setDropdownOpen(false);
+  };
 
+  // Close dropdown when clicking outside of it
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <header className="App-header">
@@ -33,16 +55,18 @@ const Header = ({ toggleModal }) => {
           <li><Link to="/watches">Watches</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/contact">Contact</Link></li>
-          {user ? (
-            <>
-              <li>
-                <button className='logout-button' onClick={handleLogout}>Logout</button>
-              </li>
-              <li className='profile-info'>
-                <img src={user.profilePicture} alt="Profile" className='profile-picture' />
-                <span style={{ marginRight: '20px', fontSize: '13px' }}>{user.FirstName}</span>
-              </li>
-            </>
+          {isLoggedIn ? (
+            <li className='profile-container'>
+              <div className='profile-placeholder' onClick={toggleDropdown}>
+                <FaUser size={30} />
+              </div>
+              {dropdownOpen && (
+                  <div className={`dropdown-menu ${dropdownOpen ? 'open' : ''}`} ref={dropdownRef}>
+                  <Link to="/customerDashboard" className='dropdown-item' onClick={closeDropdown}>Listing & Profile</Link>
+                  <button className='dropdown-item button' onClick={() => { handleLogout(); closeDropdown(); }}>Logout</button>
+                </div>
+              )}
+            </li>
           ) : (
             <li><button className='login-button' onClick={toggleModal}>Login</button></li>
           )}

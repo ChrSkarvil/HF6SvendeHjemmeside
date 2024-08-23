@@ -1,13 +1,11 @@
-import React, { useState } from 'react'; // Import useState from React
-import { useParams, Link } from 'react-router-dom'; // Import useParams and Link
+// import React, { useState } from 'react'; // Import useState from React
+import { useParams } from 'react-router-dom'; // Import useParams and Link
 import '../css/productDetail.css';
 import Footer from './Footer.jsx';
-import { useUser } from '../component/UserContext'; 
 
 function Product() {
   const { id } = useParams(); 
-  const [isModalOpen, setModalOpen] = useState(false);  
-  const { user, logout } = useUser(); // Use the context hook
+  // const [isModalOpen, setModalOpen] = useState(false);  
 
   // Hardcoded data for the sake of example
   const products = [
@@ -26,36 +24,12 @@ function Product() {
     return <div>Product not found.</div>;
   }
 
-  const toggleModal = () => {
-    setModalOpen(!isModalOpen);
-  };
+  // const toggleModal = () => {
+  //   setModalOpen(!isModalOpen);
+  // };
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Demmacs Watches</h1>
-        <nav>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/watches">Watches</Link></li>
-            <li><Link to="/about">About</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
-            {user ? (
-              <> 
-                <li>
-                  <button className='logout-button' onClick={logout}>Logout</button>
-                </li>
-                <li className='profile-info'>
-                  <img src={user.profilePicture} alt="Profile" className='profile-picture' />
-                  <span style={{ marginRight: '20px' }}> FirstName</span>
-                </li>
-              </>
-            ) : (
-              <li><button className='login-button' onClick={toggleModal}>Login</button></li>
-            )}
-          </ul>
-        </nav>
-      </header>
       <div className="product-detail">
         <div className="product-image">
           <img src={product.image} alt={product.name} />

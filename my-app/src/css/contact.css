@@ -1,58 +1,58 @@
 Centering the container vertically and horizontally
 .contact-container {
-  max-width: 400px; /* Reduce the maximum width for a more compact look */
+  max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #FDF5D8; /* Light background for contrast */
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  border-radius: 10px; /* Rounded corners */
+  background-color: #FDF5D8;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Full height for vertical centering */
+  height: 100vh;
   box-sizing: border-box;
 }
 
 .contact-form {
   padding-top: 90px;
-  width: 100%; /* Ensure form takes the full width of the container */
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Center align the form content */
+  align-items: center;
 }
 
 .contact-form label {
   margin-top: 25px;
-  font-weight: bold; /* Bold labels for better readability */
-  color: #333; /* Darker text color */
-  text-align: center; /* Center the label text */
-  width: 100%; /* Ensure labels take up full width */
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  width: 100%;
 }
 
 
  
 .contact-form input,
 .contact-form textarea {
-  width: 100%; /* Full width for input fields relative to the container */
-  max-width: 400px; /* Limit the width to make it more compact */
+  width: 100%;
+  max-width: 400px;
   padding: 12px;
   margin-top: 5px;
   border-radius: 5px;
-  border: 1px solid #CE8C29; /* Match border color with theme */
+  border: 1px solid #CE8C29;
   font-size: 1rem;
-  background-color: #FFF4E6; /* Light background inside input fields */
-  color: #333; /* Darker text color for input fields */
+  background-color: #FFF4E6;
+  color: #333;
 }
 
 .contact-form textarea {
-  resize: vertical; /* Allow vertical resizing of textarea */
-  min-height: 100px; /* Reduce the minimum height for textarea */
+  resize: vertical;
+  min-height: 100px;
 }
 
 .contact-form button {
-  width: 100%; /* Button takes full width relative to the container */
-  max-width: 300px; /* Limit the width for consistency */
+  width: 100%;
+  max-width: 300px;
   margin-top: 20px;
   padding: 12px;
   background-color: #CE8C29;
@@ -61,18 +61,18 @@ Centering the container vertically and horizontally
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
-  transition: background-color 0.3s ease; /* Smooth transition effect */
+  transition: background-color 0.3s ease;
 }
 
 .contact-form button:hover {
-  background-color: #B06D22; /* Slightly darker on hover */
+  background-color: #B06D22;
 }
 
 .status-message {
   margin-top: 20px;
   color: green;
-  font-weight: bold; /* Emphasize the success message */
-  text-align: center; /* Center the status message */
+  font-weight: bold;
+  text-align: center;
 }
 
 
@@ -80,18 +80,18 @@ Centering the container vertically and horizontally
 @media (max-width: 600px) {
   .contact-container {
     padding: 15px;
-    width: 90%; /* Make sure the form fits within smaller screens */
-    max-width: 400px; /* Limit the max width */
-    margin: auto; /* Center the container */
-    box-sizing: border-box; /* Ensure consistent padding and border calculation */
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+    box-sizing: border-box;
   }
 
   .contact-form {
-    width: 100%; /* Form takes full width relative to container */
-    text-align: center; /* Center-align the text */
+    width: 100%;
+    text-align: center;
   }
 
   .contact-form button {
-    width: 100%; /* Button takes full width relative to the container */
+    width: 100%;
   }
 }
