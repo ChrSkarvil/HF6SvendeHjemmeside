@@ -1,4 +1,3 @@
-/* General Reset */
 html, body {
   height: 100%;
   margin: 0;
@@ -7,7 +6,6 @@ html, body {
   color: #333;
 }
 
-/* App Container */
 .App {
   display: flex;
   flex-direction: column;
@@ -15,7 +13,6 @@ html, body {
   background-color: #FDF5D8;
 }
 
-/* Header Styling */
 .App-header {
   background-color: #CE8C29;
   padding: 20px;
@@ -49,6 +46,14 @@ html, body {
   align-items: center;
 }
 
+.loading-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1rem;
+  color: #CE8C29;
+}
 
 .App-header nav ul li a,
 .App-header nav ul li button {
@@ -67,7 +72,6 @@ html, body {
   color: white;
 }
 
-
 .burger-menu {
   display: none; 
   cursor: pointer;
@@ -80,7 +84,6 @@ html, body {
   position: relative;
 }
 
-/* Dropdown Menu */
 .profile-placeholder {
   margin-right: 30px;
 }
@@ -101,12 +104,12 @@ html, body {
   margin-top: 20px;
 }
 
+
 /* Display dropdown menu when open */
 .dropdown-menu.open {
   display: block;
 }
 
-/* Use Flexbox for items inside */
 .dropdown-menu {
   display: flex;
   flex-direction: column;
@@ -144,12 +147,10 @@ html, body {
   background-color: #e6a13b;
 }
 
-/* Add styles for the menu when it's active */
 .nav-menu {
   display: flex; 
 }
 
-/* Responsive Adjustments */
 @media (max-width: 800px) {
   .App-header {
     flex-direction: column;
@@ -158,7 +159,7 @@ html, body {
   }
 
   .burger-menu {
-    display: block; 
+    display: block;
   }
 
   .profile-placeholder {
@@ -181,7 +182,7 @@ html, body {
   }
 
   .App-header nav.active {
-    display: flex; 
+    display: flex;
   }
 
   .App-header nav ul {
@@ -191,7 +192,7 @@ html, body {
     padding: 0;
   }
 
-  .App-header nav ul li
+  .App-header nav ul li,
   .App-header nav ul li button {
     margin: 10px 0;
     width: 100%;
@@ -199,16 +200,15 @@ html, body {
   }
 }
 
-.App-header nav ul li a{
+.App-header nav ul li a {
   color: #ffffff;
   text-decoration: none;
   font-weight: bold;
   padding: 10px 15px;
   border-radius: 5px;
   transition: background-color 0.3s ease;
-  display: block; 
+  display: block;
 }
-
 
 .App-header nav ul {
   list-style: none;
@@ -225,7 +225,7 @@ html, body {
 
 .App-header nav ul li a {
   color: #ffffff;
-  text-decoration: none; 
+  text-decoration: none;
   font-weight: bold;
   padding: 10px 15px;
   border-radius: 5px;
@@ -250,7 +250,6 @@ html, body {
   font-weight: bold;
 }
 
-/* Hover effect */
 .login-button:hover {
   background-color: #e6a13b; 
 }
@@ -268,12 +267,10 @@ html, body {
   font-weight: bold;
 }
 
-/* Hover effect */
 .logout-button:hover {
   background-color: #e6a13b;
 }
 
-/* Main Content Styling */
 main {
   flex: 1;
   padding: 40px 20px;
@@ -296,15 +293,33 @@ main .sidebar {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Styling for the search container */
 .search-container {
   display: flex;
-  justify-content: center;
-  align-items: center; 
+  align-items: center;
   margin: 20px 0;
 }
 
 .search-bar {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 25px;
+  width: 300px;
+  outline: none;
+  font-size: 1rem;
+  font-weight: bold;
+  background-color: rgba(241, 174, 73, 0.5);
+  color: #e6a13b;
+  margin-left: 50px;
+}
+
+.search-bar::placeholder {
+  color: #e6a13b;
+}
+
+.dropdown-item {
+  background-color: #f1cd97;
+  border-radius: 0px;
+  margin-left: 5px;
   margin-top: 40px;
   padding: 10px 15px; 
   border: none; 
@@ -317,43 +332,46 @@ main .sidebar {
   color: #e6a13b; 
 }
 
-.search-bar::placeholder {
-  color: #e6a13b; 
-}
 
-.filter-button {
-  margin-top: 40px;
-  padding: 10px 15px; 
-  margin-left: 10px; 
-  background-color: #e6a13b; 
-  font-weight: bold;
-  color: white; 
-  border: none; 
-  border-radius: 25px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease; 
-}
-
-.filter-button:hover {
-  background-color: #f1ae49;
-}
-
-/* Image Gallery Styling */
 .image-gallery {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); 
-  gap: 20px; 
-  margin: 20px 0;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 20px auto;
+  max-width: 1200px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-/* Card Container */
 .image-card-link {
   text-decoration: none; 
 }
 
 .image-card {
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(241, 174, 73, 0.5);
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  width: 100%;
+  max-width: 250px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.image-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.image-card img {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
   flex-direction: column; 
   align-items: center; 
   background-color: rgba(241, 174, 73, 0.5); 
@@ -411,23 +429,140 @@ main .sidebar {
   border-radius: 50%;
 }
 
-.profile-name{
+.profile-name {
+  font-size: 14px;
+  color: #CE8C29;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+.profile-info {
+  cursor: pointer;
+}
+
+.customer-info {
+  display: flex;
+  align-items: center;
+  position: relative;
+  margin-bottom: 10px;
+}
+
+.image-card {
+  position: relative;
+  padding: 20px 10px 10px 10px;
+}
+
+.image-card:hover .customer-info {
+  display: flex;
+}
+
+.price-range-button {
+  background-color: #CE8C29;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin-left: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+  position: relative;
+}
+
+.price-range-button:hover {
+  background-color: #e6a13b;
+}
+
+.price-range-dropdown {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  margin-top: 5px;
+}
+
+.price-range-item {
+  margin-bottom: 10px;
   font-size: 14px;
 }
 
-.profile-info{
-  cursor: pointer;
+.price-range-item label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
+
+.price-range-item input {
+  width: 100px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.price-range-wrapper {
+  position: relative;
+}
+
+
+
+
+.search-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns search container to the left */
+  padding-left: 20px; /* Adds padding to ensure there is some space from the left edge */
+}
+
+.search-container {
+  margin-bottom: 20px; /* Space between the search bar and the sorting controls */
+}
+
+.sort-controls {
+  display: flex;
+  gap: 20px; /* Space between each radio button and label */
+  align-items: center; /* Vertically center the items */
+}
+
+
+.sort-controls label {
+  display: flex; /* Aligns the radio button and text */
+  align-items: center; /* Vertically center the radio button and text */
+}
+
+
+.sort-controls input[type="radio"] {
+  margin-right: 10px; /* Space between radio button and text */
+}
+
+.sort-controls span {
+  color: orange; /* Orange text color */
+  font-size: 15px; /* Adjust font size if needed */
+}
+
+
+
+
 
 @media (max-width: 600px) {
   .App-header {
     position: static;
-    box-shadow: none; 
+    box-shadow: none;
   }
 
   .App-header h1 {
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
   }
+
 
   .App-header nav ul li a,
   .App-header nav ul li button{
@@ -436,21 +571,35 @@ main .sidebar {
   }
 
   .image-gallery {
-    grid-template-columns: 1fr; /* 1 column on small screens */
+    grid-template-columns: 1fr;
   }
 
-/* Profile Picture */
-.profile-picture {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  cursor: pointer;
-  position: relative; 
-}
-
-.profile-placeholder {
-  margin-right: 0px;
-}
+  .profile-picture {
+    margin-left: 8px;
+    padding-top: 2px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+  }
 
 
+  .profile-placeholder {
+    margin-right: 0px;
+  }
+
+  .sort-controls {
+    flex-direction: column; /* Stack the radio buttons and labels vertically */
+    align-items: center; /* Align items to the start (left) */
+    gap: 10px; /* Space between each radio button and label */
+  }
+
+  .sort-controls span {
+    font-size: 13px; /* Adjust font size for mobile */
+  }
+
+  .App-header .login-button {
+    margin-left: 0px;
+  }
 }

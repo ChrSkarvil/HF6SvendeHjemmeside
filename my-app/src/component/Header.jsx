@@ -43,8 +43,6 @@ const Header = ({ toggleModal }) => {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  
-
   return (
     <header className="App-header">
       <h1>Demmacs Watches</h1>

@@ -1,5 +1,5 @@
 export const variables = {
-    LISTING_API_URL:"https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api/Listing",
+    LISTING_API_URL:"https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api/Listing/verified",
     LOGIN_API_URL:"https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api/Login",
     COUNTRY_API_URL:"https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api/Country",
     IMAGE_API_URL:"https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api/Image",

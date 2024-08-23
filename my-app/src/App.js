@@ -9,6 +9,7 @@ import Profile from './component/Profile';
 import CustomerDashboard from './component/CustomerDashboard';
 import AdminPanel from './component/AdminPanel';
 import Header from './component/Header';
+import Breadcrumb from './component/Breadcrumb';
 import LoginModal from './component/LoginModal';
 import ListingCreate from './component/ListingCreate';
 import { UserProvider } from './component/UserContext';
@@ -25,6 +26,7 @@ function App() {
     <UserProvider>
       <Router>
         <Header toggleModal={toggleModal} />
+        <Breadcrumb />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<Product />} />
