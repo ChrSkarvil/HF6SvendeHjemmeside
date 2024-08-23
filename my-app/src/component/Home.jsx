@@ -11,19 +11,14 @@ function Home() {
   const [searchQuery, setSearchQuery] = useState('');
   const [products, setProducts] = useState([]);
   const [customers, setCustomers] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [filters, setFilters] = useState({
-    gender: '',
-    minPrice: '',
-    maxPrice: '',
-    size: '',
-    color: '',
-    brand: '',
-  });
+  const [sortOption, setSortOption] = useState('');
 
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
+  };
+
+  const handleSortChange = (e) => {
+    setSortOption(e.target.value);
   };
 
   useEffect(() => {
@@ -34,26 +29,31 @@ function Home() {
 
         setProducts(productResponse.data);
         setCustomers(customerResponse.data);
-        setLoading(false);
       } catch (err) {
         console.error('API Error:', err.message);
-        setError(err.message);
-        setLoading(false);
       }
     };
 
     fetchProductsAndCustomers();
   }, []);
 
-  const filteredProducts = products.filter(product => {
+  const sortedProducts = () => {
+    let sorted = [...products];
+
+    if (sortOption === 'high-to-low') {
+      sorted.sort((a, b) => b.price - a.price);
+    } else if (sortOption === 'low-to-high') {
+      sorted.sort((a, b) => a.price - b.price);
+    } else if (sortOption === 'newest') {
+      sorted.sort((a, b) => new Date(b.createDate) - new Date(a.createDate));
+    }
+
+    return sorted;
+  };
+
+  const filteredProducts = sortedProducts().filter(product => {
     const matchesSearch = product.title?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesGender = filters.gender ? product.gender === filters.gender : true;
-    const matchesPrice = (filters.minPrice === '' || product.price >= filters.minPrice) &&
-                          (filters.maxPrice === '' || product.price <= filters.maxPrice);
-    const matchesSize = filters.size ? product.size === filters.size : true;
-    const matchesColor = filters.color ? product.colors.includes(filters.color) : true;
-    const matchesBrand = filters.brand ? product.brand === filters.brand : true;
-    return matchesSearch && matchesGender && matchesPrice && matchesSize && matchesColor && matchesBrand;
+    return matchesSearch;
   });
 
   const getCustomerFirstName = (customerId) => {
@@ -61,22 +61,65 @@ function Home() {
     return customer ? customer.firstName : 'Unknown';
   };
 
-  if (loading) return <div className="loading-message">Loading...</div>;
-  if (error) return <div className="loading-message">Error: {error}</div>;
-
   return (
     <div className="App">
       <main className="App-content">
         <div className="search-filter-wrapper">
-          <Category filters={filters} setFilters={setFilters} />
-          <div className='search-container'>
-            <input
-              type="text"
-              className="search-bar"
-              placeholder="Search..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-            />
+          <Category />
+          <div className="search-controls">
+            <div className="search-container">
+              <input
+                type="text"
+                className="search-bar"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="sort-controls-container">
+            <div className="sort-controls">
+              <label>
+                <input
+                  type="radio"
+                  name="sort"
+                  value=""
+                  checked={sortOption === ''}
+                  onChange={handleSortChange}
+                />
+                <span>Nothing</span>
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="sort"
+                  value="high-to-low"
+                  checked={sortOption === 'high-to-low'}
+                  onChange={handleSortChange}
+                />
+                <span>Price: High - Low</span>
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="sort"
+                  value="low-to-high"
+                  checked={sortOption === 'low-to-high'}
+                  onChange={handleSortChange}
+                />
+                <span>Price: Low - High</span>
+              </label>
+              <label>
+                <input
+                  type="radio"
+                  name="sort"
+                  value="newest"
+                  checked={sortOption === 'newest'}
+                  onChange={handleSortChange}
+                />
+                <span>Newest</span>
+              </label>
+            </div>
           </div>
         </div>
 

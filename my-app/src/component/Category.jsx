@@ -49,7 +49,7 @@ const Category = ({ filters, setFilters }) => {
 
   return (
     <div className="filter-container">
-<div className="gender-filter">
+{/* <div className="gender-filter">
   <label>
     <input
       type="checkbox"
@@ -107,8 +107,8 @@ const Category = ({ filters, setFilters }) => {
             placeholder="Max"
           />
         </label>
-      </div>
-
+      </div> */}
+{/* 
       <div className="select-filter">
         <label>Size</label>
         <Select
@@ -143,7 +143,7 @@ const Category = ({ filters, setFilters }) => {
           isClearable
           isSearchable
         />
-      </div>
+      </div> */}
     </div>
   );
 };

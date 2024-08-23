@@ -20,7 +20,6 @@ const Header = ({ toggleModal }) => {
 
 
 
-  
 
   return (
     <header className="App-header">
