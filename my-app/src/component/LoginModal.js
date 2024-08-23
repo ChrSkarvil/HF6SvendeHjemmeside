@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/reducer/authReducer'; 
-import bcrypt from "bcryptjs";
-import { useUser } from '../component/UserContext';
 import { useNavigate } from 'react-router-dom';
 import '../css/login.css';
 
@@ -38,14 +36,22 @@ const LoginModal = ({ isOpen, onClose }) => {
 
       if (token && user) {
         // Save token and user data to local storage
+        const userId = user.customerId || user.employeeId;
         localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify({
+          email: user.email,
+          userRole: user.userRole,
+          userId : user.userId
+        }));
+        
+
 
         // Update Redux state
         dispatch(login({
           email: user.email,
           isLoggedIn: true,
           userRole: user.role,
+          userId: userId,
           token 
         }));
 
