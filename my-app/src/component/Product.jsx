@@ -1,13 +1,11 @@
-import React, { useState } from 'react'; // Import useState from React
-import { useParams, Link } from 'react-router-dom'; // Import useParams and Link
+// import React, { useState } from 'react'; // Import useState from React
+import { useParams } from 'react-router-dom'; // Import useParams and Link
 import '../css/productDetail.css';
 import Footer from './Footer.jsx';
-import { useUser } from '../component/UserContext'; 
 
 function Product() {
   const { id } = useParams(); 
-  const [isModalOpen, setModalOpen] = useState(false);  
-  const { user, logout } = useUser(); // Use the context hook
+  // const [isModalOpen, setModalOpen] = useState(false);  
 
   // Hardcoded data for the sake of example
   const products = [
@@ -26,9 +24,9 @@ function Product() {
     return <div>Product not found.</div>;
   }
 
-  const toggleModal = () => {
-    setModalOpen(!isModalOpen);
-  };
+  // const toggleModal = () => {
+  //   setModalOpen(!isModalOpen);
+  // };
 
   return (
     <div className="App">
