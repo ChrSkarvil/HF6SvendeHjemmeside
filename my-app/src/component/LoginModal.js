@@ -4,7 +4,6 @@ import axios from 'axios';
 import { loginSuccess } from '../redux/action/authActions';
 import '../css/login.css';
 import { useUser } from '../component/UserContext';
-import { login } from '../redux/reducer/authReducer'; 
 import { useNavigate } from 'react-router-dom';
 
 const apiBaseURL = 'https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api';

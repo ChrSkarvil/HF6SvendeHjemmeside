@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import Category from './Category';
 import LoginModal from './LoginModal';
 import '../css/home.css';
 import Footer from './Footer';
@@ -65,7 +64,6 @@ function Home() {
     <div className="App">
       <main className="App-content">
         <div className="search-filter-wrapper">
-          <Category />
           <div className="search-controls">
             <div className="search-container">
               <input

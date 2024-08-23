@@ -560,7 +560,7 @@ main .sidebar {
 
   .sort-controls {
     flex-direction: column; /* Stack the radio buttons and labels vertically */
-    align-items: flex-start; /* Align items to the start (left) */
+    align-items: center; /* Align items to the start (left) */
     gap: 10px; /* Space between each radio button and label */
   }
 
