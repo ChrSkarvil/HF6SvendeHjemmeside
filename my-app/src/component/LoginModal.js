@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
 import axios from 'axios';
-import { loginSuccess } from '../redux/action/authActions';
-import '../css/login.css';
-import { useUser } from '../component/UserContext';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/reducer/authReducer'; 
 import { useNavigate } from 'react-router-dom';
+import '../css/login.css';
 
 const apiBaseURL = 'https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api';
 
@@ -14,8 +13,10 @@ const LoginModal = ({ isOpen, onClose }) => {
   const [loginError, setLoginError] = useState('');
 
   const dispatch = useDispatch();
-  const { setUserRole, setLoggedIn } = useUser();
   const navigate = useNavigate();
+  
+  // const [userRole, setUserRole] = useState("");
+  // const [isLoggedIn, setLoggedIn] = useState(false);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -24,33 +25,62 @@ const LoginModal = ({ isOpen, onClose }) => {
     }
   
     try {
-      const response = await axios.post(`${apiBaseURL}/Login`, {
+      const response = await axios.post(`${apiBaseURL}/Token/login`, {
         email,
         password
       });
   
-      if (response.status === 200) {
-        const user = response.data;
-        if (user) {
-          console.log("Login Successful");
-          const userData = { email: user.email, isLoggedIn: true, userRole: user.role };
-          setUserRole(user.role);
-          setLoggedIn(true);
-          dispatch(loginSuccess(userData)); // Dispatch the login action with user data
-  
-          // Redirect to home page
-          navigate("/", { state: { userData } });
-        } else {
-          setLoginError("User not found");
-        }
+      const { authResponse } = response.data;
+
+      const { token, user } = authResponse;
+
+      if (token && user) {
+        // Save token and user data to local storage
+        const userId = user.customerId || user.employeeId;
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify({
+          email: user.email,
+          userRole: user.userRole,
+          userId : user.userId
+        }));
+        
+
+
+        // Update Redux state
+        dispatch(login({
+          email: user.email,
+          isLoggedIn: true,
+          userRole: user.role,
+          userId: userId,
+          token 
+        }));
+
+        console.log("Login Successfully");
+
+        // Redirect to home page
+        navigate("/", { state: { user } });
+        onClose();
       } else {
-        setLoginError('Incorrect email or password');
+        setLoginError("Invalid email or password");
+        console.log("Login Failed");
       }
     } catch (error) {
-      console.error("Error:", error);
-      setLoginError('An error occurred. Please try again.');
+      console.error("Login Error:", error);
+
+      if (error.response) {
+        if (error.response.status === 401) {
+          setLoginError("Invalid email or password");
+        } else {
+          setLoginError(`Server responded with: ${error.response.data.message || error.response.statusText}`);
+        }
+      } else if (error.request) {
+        setLoginError('No response received from server');
+      } else {
+        setLoginError('Error setting up the request');
+      }
     }
   };
+
 
   const handleClose = () => {
     setEmail('');
@@ -94,7 +124,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             className="link-button"
             onClick={(e) => {
               e.preventDefault();
-              onClose(); // Assuming you want to switch to the Register component from here
+              onClose(); 
             }}
           >
             Register
