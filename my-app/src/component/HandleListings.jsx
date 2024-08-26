@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useLocation } from 'react-router-dom';
 import LoginModal from './LoginModal';
 import { variables } from '../Variables'
 // import '../css/home.css';
@@ -12,32 +13,82 @@ function HandleListings() {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const listingType = queryParams.get('type') || 'unverified';
+
 
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
   };
 
-  const handleApprove = (id) => {
-    alert(`Sale ${id} approved!`);
+  const fetchProducts = async () => {
+    let endpoint;
+    switch (listingType) {
+      case 'all':
+        endpoint = `${variables.LISTING_API_URL}`;
+        break;
+      case 'denied':
+        endpoint = `${variables.LISTING_API_URL}/denied`;
+        break;
+      case 'unverified':
+      default:
+        endpoint = `${variables.LISTING_API_URL}/unverified`;
+        break;
+    }
+
+    try {
+      const productResponse = await axios.get(endpoint);
+      setProducts(productResponse.data);
+    } catch (err) {
+      console.error('API Error:', err.message);
+    }
   };
 
-  const handleDeny = (id) => {
-    alert(`Sale ${id} denied.`);
+  const handleApprove = async (id) => {
+    const token = localStorage.getItem('token');
+    try {
+      await axios.put(
+        `${variables.LISTING_API_URL}/${id}/true`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      alert(`Sale ${id} approved!`);
+      fetchProducts();
+    } catch (error) {
+      console.error('Error approving sale:', error);
+      alert('Failed to approve the sale. Please try again.');
+    }
+  };
+
+  const handleDeny = async (id) => {
+    const token = localStorage.getItem('token');
+    const currentDateTime = new Date().toISOString();
+    try {
+      await axios.put(
+        `${variables.LISTING_API_URL}/${id}/false/${currentDateTime}`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      alert(`Sale ${id} denied!`);
+      fetchProducts();
+    } catch (error) {
+      console.error('Error approving sale:', error);
+      alert('Failed to deny the sale. Please try again.');
+    }
   };
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const productResponse = await axios.get(`${variables.LISTING_API_URL}/unverified`);
-
-        setProducts(productResponse.data);
-      } catch (err) {
-        console.error('API Error:', err.message);
-      }
-    };
-
     fetchProducts();
-  }, []);
+  }, [listingType]);
 
 
   const filteredProducts = products.filter(product => {

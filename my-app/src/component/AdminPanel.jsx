@@ -5,7 +5,7 @@ import { variables } from '../Variables';
 import { Link } from 'react-router-dom';
 import { FaUser, FaTags, FaExclamationCircle } from 'react-icons/fa';
 import { RiCloseCircleFill } from 'react-icons/ri';
-import '../css/adminPanel.css';
+import '../css/adminpanel.css';
 import Footer from './Footer';
 
 
@@ -46,7 +46,7 @@ function AdminPanel() {
             <main className="admin-panel-content">
                 <div className="admin-panel">
                     <div className="info-blocks">
-                        <Link to={`/admin/handleListings`} className="image-card-link">
+                        <Link to={`/admin/handleListings?type=all`} className="image-card-link">
                             <div className="info-block">
                                 <div className="info-block-icon">
                                     <FaTags size={30} />
@@ -57,7 +57,7 @@ function AdminPanel() {
                                 </div>
                             </div>
                         </Link>
-                        <Link to={`/admin/handleListings`} className="image-card-link">
+                        <Link to={`/admin/handleListings?type=unverified`} className="image-card-link">
                         <div className="info-block">
                             <div className="info-block-icon">
                                 <FaExclamationCircle size={30} />
@@ -68,7 +68,7 @@ function AdminPanel() {
                             </div>
                         </div>
                         </Link>
-                        <Link to={`/admin/handleListings`} className="image-card-link">
+                        <Link to={`/admin/handleListings?type=denied`} className="image-card-link">
                         <div className="info-block">
                             <div className="info-block-icon">
                                 <RiCloseCircleFill size={30} />

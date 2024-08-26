@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaCheck, FaTimes } from 'react-icons/fa';
 
 const formatDate = (dateString) => {
   const options = {
@@ -44,8 +45,8 @@ const ProductGallery = ({ products, handleApprove, handleDeny, showButtons }) =>
               </Link>
               {showButtons && (
                 <div className="button-container">
-                  <button onClick={() => handleApprove(product.id)} className="approve-btn">Approve</button>
-                  <button onClick={() => handleDeny(product.id)} className="deny-btn">Deny</button>
+                  <button onClick={() => handleApprove(product.id)} className="approve-btn"><FaCheck />Approve</button>
+                  <button onClick={() => handleDeny(product.id)} className="deny-btn"><FaTimes />Deny</button>
                 </div>
               )}
             </div>
