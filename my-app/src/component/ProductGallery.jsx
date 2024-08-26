@@ -20,9 +20,7 @@ const ProductGallery = ({ products, handleApprove, handleDeny, showButtons }) =>
         const images = Array.isArray(productDetails.images) ? productDetails.images : [];
         const firstImage = images.length > 0 ? images[0] : null;
         const imageUrl = firstImage ? `data:image/jpeg;base64,${firstImage.fileBase64}` : './assets/default.jpg';
-        const formattedDate = formatDate(product.createDate);
-        const colors = Array.isArray(productDetails.colors) ? productDetails.colors : [];
-    
+        const formattedDate = formatDate(product.createDate);    
 
         return (
             <div key={product.id} className="product-card">

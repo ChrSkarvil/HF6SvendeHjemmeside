@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './component/Home';
 import Watches from './component/Watches';
@@ -40,8 +40,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/customerDashboard" element={<CustomerDashboard />} />
           <Route path="/listingcreate" element={<ListingCreate />} />
-          <Route path="/admin" element={userRole != "Admin" ? <Home/> : <AdminPanel/>} />
-          <Route path="/admin/handleListings" element={userRole != "Admin" ? <Home/> : <HandleListings/>} />
+          <Route path="/admin" element={userRole !== "Admin" ? <Home/> : <AdminPanel/>} />
+          <Route path="/admin/handleListings" element={userRole !== "Admin" ? <Home/> : <HandleListings/>} />
         </Routes>
         {isModalOpen && <LoginModal isOpen={isModalOpen} onClose={toggleModal} />}
       </Router>

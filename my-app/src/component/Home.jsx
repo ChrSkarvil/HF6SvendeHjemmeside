@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import LoginModal from './LoginModal';
 import '../css/home.css';
 import Footer from './Footer';
