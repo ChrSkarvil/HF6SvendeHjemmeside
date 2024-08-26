@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/action/authActions'; 
 import { FaUser } from 'react-icons/fa';
+import { CiLogin } from 'react-icons/ci'; 
 import "../css/home.css";
 
 const Header = ({ toggleModal }) => {
@@ -31,7 +32,6 @@ const Header = ({ toggleModal }) => {
     setDropdownOpen(false);
   };
 
-  // Close dropdown when clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -52,7 +52,6 @@ const Header = ({ toggleModal }) => {
       <nav className={menuOpen ? 'active' : ''}>
         <ul>
           <li><Link to="/">Home</Link></li>
-          <li><Link to="/watches">Watches</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/contact">Contact</Link></li>
           {isLoggedIn ? (
@@ -61,14 +60,14 @@ const Header = ({ toggleModal }) => {
                 <FaUser size={30} />
               </div>
               {dropdownOpen && (
-                  <div className={`dropdown-menu ${dropdownOpen ? 'open' : ''}`} ref={dropdownRef}>
+                <div className={`dropdown-menu ${dropdownOpen ? 'open' : ''}`} ref={dropdownRef}>
                   <Link to="/customerDashboard" className='dropdown-item' onClick={closeDropdown}>Listing & Profile</Link>
                   <button className='dropdown-item button' onClick={() => { handleLogout(); closeDropdown(); }}>Logout</button>
                 </div>
               )}
             </li>
           ) : (
-            <li><button className='login-button' onClick={toggleModal}>Login</button></li>
+            <li><button className='login-button icon-button' onClick={toggleModal}><CiLogin /> Login</button></li>
           )}
         </ul>
       </nav>
