@@ -85,7 +85,7 @@ html, body {
 }
 
 .profile-placeholder {
-  margin-right: 30px;
+  margin-right: 50px;
 }
 
 .dropdown-menu {
@@ -316,22 +316,6 @@ main .sidebar {
   color: #e6a13b;
 }
 
-.dropdown-item {
-  background-color: #f1cd97;
-  border-radius: 0px;
-  margin-left: 5px;
-  margin-top: 40px;
-  padding: 10px 15px; 
-  border: none; 
-  border-radius: 25px; 
-  width: 300px; 
-  outline: none; 
-  font-size: 1rem; 
-  font-weight: bold;
-  background-color: rgba(241, 174, 73, 0.5); 
-  color: #e6a13b; 
-}
-
 
 .image-gallery {
   display: grid;
@@ -555,7 +539,7 @@ main .sidebar {
 
 @media (max-width: 600px) {
   .App-header {
-    position: static;
+    position: static; 
     box-shadow: none;
   }
 
@@ -568,6 +552,7 @@ main .sidebar {
   .App-header nav ul li button{
     font-size: 0.875rem;
     padding: 8px 12px; 
+    margin-bottom: 5px;
   }
 
   .image-gallery {
@@ -582,6 +567,38 @@ main .sidebar {
     border-radius: 50%;
     cursor: pointer;
     position: relative;
+  }
+
+
+
+  .dropdown {
+    width: 100%; /* Make the dropdown container full width */
+      
+  }
+
+  .dropdown-menu {
+    width: 100%; /* Make the dropdown menu full width */
+    left: 0; /* Align the dropdown menu with the left edge */
+    position: absolute; /* Ensure it overlays other content */
+    background-color: #CE8C29; /* Background color for the dropdown */
+    border-radius: 0; /* Remove border radius for a more seamless look */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for depth */
+    
+  }
+
+  .dropdown-item {
+    font-size: 16px; /* Adjust font size for better readability */
+    padding: 12px 16px; /* Adjust padding for larger touch targets */
+    text-align: center; /* Center the text in each dropdown item */
+    margin-left: 4px;
+  }
+
+
+  .dropdown-item.button {
+    margin: 8px 0; /* Add margin between buttons for clarity */
+    width: calc(100% - 32px); /* Full width with padding considered */
+    margin-left: 14px;
+
   }
 
 
@@ -602,4 +619,6 @@ main .sidebar {
   .App-header .login-button {
     margin-left: 0px;
   }
+
+  
 }

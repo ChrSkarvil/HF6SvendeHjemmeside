@@ -10,7 +10,7 @@ import LoginModal from './LoginModal';
 
 const Profile = () => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const { user } = useUser(); // Removed logout as it is not used
+  const { user } = useUser();
 
   const reduxUser = useSelector((state) => state.auth.user) || {
     firstname: 'John',
