@@ -7,64 +7,12 @@ html, body {
   background-color: #FDF5D8;
 }
  
-/* Product Detail Styling */
-.product-detail {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding: 20px;
-  background-color: #FDF5D8;
-  min-height: 100vh;
-}
-
-/* Image styling */
-.product-image {
-  flex: content;
-  padding: 20px;
-  display: flex;
-  justify-content: center; 
-}
-
-.product-image img {
-  max-width: 100%;
-  max-width: 400px; 
-  height: auto; 
-  border-radius: 10px; 
-}
-
-/* Info styling */
-.product-info {
-  flex: 1; 
-  padding: 20px;
-  display: flex;
-  flex-direction: column; 
-  justify-content: center; 
-}
-
-/* Product Info Text Styling */
-.product-info h1 {
-  margin: 0 0 10px 0;
-  font-size: 2rem;
-  color: #CE8C29; 
-}
-
-.product-price, .product-description, .product-createdBy, .product-contactInfo {
-  margin: 5px 0; 
-  font-size: 1rem; 
-  color: #333;
-}
-
-.product-description {
-  margin-top: 10px;
-}
-
-/* Navbar Styling */
 .App-header {
   background-color: #CE8C29;
   padding: 20px;
   text-align: center;
   color: white;
-  position: fixed; /* Fixed position to stay at the top */
+  position: fixed;  
   top: 0;
   left: 0;
   width: 100%;
@@ -73,7 +21,8 @@ html, body {
   transition: top 0.3s; 
 }
 
-/* Ensure content is not hidden under the fixed navbar */
 .App-content {
   padding-top: 80px;
 }
+
+

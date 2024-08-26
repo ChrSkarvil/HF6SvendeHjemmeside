@@ -105,7 +105,6 @@ html, body {
 }
 
 
-/* Display dropdown menu when open */
 .dropdown-menu.open {
   display: block;
 }
@@ -503,34 +502,34 @@ main .sidebar {
 .search-controls {
   display: flex;
   flex-direction: column;
-  align-items: flex-start; /* Aligns search container to the left */
-  padding-left: 20px; /* Adds padding to ensure there is some space from the left edge */
+  align-items: flex-start; 
+  padding-left: 20px;  
 }
 
 .search-container {
-  margin-bottom: 20px; /* Space between the search bar and the sorting controls */
+  margin-bottom: 20px; 
 }
 
 .sort-controls {
   display: flex;
-  gap: 20px; /* Space between each radio button and label */
-  align-items: center; /* Vertically center the items */
+  gap: 20px;  
+  align-items: center; 
 }
 
 
 .sort-controls label {
-  display: flex; /* Aligns the radio button and text */
-  align-items: center; /* Vertically center the radio button and text */
+  display: flex;  
+  align-items: center;  
 }
 
 
 .sort-controls input[type="radio"] {
-  margin-right: 10px; /* Space between radio button and text */
+  margin-right: 10px;  
 }
 
 .sort-controls span {
-  color: orange; /* Orange text color */
-  font-size: 15px; /* Adjust font size if needed */
+  color: orange;  
+  font-size: 15px;  
 }
 
 
@@ -572,31 +571,31 @@ main .sidebar {
 
 
   .dropdown {
-    width: 100%; /* Make the dropdown container full width */
+    width: 100%;  
       
   }
 
   .dropdown-menu {
-    width: 100%; /* Make the dropdown menu full width */
-    left: 0; /* Align the dropdown menu with the left edge */
-    position: absolute; /* Ensure it overlays other content */
-    background-color: #CE8C29; /* Background color for the dropdown */
-    border-radius: 0; /* Remove border radius for a more seamless look */
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for depth */
+    width: 100%;  
+    left: 0;  
+    position: absolute;  
+    background-color: #CE8C29; 
+    border-radius: 0; 
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);  
     
   }
 
   .dropdown-item {
-    font-size: 16px; /* Adjust font size for better readability */
-    padding: 12px 16px; /* Adjust padding for larger touch targets */
-    text-align: center; /* Center the text in each dropdown item */
+    font-size: 16px; 
+    padding: 12px 16px;  
+    text-align: center; 
     margin-left: 4px;
   }
 
 
   .dropdown-item.button {
-    margin: 8px 0; /* Add margin between buttons for clarity */
-    width: calc(100% - 32px); /* Full width with padding considered */
+    margin: 8px 0;  
+    width: calc(100% - 32px);  
     margin-left: 14px;
 
   }
@@ -607,13 +606,13 @@ main .sidebar {
   }
 
   .sort-controls {
-    flex-direction: column; /* Stack the radio buttons and labels vertically */
-    align-items: center; /* Align items to the start (left) */
-    gap: 10px; /* Space between each radio button and label */
+    flex-direction: column;  
+    align-items: center; 
+    gap: 10px; 
   }
 
   .sort-controls span {
-    font-size: 13px; /* Adjust font size for mobile */
+    font-size: 13px;  
   }
 
   .App-header .login-button {
