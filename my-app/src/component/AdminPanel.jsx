@@ -4,6 +4,7 @@ import LoginModal from './LoginModal';
 import { variables } from '../Variables';
 import { Link } from 'react-router-dom';
 import { FaUser, FaTags, FaExclamationCircle } from 'react-icons/fa';
+import { RiCloseCircleFill } from 'react-icons/ri';
 import '../css/adminPanel.css';
 import Footer from './Footer';
 
@@ -13,6 +14,7 @@ function AdminPanel() {
     const [isModalOpen, setModalOpen] = useState(false);
     const [listingCount, setListingCount] = useState(0);
     const [unverifiedCount, setUnverifiedCount] = useState(0);
+    const [deniedCount, setDeniedCount] = useState(0);
     const [userCount, setUserCount] = useState(0);
 
     const toggleModal = () => {
@@ -24,10 +26,12 @@ function AdminPanel() {
             try {
                 const listingResponse = await axios.get(`${variables.LISTING_API_URL}/count`);
                 const unverifiedResponse = await axios.get(`${variables.LISTING_API_URL}/unverified/count`);
+                const deniedResponse = await axios.get(`${variables.LISTING_API_URL}/denied/count`);
                 const userResponse = await axios.get(`${variables.LOGIN_API_URL}/count`);
 
                 setListingCount(listingResponse.data);
                 setUnverifiedCount(unverifiedResponse.data);
+                setDeniedCount(deniedResponse.data);
                 setUserCount(userResponse.data);
             } catch (err) {
                 console.error('API Error:', err.message);
@@ -61,6 +65,17 @@ function AdminPanel() {
                             <div className="info-block-content">
                                 <h2>Unverified Listings</h2>
                                 <p>{unverifiedCount}</p>
+                            </div>
+                        </div>
+                        </Link>
+                        <Link to={`/admin/handleListings`} className="image-card-link">
+                        <div className="info-block">
+                            <div className="info-block-icon">
+                                <RiCloseCircleFill size={30} />
+                            </div>
+                            <div className="info-block-content">
+                                <h2>Denied Listings</h2>
+                                <p>{deniedCount}</p>
                             </div>
                         </div>
                         </Link>
