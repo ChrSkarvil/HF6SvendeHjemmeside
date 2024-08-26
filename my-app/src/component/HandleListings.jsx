@@ -103,7 +103,7 @@ function HandleListings() {
 
   return (
     <div className="App">
-      <main className="App-content">
+      <main className="handle-listings-content">
         <div className="search-controls">
           <div className="search-container">
             <input
@@ -121,6 +121,7 @@ function HandleListings() {
             handleApprove={handleApprove}
             handleDeny={handleDeny}
             showButtons={true}
+            listingType={listingType}
           />
         </div>
       </main>

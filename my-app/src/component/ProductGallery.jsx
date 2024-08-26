@@ -13,7 +13,7 @@ const formatDate = (dateString) => {
 };
 
 // Reusable component to display a gallery of products
-const ProductGallery = ({ products, handleApprove, handleDeny, showButtons }) => {
+const ProductGallery = ({ products, handleApprove, handleDeny, showButtons, listingType  }) => {
     return (
     <div className="image-gallery">
       {products.map(product => {
@@ -40,6 +40,9 @@ const ProductGallery = ({ products, handleApprove, handleDeny, showButtons }) =>
                     <div className="image-price">Price: ${product.price || 'No Price'}</div>
                     <div className="image-brand">Brand: {productDetails.brand || 'No Brand'}</div>
                     <div className="image-createdate">CreatedDate: {formattedDate || 'No createdate'}</div>
+                    {listingType === 'denied' && product.denyDate && (
+                      <div className="image-denieddate">Denied Date: {formatDate(product.denyDate) || 'No Denied Date'}</div>
+                    )}
                   </div>
                 </div>
               </Link>
