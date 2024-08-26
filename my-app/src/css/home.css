@@ -388,7 +388,7 @@ main .sidebar {
   align-items: center; 
 }
 
-.image-name, .image-price, .image-description {
+.image-name, .image-price, .image-description, .image-brand, .image-createdate {
   margin: 5px 0;
   font-size: 0.875rem;
   color: #CE8C29;
@@ -401,6 +401,7 @@ main .sidebar {
   white-space: nowrap;
   width: 200px;
 }
+
 
 .App-header .login-button {
   margin-left: 6px;

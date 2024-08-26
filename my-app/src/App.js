@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './component/Home';
 import Watches from './component/Watches';
@@ -7,6 +8,7 @@ import Contact from './component/Contact';
 import Product from './component/Product';
 import Profile from './component/Profile';
 import CustomerDashboard from './component/CustomerDashboard';
+import HandleListings from './component/HandleListings';
 import AdminPanel from './component/AdminPanel';
 import Header from './component/Header';
 import Breadcrumb from './component/Breadcrumb';
@@ -17,6 +19,8 @@ import './css/home.css';
 
 function App() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const userRole = useSelector((state) => state.auth.userRole);
+
 
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
@@ -36,7 +40,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/customerDashboard" element={<CustomerDashboard />} />
           <Route path="/listingcreate" element={<ListingCreate />} />
-          <Route path="/admin" element={<AdminPanel />} />
+          <Route path="/admin" element={userRole !== "Admin" ? <Home/> : <AdminPanel/>} />
+          <Route path="/admin/handleListings" element={userRole !== "Admin" ? <Home/> : <HandleListings/>} />
         </Routes>
         {isModalOpen && <LoginModal isOpen={isModalOpen} onClose={toggleModal} />}
       </Router>
