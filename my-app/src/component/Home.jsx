@@ -4,12 +4,12 @@ import { Link } from 'react-router-dom';
 import LoginModal from './LoginModal';
 import '../css/home.css';
 import Footer from './Footer';
+import ProductGallery from './ProductGallery'
 
 function Home() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [products, setProducts] = useState([]);
-  const [customers, setCustomers] = useState([]);
   const [sortOption, setSortOption] = useState('');
 
   const toggleModal = () => {
@@ -21,19 +21,17 @@ function Home() {
   };
 
   useEffect(() => {
-    const fetchProductsAndCustomers = async () => {
+    const fetchProducts = async () => {
       try {
         const productResponse = await axios.get('https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api/Listing/verified');
-        const customerResponse = await axios.get('https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api/Customer');
 
         setProducts(productResponse.data);
-        setCustomers(customerResponse.data);
       } catch (err) {
         console.error('API Error:', err.message);
       }
     };
 
-    fetchProductsAndCustomers();
+    fetchProducts();
   }, []);
 
   const sortedProducts = () => {
@@ -51,14 +49,13 @@ function Home() {
   };
 
   const filteredProducts = sortedProducts().filter(product => {
-    const matchesSearch = product.title?.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesSearch;
-  });
+    const searchQueryLower = searchQuery.toLowerCase();
 
-  const getCustomerFirstName = (customerId) => {
-    const customer = customers.find(cust => cust.id === customerId);
-    return customer ? customer.firstName : 'Unknown';
-  };
+    const matchesTitle = product.title?.toLowerCase().includes(searchQueryLower);
+    const matchesBrand = product.product.brand?.toLowerCase().includes(searchQueryLower);
+    const matchesCustomer = product.customerName?.toLowerCase().includes(searchQueryLower);
+    return matchesTitle || matchesBrand || matchesCustomer;
+  });
 
   return (
     <div className="App">
@@ -125,36 +122,10 @@ function Home() {
           <div className="no-products">No products found</div>
         )}
 
-        <div className="image-gallery">
-          {filteredProducts.map(product => {
-            const productDetails = product.product || {};
-            const images = Array.isArray(productDetails.images) ? productDetails.images : [];
-            const firstImage = images.length > 0 ? images[0] : null;
-            const imageUrl = firstImage ? `data:image/jpeg;base64,${firstImage.fileBase64}` : './assets/default.jpg';
-            
-            const customerId = product.customerId;
-            const customerFirstName = getCustomerFirstName(customerId);
-
-            return (
-              <Link to={`/product/${product.id}`} key={product.id} className="image-card-link">
-                <div className="image-card">
-                  <div className="customer-info">
-                    <div className="profile-name">{customerFirstName}</div>
-                  </div>
-                  <img 
-                    src={imageUrl}
-                    alt={product.title || 'Product Image'} 
-                    onError={(e) => e.target.src = './assets/default.jpg'}
-                  />
-                  <div className="image-info">
-                    <div className="image-name">Name: {product.title || 'No Name'}</div>
-                    <div className="image-price">Price: ${product.price || 'No Price'}</div>
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
+        <ProductGallery
+          products={filteredProducts}
+          showButtons={false}
+        />
       </main>
       <Footer />
       <LoginModal isOpen={isModalOpen} onClose={toggleModal} />

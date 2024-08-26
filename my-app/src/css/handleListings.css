@@ -1,0 +1,65 @@
+/* src/component/handleListings.css */
+.handle-listings {
+  padding: 20px;
+}
+
+
+.handle-listings .product-card {
+  position: relative;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.handle-listings .image-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  flex: 1;
+  border-radius: 0px;
+}
+
+
+.handle-listings .product-card:hover .button-container {
+  opacity: 1;
+  transform: scale(1.02);
+
+}
+
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 10px;
+  background-color: #e6a13b;
+  border-top: 1px solid #ddd;
+  box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.1); 
+}
+
+.approve-btn, .deny-btn {
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 5px;
+  flex: 1;
+  text-align: center;
+  max-width: 100px;
+}
+
+.approve-btn {
+  background-color: green;
+}
+
+.deny-btn {
+  background-color: red;
+}
