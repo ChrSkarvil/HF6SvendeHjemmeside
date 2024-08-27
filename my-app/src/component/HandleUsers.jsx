@@ -28,27 +28,22 @@ function HandleUsers() {
     };
 
     const handleReactivate = async (id) => {
-        const token = localStorage.getItem('token');
         try {
-          alert(`User ${id} reactivated!`);
-          fetchUsers();
+            alert(`User ${id} reactivated!`);
+            fetchUsers();
         } catch (error) {
-          console.error('Error approving sale:', error);
-          alert('Failed to approve the sale. Please try again.');
+            alert('Failed to reactivate the user. Please try again.');
         }
-      };
-    
-      const handleDeactivate = async (id) => {
-        const token = localStorage.getItem('token');
-        const currentDateTime = new Date().toISOString();
+    };
+
+    const handleDeactivate = async (id) => {
         try {
-          alert(`Sale ${id} deactivated!`);
-          fetchUsers();
+            alert(`User ${id} deactivated!`);
+            fetchUsers();
         } catch (error) {
-          console.error('Error approving sale:', error);
-          alert('Failed to deny the sale. Please try again.');
+            alert('Failed to deactivate the user. Please try again.');
         }
-      };
+    };
 
 
     useEffect(() => {
@@ -68,7 +63,7 @@ function HandleUsers() {
 
     return (
         <div className="App">
-            <main className="users-content">
+            <header className="fixed-header">
                 <div className="search-controls">
                     <div className="search-container">
                         <input
@@ -80,26 +75,32 @@ function HandleUsers() {
                         />
                     </div>
                 </div>
+                <div className="user-info-header">
+                    <div>Name</div>
+                    <div>Email</div>
+                    <div>Customer ID</div>
+                    <div>Status</div>
+                    <div>Actions</div>
+                </div>
+            </header>
+            <main className="users-content">
                 <div className="user-gallery">
-                    {filteredUsers.map(user => {
-                        return (
-                            <div key={user.id} className="user-card">
-                                <div className="image-card">
-                                    <div className="user-info">
-                                        <div className="user-name">Name: {user.fullName || 'No Name'}</div>
-                                        <div className="user-email">Email: {user.email || 'No Name'}</div>
-                                        <div className="user-id">Customer ID: {user.customerId || 'No Name'}</div>
-                                        <div className="user-status">Status: {user.isActive ? 'Active' : 'Inactive'}</div>
-                                    </div>
-                                </div>
-                                <div className="button-container">
-                                    <button onClick={() => handleReactivate(user.id)} className="approve-btn"><FaCheck />Reactivate</button>
-                                    <button onClick={() => handleDeactivate(user.id)} className="deny-btn"><FaTimes />Deactivate</button>
-                                </div>
+                    {filteredUsers.map(user => (
+                        <div key={user.id} className="user-card">
+                                <div className="user-name">{user.fullName || 'No Name'}</div>
+                                <div className="user-email">{user.email || 'No Name'}</div>
+                                <div className="user-id">{user.customerId || 'No Name'}</div>
+                                <div className="user-status">{user.isActive ? 'Active' : 'Inactive'}</div>
+                            <div className="user-button-container">
+                                <button onClick={() => handleReactivate(user.id)} className="user-approve-btn">
+                                    <FaCheck /> Reactivate
+                                </button>
+                                <button onClick={() => handleDeactivate(user.id)} className="user-deny-btn">
+                                    <FaTimes /> Deactivate
+                                </button>
                             </div>
-
-                        );
-                    })}
+                        </div>
+                    ))}
                 </div>
             </main>
             <Footer />

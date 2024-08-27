@@ -1,80 +1,159 @@
-
 .users-content {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    box-sizing: border-box;
-    overflow: hidden;
-  }
-  
-  /* User gallery styling */
-  .user-gallery {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    gap: 10px;
-    overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  box-sizing: border-box;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.fixed-header {
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid #ddd;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  background: #FDF5D8;
+}
+
+.user-info-header {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+  gap: 10px;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+
+.user-card {
+  display: grid;
+  grid-template-columns: 2fr 2fr 1fr 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: rgba(241, 174, 73, 0.5);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.user-name, .user-email, .user-id, .user-status {
+  margin: 0;
+  font-size: 16px;
+  white-space: nowrap;
+}
+
+.user-status {
+  font-weight: bold;
+}
+
+.user-button-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 5px;
+  width: auto;
+}
+
+.user-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  width: 100%;
+  margin-top: 60px;
+}
+
+.user-gallery .user-approve-btn, .user-gallery .user-deny-btn {
+  background: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 5px;
+  transition: background 0.3s ease;
+}
+
+.user-gallery .user-approve-btn {
+  background: #4CAF50;
+  color: #fff;
+}
+
+.user-gallery .user-deny-btn {
+  background: #f44336;
+  color: #fff;
+}
+
+.user-gallery .user-approve-btn:hover, .user-deny-btn:hover {
+  opacity: 0.8;
+}
+
+.fixed-header .search-container {
+  margin-left: -60px;
+}
+
+/* Responsive styles */
+@media (max-width: 1200px) {
+  .user-info-header {
+    grid-template-columns: 1fr 1fr 1fr 1fr 100px;
   }
   
   .user-card {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    box-sizing: border-box;
+    grid-template-columns: 1fr 1fr 1fr 1fr 100px;
   }
-  .user-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
+}
+
+@media (max-width: 900px) {
+  .user-info-header {
+    grid-template-columns: 1fr 1fr 1fr;
   }
-  
-  .user-name,
-  .user-email,
-  .user-id,
-  .user-status {
-    margin-bottom: 5px;
-    font-size: 14px;
+
+  .user-card {
+    grid-template-columns: 1fr 1fr 1fr;
   }
-  
-  .user-status {
-    font-weight: bold;
+
+  .user-button-container {
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 5px;
+    width: auto;
   }
-  
-  /* Button container styling */
-  .user-gallery .button-container {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+}
+
+@media (max-width: 600px) {
+  .fixed-header {
+    padding: 10px;
   }
-  
-  .user-gallery .approve-btn, .user-gallery .deny-btn {
-    background: #f0f0f0;
-    border: none;
-    border-radius: 4px;
-    padding: 10px 15px;
-    font-size: 14px;
-    cursor: pointer;
-    margin-bottom: 5px;
-    transition: background 0.3s ease;
+
+  .user-info-header {
+    grid-template-columns: 1fr 1fr;
+    font-size: 12px;
+    gap: 5px;
   }
-  
-  .user-gallery .approve-btn {
-    background: #4CAF50;
-    color: #fff;
+
+  .user-card {
+    grid-template-columns: 1fr 1fr;
+    font-size: 12px;
   }
-  
-  .user-gallery .deny-btn {
-    background: #f44336;
-    color: #fff;
+
+  .user-gallery .user-approve-btn, .user-gallery .user-deny-btn {
+    padding: 8px 12px;
+    font-size: 12px;
   }
-  
-  .user-gallery .approve-btn:hover, .deny-btn:hover {
-    opacity: 0.8;
+
+  .user-button-container {
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 5px;
+    width: auto;
   }
-  
+}

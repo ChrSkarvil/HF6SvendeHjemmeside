@@ -3,9 +3,8 @@ import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { login } from '../redux/reducer/authReducer'; 
 import { useNavigate } from 'react-router-dom';
+import { variables } from '../Variables';
 import '../css/login.css';
-
-const apiBaseURL = 'https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api';
 
 const LoginModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState('');
@@ -25,19 +24,19 @@ const LoginModal = ({ isOpen, onClose }) => {
     }
   
     try {
-      const response = await axios.post(`${apiBaseURL}/Token/login`, {
+      const response = await axios.post(`${variables.TOKEN_API_URL}/login`, {
         email,
         password
       });
   
-      const { authResponse } = response.data;
+      const { token, refreshToken, user } = response.data.authResponse;
 
-      const { token, user } = authResponse;
 
-      if (token && user) {
+      if (token && user && refreshToken) {
         // Save token and user data to local storage
         const userId = user.customerId || user.employeeId;
         localStorage.setItem('token', token);
+        localStorage.setItem('refreshToken', refreshToken);
         localStorage.setItem('user', JSON.stringify({
           email: user.email,
           userRole: user.userRole,
