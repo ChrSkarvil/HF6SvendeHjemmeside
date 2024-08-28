@@ -72,6 +72,21 @@ function HandleListings() {
     }
   };
 
+  const handleDelete = async (id) => {
+    const confirmed = window.confirm('Are you sure you want to delete this product?');
+    if (!confirmed) return;
+    const currentDateTime = new Date().toISOString();
+  
+    try {
+      await axiosInstance.put(`${variables.LISTING_API_URL}/delete/${id}/true/${currentDateTime}`);
+      alert(`Listing ${id} deleted!`);
+      fetchProducts();
+    } catch (error) {
+      console.error('Error deleting listing:', error);
+      alert('Failed to delete the listing. Please try again.');
+    }
+  };
+
   useEffect(() => {
     fetchProducts();
   }, [listingType]);
@@ -106,6 +121,7 @@ function HandleListings() {
             products={filteredProducts}
             handleApprove={handleApprove}
             handleDeny={handleDeny}
+            handleDelete={handleDelete}
             showButtons={true}
             listingType={listingType}
           />

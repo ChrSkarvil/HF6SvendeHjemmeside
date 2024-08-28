@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import axiosInstance from '../services/axiosInstance';
 import LoginModal from './LoginModal';
 import { variables } from '../Variables'
 // import '../css/home.css';
@@ -20,7 +20,7 @@ function HandleUsers() {
 
     const fetchUsers = async () => {
         try {
-            const loginResponse = await axios.get(`${variables.LOGIN_API_URL}`);
+            const loginResponse = await axiosInstance.get(`${variables.LOGIN_API_URL}`);
             setUsers(loginResponse.data);
         } catch (err) {
             console.error('API Error:', err.message);
@@ -29,6 +29,9 @@ function HandleUsers() {
 
     const handleReactivate = async (id) => {
         try {
+            await axiosInstance.put(
+                `${variables.LOGIN_API_URL}/${id}/true`
+              );
             alert(`User ${id} reactivated!`);
             fetchUsers();
         } catch (error) {
@@ -38,6 +41,9 @@ function HandleUsers() {
 
     const handleDeactivate = async (id) => {
         try {
+            await axiosInstance.put(
+                `${variables.LOGIN_API_URL}/${id}/false`
+              );
             alert(`User ${id} deactivated!`);
             fetchUsers();
         } catch (error) {
