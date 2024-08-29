@@ -9,6 +9,7 @@ import Product from './component/Product';
 import Profile from './component/Profile';
 import CustomerDashboard from './component/CustomerDashboard';
 import HandleListings from './component/HandleListings';
+import HandleUsers from './component/HandleUsers';
 import AdminPanel from './component/AdminPanel';
 import Header from './component/Header';
 import Breadcrumb from './component/Breadcrumb';
@@ -42,6 +43,7 @@ function App() {
           <Route path="/listingcreate" element={<ListingCreate />} />
           <Route path="/admin" element={userRole !== "Admin" ? <Home/> : <AdminPanel/>} />
           <Route path="/admin/handleListings" element={userRole !== "Admin" ? <Home/> : <HandleListings/>} />
+          <Route path="/admin/handleUsers" element={userRole !== "Admin" ? <Home/> : <HandleUsers/>} />
         </Routes>
         {isModalOpen && <LoginModal isOpen={isModalOpen} onClose={toggleModal} />}
       </Router>
