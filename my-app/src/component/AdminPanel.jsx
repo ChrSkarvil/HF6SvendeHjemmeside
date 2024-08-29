@@ -5,7 +5,7 @@ import { variables } from '../Variables';
 import { Link } from 'react-router-dom';
 import { FaUser, FaTags, FaExclamationCircle } from 'react-icons/fa';
 import { RiCloseCircleFill } from 'react-icons/ri';
-import '../css/adminpanel.css';
+import '../css/adminPanel.css';
 import Footer from './Footer';
 
 

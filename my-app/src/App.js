@@ -14,17 +14,20 @@ import AdminPanel from './component/AdminPanel';
 import Header from './component/Header';
 import Breadcrumb from './component/Breadcrumb';
 import LoginModal from './component/LoginModal';
+import RegisterModal from './component/Register';
 import ListingCreate from './component/ListingCreate';
 import { UserProvider } from './component/UserContext';
 import './css/home.css';
 
 function App() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [modalType, setModalType] = useState(null);
   const userRole = useSelector((state) => state.auth.userRole);
 
 
-  const toggleModal = () => {
-    setModalOpen(!isModalOpen);
+  const toggleModal = (type = null) => {
+    setModalType(type);
+    setModalOpen(type !== null); 
   };
 
   return (
@@ -45,7 +48,8 @@ function App() {
           <Route path="/admin/handleListings" element={userRole !== "Admin" ? <Home/> : <HandleListings/>} />
           <Route path="/admin/handleUsers" element={userRole !== "Admin" ? <Home/> : <HandleUsers/>} />
         </Routes>
-        {isModalOpen && <LoginModal isOpen={isModalOpen} onClose={toggleModal} />}
+        {isModalOpen && modalType === 'login' && <LoginModal isOpen={isModalOpen} onClose={() => toggleModal(null)} toggleModal={toggleModal} />}
+        {isModalOpen && modalType === 'register' && <RegisterModal isOpen={isModalOpen} onClose={() => toggleModal(null)} toggleModal={toggleModal} />}
       </Router>
     </UserProvider>
   );

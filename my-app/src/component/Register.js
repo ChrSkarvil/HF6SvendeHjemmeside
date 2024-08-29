@@ -1,14 +1,12 @@
 import React, { useState, useMemo } from 'react';
+import { variables } from '../Variables';
 import axios from 'axios';
-import bcrypt from 'bcryptjs';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
 
-const apiBaseURL = 'https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api';
-
-const Register = ({ isOpen, onClose }) => {
+const Register = ({ isOpen, onClose, toggleModal  }) => {
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [address, setAddress] = useState('');
@@ -43,22 +41,39 @@ const Register = ({ isOpen, onClose }) => {
 
   const handleRegister = async () => {
     if (validateForm()) {
-      const hashedPassword = await bcrypt.hash(password, 10);
+      
+
       const user = { 
-        email, 
-        profilePicture: './assets/default.jpg',
         firstName: firstname, 
         lastName: lastname, 
         address, 
         phone: number,
+        email, 
         postalCode,
-        country: countryValue ? countryValue.label : 'Unknown',
-        password: hashedPassword
+        countryName: countryValue ? countryValue.label : 'Unknown',
       };
-      
+
       try {
-        await axios.post(`${apiBaseURL}/Register`, user); // Assuming the correct endpoint for registration
-        onClose(); // Close registration modal or redirect as needed
+        // Create the customer
+        const response = await axios.post(`${variables.CUSTOMER_API_URL}`, user);
+        const customerId = response.data.id;
+  
+        if (customerId) {
+          // If the customer was created successfully, create the login
+          const login = { 
+            email, 
+            password: password,
+            userType: 1, 
+            isActive: true,
+            customerId: customerId 
+          };
+  
+          await axios.post(`${variables.LOGIN_API_URL}`, login);
+  
+          onClose();
+        } else {
+          throw new Error('Failed to retrieve customer ID.');
+        }
       } catch (error) {
         console.error('Registration error:', error);
         setErrors({ general: 'Registration failed. Please try again.' });
@@ -193,7 +208,7 @@ const Register = ({ isOpen, onClose }) => {
             className="link-button"
             onClick={(e) => {
               e.preventDefault();
-              onClose(); // Assuming you want to switch to the Login component from here
+              toggleModal('login'); 
             }}
           >
             Login

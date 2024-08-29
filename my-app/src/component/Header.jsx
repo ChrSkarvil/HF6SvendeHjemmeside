@@ -70,7 +70,7 @@ const Header = ({ toggleModal }) => {
               )}
             </li>
           ) : (
-            <li><button className='login-button icon-button' onClick={toggleModal}><CiLogin /> Login</button></li>
+            <li><button className='login-button icon-button' onClick={() => toggleModal('login')}><CiLogin /> Login</button></li>
           )}
         </ul>
       </nav>
