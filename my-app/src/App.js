@@ -41,9 +41,9 @@ function App() {
           <Route path="/watches" element={<Watches />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/customerDashboard/profile" element={<Profile />} />
           <Route path="/customerDashboard" element={<CustomerDashboard />} />
-          <Route path="/listingcreate" element={<ListingCreate />} />
+          <Route path="/customerDashboard/listingcreate" element={<ListingCreate />} />
           <Route path="/admin" element={userRole !== "Admin" ? <Home/> : <AdminPanel/>} />
           <Route path="/admin/handleListings" element={userRole !== "Admin" ? <Home/> : <HandleListings/>} />
           <Route path="/admin/handleUsers" element={userRole !== "Admin" ? <Home/> : <HandleUsers/>} />
