@@ -12,7 +12,7 @@ const Header = ({ toggleModal }) => {
   const dropdownRef = useRef(null);
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn); // Check if the user is logged in
-  // const user = useSelector(state => state.auth.user);
+  const userRole = useSelector(state => state.auth.userRole); // Get users role
 
   const handleLogout = () => {
     dispatch(logout());
@@ -61,6 +61,9 @@ const Header = ({ toggleModal }) => {
               </div>
               {dropdownOpen && (
                 <div className={`dropdown-menu ${dropdownOpen ? 'open' : ''}`} ref={dropdownRef}>
+                  {isLoggedIn && userRole === 'Admin' && (
+                    <Link to="/admin" className='dropdown-item' onClick={closeDropdown}>Admin Panel</Link>
+                  )}
                   <Link to="/customerDashboard" className='dropdown-item' onClick={closeDropdown}>Listing & Profile</Link>
                   <button className='dropdown-item button' onClick={() => { handleLogout(); closeDropdown(); }}>Logout</button>
                 </div>

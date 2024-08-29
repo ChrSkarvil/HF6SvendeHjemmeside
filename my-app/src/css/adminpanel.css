@@ -1,51 +1,66 @@
-/* src/component/adminpanel.css */
+/* src/css/adminPanel.css */
+
 .admin-panel {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.admin-panel-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 20px;
-    background-color: #f9f9f9;
-  }
-  
-  .sales-list {
-    margin-top: 20px;
-  }
-  
-  .sale-item {
+}
+
+.info-blocks {
     display: flex;
     justify-content: space-between;
-    padding: 10px;
-    margin-bottom: 10px;
-    background-color: #fff;
+    gap: 20px;
+}
+
+.info-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e6a13b;
     border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .approve-btn {
-    color: white;
-    background-color: green;
-    border: none;
-    padding: 5px 10px;
-    margin-right: 5px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .deny-btn {
-    color: white;
-    background-color: red;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .admin-link {
-    margin-top: 20px;
-  }
-  
-  .admin-link a {
-    color: white;
-    background-color: blue;
-    padding: 10px 15px;
-    text-decoration: none;
-    border-radius: 5px;
-  }
-  
+    color: #fff;
+    border-radius: 8px;
+    padding: 15px;
+    width: 200px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    position: relative;
+    overflow: hidden; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-block:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.info-block-icon {
+    margin-bottom: 10px;
+}
+
+.info-block-content {
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.info-block-content h2 {
+    font-size: 18px;
+    margin: 0;
+    margin-bottom: 10px;
+}
+
+.info-block-content p {
+    font-size: 24px;
+    margin: 0;
+    font-weight: bold;
+    text-align: center; 
+}
