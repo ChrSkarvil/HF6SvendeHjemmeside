@@ -4,7 +4,6 @@ import LoginModal from './LoginModal';
 import '../css/home.css';
 import Footer from './Footer';
 import ProductGallery from './ProductGallery'
-import Register from './Register';
 
 function Home() {
   const [isModalOpen, setModalOpen] = useState(false);
