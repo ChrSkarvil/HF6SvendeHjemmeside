@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './component/Home';
 import Watches from './component/Watches';
 import About from './component/About';
@@ -22,7 +22,6 @@ function App() {
   const [isModalOpen, setModalOpen] = useState(false);
   const userRole = useSelector((state) => state.auth.userRole);
 
-
   const toggleModal = () => {
     setModalOpen(!isModalOpen);
   };
@@ -41,9 +40,9 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/customerDashboard" element={<CustomerDashboard />} />
           <Route path="/listingcreate" element={<ListingCreate />} />
-          <Route path="/admin" element={userRole !== "Admin" ? <Home/> : <AdminPanel/>} />
-          <Route path="/admin/handleListings" element={userRole !== "Admin" ? <Home/> : <HandleListings/>} />
-          <Route path="/admin/handleUsers" element={userRole !== "Admin" ? <Home/> : <HandleUsers/>} />
+          <Route path="/admin" element={userRole !== "Admin" ? <Navigate to="/" /> : <AdminPanel />} />
+          <Route path="/admin/handleListings" element={userRole !== "Admin" ? <Navigate to="/" /> : <HandleListings />} />
+          <Route path="/admin/handleUsers" element={userRole !== "Admin" ? <Navigate to="/" /> : <HandleUsers />} />
         </Routes>
         {isModalOpen && <LoginModal isOpen={isModalOpen} onClose={toggleModal} />}
       </Router>

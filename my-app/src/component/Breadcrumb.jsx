@@ -13,13 +13,13 @@ function Breadcrumb() {
   useEffect(() => {
     const fetchProductTitle = async () => {
       const productId = pathnames[pathnames.length - 1];
-      if (pathnames.length > 0 && pathnames[pathnames.length - 2] === "product" && productId) {
+      if (pathnames.length > 1 && pathnames[pathnames.length - 2] === "product" && productId) {
         try {
           const response = await axios.get(`${variables.LISTING_API_URL}/${productId}`);
           setProductTitle(response.data.title);
-          setLoading(false);
         } catch (error) {
           console.error('Error fetching product title:', error);
+        } finally {
           setLoading(false);
         }
       } else {
@@ -30,46 +30,46 @@ function Breadcrumb() {
     fetchProductTitle();
   }, [pathnames]);
 
-  const renderPathname = () => {
-    if (pathnames.length > 0) {
-      const lastPath = pathnames[pathnames.length - 1];
-      return lastPath ? lastPath.charAt(0).toUpperCase() + lastPath.slice(1) : '';
-    }
-    return '';
+  const renderBreadcrumbs = () => {
+    return pathnames.map((value, index) => {
+      const to = `/${pathnames.slice(0, index + 1).join('/')}`;
+      const isLast = index === pathnames.length - 1;
+      
+      if (isLast && pathnames[pathnames.length - 2] === "product") {
+        return (
+          <li key={to} className="breadcrumb-item active" aria-current="page">
+            {loading ? 'Loading...' : productTitle || 'Product'}
+          </li>
+        );
+      } else if (index === 0 && value === "product") {
+        return null; 
+      } else {
+        return isLast ? (
+          <li key={to} className="breadcrumb-item active" aria-current="page">
+            {value.charAt(0).toUpperCase() + value.slice(1)}
+          </li>
+        ) : (
+          <li key={to} className="breadcrumb-item">
+            <Link to={to}>{value.charAt(0).toUpperCase() + value.slice(1)}</Link>
+          </li>
+        );
+      }
+    });
   };
+
+  if (pathnames.length === 0) {
+    return null;
+  }
 
   return (
     <nav aria-label="breadcrumb">
       <ol className="breadcrumb">
-        {pathnames.length > 0 && pathnames[0] !== "" && (
-          <>
-            <li className="breadcrumb-item">
-              <Link to="/">Home</Link>
-            </li>
-            {pathnames[0] === "watches" ? (
-              <li className="breadcrumb-item active" aria-current="page">
-                Watches
-              </li>
-            ) : (
-              <>
-                {pathnames.length > 0 && pathnames[0] === "watches" && (
-                  <li className="breadcrumb-item">
-                    <Link to="/watches">Watches</Link>
-                  </li>
-                )}
-                {pathnames.length > 0 && pathnames[pathnames.length - 2] === "product" ? (
-                  <li className="breadcrumb-item active" aria-current="page">
-                    {loading ? 'Loading...' : productTitle}
-                  </li>
-                ) : (
-                  <li className="breadcrumb-item active" aria-current="page">
-                    {renderPathname()}
-                  </li>
-                )}
-              </>
-            )}
-          </>
+        {pathnames.length > 0 && (
+          <li className="breadcrumb-item">
+            <Link to="/">Home</Link>
+          </li>
         )}
+        {renderBreadcrumbs()}
       </ol>
     </nav>
   );

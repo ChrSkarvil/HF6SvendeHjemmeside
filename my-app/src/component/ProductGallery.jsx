@@ -12,7 +12,6 @@ const formatDate = (dateString) => {
   return date.toLocaleString('da-DK', options).replace(',', '');
 };
 
-// Reusable component to display a gallery of products
 const ProductGallery = ({ products, handleApprove, handleDeny, handleDelete, showButtons, listingType }) => {
   return (
     <div className="image-gallery">
