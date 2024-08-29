@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback  } from 'react';
 import axiosInstance from '../services/axiosInstance';
 import { useLocation } from 'react-router-dom';
 import LoginModal from './LoginModal';
@@ -22,7 +22,7 @@ function HandleListings() {
     setModalOpen(!isModalOpen);
   };
 
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     let endpoint;
     switch (listingType) {
       case 'all':
@@ -43,7 +43,7 @@ function HandleListings() {
     } catch (err) {
       console.error('API Error:', err.message);
     }
-  };
+  }, [listingType]);
 
   const handleApprove = async (id) => {
     try {
@@ -89,7 +89,7 @@ function HandleListings() {
 
   useEffect(() => {
     fetchProducts();
-  }, [listingType]);
+  }, [fetchProducts]);
 
 
   const filteredProducts = products.filter(product => {
