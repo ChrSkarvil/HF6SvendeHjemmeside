@@ -11,6 +11,7 @@ html, body {
   flex-direction: column;
   min-height: 100vh;
   background-color: #FDF5D8;
+  overflow-x: hidden;
 }
 
 .App-header {
@@ -292,7 +293,7 @@ main .sidebar {
 .search-container {
   display: flex;
   align-items: center;
-  margin: 20px 0;
+  position: relative;
 }
 
 .search-bar {
@@ -311,6 +312,99 @@ main .sidebar {
 .search-bar::placeholder {
   color: #e6a13b;
 }
+
+.filter-button {
+  margin-left: 10px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #e6a13b;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.filter-button:hover {
+  background-color: #cf8414;
+}
+
+.filter-menu {
+  position: fixed;
+  top: 0;
+  right: -1000px;
+  width: 300px;
+  height: 100%;
+  background-color: #f7dcad;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  padding: 20px;
+  transition: right 0.3s ease;
+  color:#794c00;
+}
+
+.filter-menu.open {
+  right: 0;
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  color: #CE8C29;
+}
+
+.arrow-icon {
+  font-size: 30px;
+  cursor: pointer;
+  display: block;
+  margin: 10px;
+  transition: transform 0.3s ease;
+  color: #CE8C29;
+}
+
+.arrow-icon:hover {
+  color: #E69F2F;  
+  transform: scale(1.1);
+}
+
+.filter-options {
+  padding: 15px;
+}
+
+.filter-options label {
+  display: block;
+  margin-bottom: 10px;
+  color: #CE8C29; 
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.filter-options input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: #fff;
+}
+
+.clear-button {
+  padding: 5px 10px;
+  border: none;
+  background-color: #ce4a29;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 900;
+}
+
 
 
 .image-gallery {
@@ -576,7 +670,6 @@ main .sidebar {
 
 
 
-
 @media (max-width: 600px) {
   .App-header {
     position: static; 
@@ -651,6 +744,24 @@ main .sidebar {
     justify-content: center;
     margin-left: -10px;
   }
+
+  .search-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 60px;
+  }
+
+  .filter-button {
+    margin-top: 10px; 
+    width: 20%; 
+    align-items: center;
+    margin-right: -40px;
+    }
+
+    .filter-menu {
+      width: 250px;
+    }
 
 
 }
