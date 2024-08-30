@@ -84,16 +84,19 @@
 
 
 .approve-btn:hover {
+  background-color: #24a141;
   opacity: 1;
   transform: scale(1.05);
 }
 
 .deny-btn:hover {
+  background-color: #ffc107;
   opacity: 1;
   transform: scale(1.05);
 }
 
 .delete-btn:hover {
+  background-color: #d61c2f;
   opacity: 1;
   transform: scale(1.05);
 }
