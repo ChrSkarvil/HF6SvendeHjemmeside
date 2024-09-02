@@ -97,6 +97,9 @@ const ProductGallery = ({
                   {listingType === 'denied' && product.denyDate && (
                     <div className="image-denieddate">Denied Date: {formatDate(product.denyDate) || 'No Denied Date'}</div>
                   )}
+                  {(showCustomerButtons || showAdminButtons) && (
+                    <div className='image-status'>Status: {product.denyDate ? 'Denied' : product.isListingVerified ? 'Approved' : 'Pending Approval'}</div>
+                  )}
                 </div>
               </div>
             </Link>

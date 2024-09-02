@@ -385,7 +385,7 @@ main .sidebar {
   align-items: center; 
 }
 
-.image-name, .image-price, .image-description, .image-brand, .image-createdate, .image-denieddate {
+.image-name, .image-price, .image-description, .image-brand, .image-createdate, .image-denieddate, .image-status {
   margin: 5px 0;
   font-size: 0.875rem;
   color: #CE8C29;
