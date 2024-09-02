@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaCheck, FaExclamationTriangle, FaTimes } from 'react-icons/fa';
+import { FaCheck, FaExclamationTriangle, FaTimes, FaEdit, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const formatDate = (dateString) => {
   const options = {
@@ -12,7 +12,62 @@ const formatDate = (dateString) => {
   return date.toLocaleString('da-DK', options).replace(',', '');
 };
 
-const ProductGallery = ({ products, handleApprove, handleDeny, handleDelete, showButtons, listingType }) => {
+// Reusable component to display a gallery of products
+const ProductGallery = ({
+  products,
+  handleApprove,
+  handleDeny,
+  handleDelete,
+  showAdminButtons,
+  showCustomerButtons,
+  handleEdit,
+  handleSetStatus,
+  listingType,
+}) => {
+  const renderAdminButtons = (productId) => (
+    <div className="button-container">
+      <div className="top-buttons">
+        {handleApprove && (
+          <button onClick={() => handleApprove(productId)} className="approve-btn">
+            <FaCheck />Approve
+          </button>
+        )}
+        {handleDeny && (
+          <button onClick={() => handleDeny(productId)} className="deny-btn">
+            <FaExclamationTriangle />Deny
+          </button>
+        )}
+      </div>
+      {handleDelete && (
+        <button onClick={() => handleDelete(productId)} className="delete-btn">
+          <FaTimes />Delete
+        </button>
+      )}
+    </div>
+  );
+
+  const renderCustomerButtons = (productId, isActive) => (
+    <div className="button-container">
+      <div className="top-buttons">
+        {handleEdit && (
+          <button onClick={() => handleEdit(productId)} className="edit-btn">
+          <FaEdit className='icon'/> Edit
+          </button>
+        )}
+        {handleSetStatus && (
+          <button onClick={() => handleSetStatus(productId)} className="status-btn">
+            {isActive ? <FaEyeSlash className='icon'/> : <FaEye className='icon'/>} {isActive ? 'Hide' : 'Show'}
+          </button>
+        )}
+      </div>
+      {handleDelete && (
+        <button onClick={() => handleDelete(productId)} className="delete-btn">
+          <FaTimes className='icon'/>Delete
+        </button>
+      )}
+    </div>
+  );
+
   return (
     <div className="image-gallery">
       {products.map(product => {
@@ -38,22 +93,18 @@ const ProductGallery = ({ products, handleApprove, handleDeny, handleDelete, sho
                   <div className="image-name">Name: {product.title || 'No Name'}</div>
                   <div className="image-price">Price: ${product.price || 'No Price'}</div>
                   <div className="image-brand">Brand: {productDetails.brand || 'No Brand'}</div>
-                  <div className="image-createdate">CreatedDate: {formattedDate || 'No createdate'}</div>
+                  <div className="image-createdate">Created Date: {formattedDate || 'No Date'}</div>
                   {listingType === 'denied' && product.denyDate && (
                     <div className="image-denieddate">Denied Date: {formatDate(product.denyDate) || 'No Denied Date'}</div>
+                  )}
+                  {(showCustomerButtons || showAdminButtons) && (
+                    <div className='image-status'>Status: {product.denyDate ? 'Denied' : product.isListingVerified ? 'Approved' : 'Pending Approval'}</div>
                   )}
                 </div>
               </div>
             </Link>
-            {showButtons && (
-              <div className="button-container">
-                <div className="top-buttons">
-                  <button onClick={() => handleApprove(product.id)} className="approve-btn"><FaCheck />Approve</button>
-                  <button onClick={() => handleDeny(product.id)} className="deny-btn"><FaExclamationTriangle />Deny</button>
-                </div>
-                <button onClick={() => handleDelete(product.id)} className="delete-btn"><FaTimes />Delete</button>
-              </div>
-            )}
+            {showAdminButtons && renderAdminButtons(product.id)}
+            {showCustomerButtons && renderCustomerButtons(product.id, product.isActive)}
           </div>
         );
       })}

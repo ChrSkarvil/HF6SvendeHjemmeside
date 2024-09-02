@@ -7,5 +7,6 @@ export const variables = {
     EMPLOYEE_API_URL:"https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api/Employee",
     ORDER_API_URL: "https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api/Order",
     PRODUCT_API_URL:"https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api/Product",
-    TOKEN_API_URL:"https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api/Token"
+    TOKEN_API_URL:"https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api/Token",
+    COLOR_API_URL: "https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api/Color"
 }

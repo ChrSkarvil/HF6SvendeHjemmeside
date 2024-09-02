@@ -122,8 +122,8 @@ function HandleListings() {
             handleApprove={handleApprove}
             handleDeny={handleDeny}
             handleDelete={handleDelete}
-            showButtons={true}
             listingType={listingType}
+            showAdminButtons={true}
           />
         </div>
       </main>

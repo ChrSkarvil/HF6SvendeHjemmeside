@@ -1,0 +1,109 @@
+/* customerDashboard.css */
+.customer-dashboard-content {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .profile-section {
+    margin-bottom: 30px;
+  }
+  
+  .profile-header {
+    display: flex;
+    align-items: center;
+  }
+  
+  .profile-picture {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+  }
+  
+  .profile-details {
+    margin-left: 20px;
+  }
+  
+  .edit-profile-btn {
+    margin-top: 10px;
+    background-color: #CE8C29;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    border-radius: 5px;
+    display: inline-block;
+  }
+  
+  .edit-profile-btn:hover {
+    background-color: #9b5f05;
+  }
+  
+  .listings-section {
+    margin-top: 20px;
+  }
+  
+  .create-listing-btn {
+    background-color: #CE8C29;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+  .create-listing-btn:hover {
+    background-color: #9b5f05;
+  }
+
+  .status-btn,
+  .edit-btn {
+    margin: 5px;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .edit-btn {
+    background-color: #4CAF50;
+    color: white;
+    flex: 1;
+    margin-right: 10px;
+  }
+  
+  .status-btn {
+    background-color: #ffc107;
+    color: white;
+    flex: 1;
+    margin-left: 10px;
+  }
+
+  .edit-btn:hover {
+    background-color: #45a049;
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  
+  .status-btn:hover {
+    background-color: #e4ab03;
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  
+  .customer-dashboard .image-card {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+  
+  .customer-dashboard .image-card:hover {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }

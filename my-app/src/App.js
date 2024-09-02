@@ -38,12 +38,11 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<Product />} />
-          <Route path="/watches" element={<Watches />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/customerDashboard/profile" element={<Profile />} />
           <Route path="/customerDashboard" element={<CustomerDashboard />} />
-          <Route path="/listingcreate" element={<ListingCreate />} />
+          <Route path="/customerDashboard/listingcreate" element={<ListingCreate />} />
           <Route path="/order/:id" element={<OrderPage />} />
           <Route path="/admin" element={userRole !== "Admin" ? <Navigate to="/" /> : <AdminPanel />} />
           <Route path="/admin/handleListings" element={userRole !== "Admin" ? <Navigate to="/" /> : <HandleListings />} />

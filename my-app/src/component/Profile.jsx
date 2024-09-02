@@ -1,7 +1,9 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { FaUser } from 'react-icons/fa';
+import { variables } from '../Variables';
 import '../css/profile.css';
-import { useUser } from '../component/UserContext';
+import axiosInstance from '../services/axiosInstance';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import Select from 'react-select';
@@ -10,31 +12,44 @@ import LoginModal from './LoginModal';
 
 const Profile = () => {
   const [isModalOpen, setModalOpen] = useState(false);
-  const { user } = useUser();
+  const { userId } = useSelector((state) => state.auth);
 
-  const reduxUser = useSelector((state) => state.auth.user) || {
-    firstname: 'John',
-    lastname: 'Doe',
-    email: 'john.doe@example.com',
-    address: '123 Main St',
-    number: '123-456-7890',
-    profilePicture: './assets/default.jpg',
-    postalCode: '12345',
-    country: { label: 'Denmark', value: 'dk' },
-  };
-
-  const [firstname, setFirstname] = useState(user?.firstname || reduxUser.firstname);
-  const [lastname, setLastname] = useState(user?.lastname || reduxUser.lastname);
-  const [email, setEmail] = useState(user?.email || reduxUser.email);
-  const [address, setAddress] = useState(user?.address || reduxUser.address);
-  const [number, setNumber] = useState(user?.number || reduxUser.number);
-  const [postalCode, setPostalCode] = useState(user?.postalCode || reduxUser.postalCode);
+  const [user, setUser] = useState(null);
+  const [firstname, setFirstname] = useState('');
+  const [lastname, setLastname] = useState('');
+  const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [number, setNumber] = useState('');
+  const [postalCode, setPostalCode] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [profilePicture, setProfilePicture] = useState(user?.profilePicture || reduxUser.profilePicture);
-  const [countryValue, setCountryValue] = useState(reduxUser.country);
+  const [countryValue, setCountryValue] = useState(null);
 
   const options = useMemo(() => countryList().getData(), []);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const response = await axiosInstance.get(`${variables.CUSTOMER_API_URL}/${userId}`);
+        const userData = response.data;
+        const phoneNumber = userData.phone ? userData.phone.toString() : '';
+        setUser(userData);
+        setFirstname(userData.firstName);
+        setLastname(userData.lastName);
+        setEmail(userData.email);
+        setAddress(userData.address);
+        setNumber(phoneNumber);
+        setPostalCode(userData.postalCode);
+        setCountryValue(userData.countryName ? { label: userData.countryName, value: userData.countryCode } : options[0]);
+      } catch (error) {
+        console.error('Error fetching user profile:', error);
+      }
+    };
+
+    if (userId) {
+      fetchUserProfile();
+    }
+  }, [userId]);
 
   const handleProfileUpdate = (e) => {
     e.preventDefault();
@@ -42,20 +57,7 @@ const Profile = () => {
       alert("Passwords don't match");
       return;
     }
-    console.log('Profile updated:', { firstname, lastname, email, address, number, postalCode, countryValue, profilePicture });
-  };
-
-  const handlePictureChange = (e) => {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-      setProfilePicture(reader.result);
-    };
-
-    if (file) {
-      reader.readAsDataURL(file);
-    }
+    console.log('Profile updated:', { firstname, lastname, email, address, number, postalCode, countryValue });
   };
 
   const handlePhoneChange = (value, countryData) => {
@@ -73,17 +75,7 @@ const Profile = () => {
         <h2>Edit Profile</h2>
         <form onSubmit={handleProfileUpdate} className="profile-form">
           <div className="profile-pic-section">
-            <img 
-              src={profilePicture} 
-              alt={`${firstname}'s profile`} 
-              className="profile-pic" 
-            />
-            <input 
-              type="file" 
-              accept="image/*" 
-              onChange={handlePictureChange} 
-              className="profile-pic-input"
-            />
+            <FaUser size={60} />
           </div>
 
           <div className="form-group">

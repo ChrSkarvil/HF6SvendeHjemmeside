@@ -66,7 +66,9 @@ const Header = ({ toggleModal }) => {
                   {isLoggedIn && userRole === 'Admin' && (
                     <Link to="/admin" className='dropdown-item' onClick={closeDropdown}>Admin Panel</Link>
                   )}
+                  {isLoggedIn && userRole === 'Customer' && (
                   <Link to="/customerDashboard" className='dropdown-item' onClick={closeDropdown}>Listing & Profile</Link>
+                  )}
                   <button className='dropdown-item button' onClick={() => { handleLogout(); closeDropdown(); }}>Logout</button>
                 </div>
               )}
