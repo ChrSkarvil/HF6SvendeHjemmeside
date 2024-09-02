@@ -68,7 +68,7 @@ function HandleUsers() {
         });
 
     return (
-        <div className="App">
+        <div className="handle-users">
             <header className="fixed-header">
                 <div className="search-controls">
                     <div className="search-container">
