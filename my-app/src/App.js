@@ -16,6 +16,7 @@ import Breadcrumb from './component/Breadcrumb';
 import LoginModal from './component/LoginModal';
 import RegisterModal from './component/Register';
 import ListingCreate from './component/ListingCreate';
+import OrderPage from './component/OrderPage';
 import { UserProvider } from './component/UserContext';
 import './css/home.css';
 
@@ -43,6 +44,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/customerDashboard" element={<CustomerDashboard />} />
           <Route path="/listingcreate" element={<ListingCreate />} />
+          <Route path="/order/:id" element={<OrderPage />} />
           <Route path="/admin" element={userRole !== "Admin" ? <Navigate to="/" /> : <AdminPanel />} />
           <Route path="/admin/handleListings" element={userRole !== "Admin" ? <Navigate to="/" /> : <HandleListings />} />
           <Route path="/admin/handleUsers" element={userRole !== "Admin" ? <Navigate to="/" /> : <HandleUsers />} />

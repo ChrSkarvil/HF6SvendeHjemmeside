@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import ImageModal from './ImageModal';
 import '../css/productDetail.css';
 import '../css/products.css';
@@ -11,6 +11,7 @@ function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -48,8 +49,12 @@ function ProductDetails() {
     setIsModalOpen(false);
   };
 
+  const handleBuyNow = () => {
+    navigate(`/order/${id}`);
+  };
+
   if (!product) {
-    return <div>Loading...</div>;
+    return <div></div>;
   }
 
   const { title, price, createDate, customerName } = product;
@@ -89,7 +94,7 @@ function ProductDetails() {
         <p><strong>Size:</strong> {product.product.size}</p>
         <p><strong>Gender:</strong> {product.product.gender}</p>
         <p><strong>Customer Name:</strong> {customerName}</p>
-        <button className="buy-now">Buy now</button>
+        <button className="buy-now"  onClick={handleBuyNow}>Buy now</button>
         <button className="make-offer">Make an offer</button>
         <button className="contact-seller">Contact seller</button>
       </div>
