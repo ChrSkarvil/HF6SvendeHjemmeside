@@ -23,13 +23,8 @@
   padding: 15px;
   flex: 1;
   border-radius: 0px;
-}
-
-
-.handle-listings .product-card:hover .button-container {
-  opacity: 1;
-  transform: scale(1.02);
-
+  transition: none;
+  transform: none;
 }
 
 

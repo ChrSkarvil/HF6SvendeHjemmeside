@@ -2,11 +2,22 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import '../css/listingcreate.css';
 import axios from 'axios';
+import { variables } from '../Variables';
+import axiosInstance from '../services/axiosInstance';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 
-const ListingForm = () => {
+const ListingForm = ({ }) => {
+  const { userId: userIdFromRedux } = useSelector(state => state.auth);
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const navigate = useNavigate();
+  const listingId = queryParams.get('listingId');
   const [title, setTitle] = useState('');
   const [images, setImages] = useState([]);
+  const [newImages, setNewImages] = useState([]);
+  const [imageIdsToRemove, setImageIdsToRemove] = useState([]);
+  const [isActive, setIsActive] = useState(true);
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   const [error, setError] = useState('');
@@ -15,30 +26,77 @@ const ListingForm = () => {
   const [size, setSize] = useState('');
   const [color, setColor] = useState([]);
   const [colorOptions, setColorOptions] = useState([]);
-  const { userId } = useSelector(state => state.auth);
+  const [userId, setUserId] = useState(userIdFromRedux);
   const MAX_IMAGES = 15;
 
-  const apiBaseURL = 'https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api';
   const aiDetectionURL = 'https://detect.roboflow.com/watch-detection-pcn5i/1';
   const apiKey = 'VRERCE01WIVmSiPNKe5t';
 
-  // Fetch color options from the database
+  useEffect(() => {
+    if (!userId) {
+      const savedUser = localStorage.getItem('user');
+      if (savedUser) {
+        const parsedUser = JSON.parse(savedUser);
+        setUserId(parsedUser.userId);
+      }
+    }
+  }, [userId]);
+
+  // Get color options from the database
   useEffect(() => {
     const fetchColors = async () => {
       try {
-        const response = await axios.get(`${apiBaseURL}/color`);
+        const response = await axiosInstance.get(`${variables.COLOR_API_URL}`);
         const options = response.data.map(color => ({
           value: color.id,
           label: color.name,
         }));
         setColorOptions(options);
       } catch (error) {
-        console.error('Error fetching color options:', error);
+        console.error('Error getting color options:', error);
       }
     };
 
     fetchColors();
   }, []);
+
+  // Get existing listing, if updating
+  useEffect(() => {
+    if (listingId) {
+      const fetchListingDetails = async () => {
+        try {
+          const response = await axiosInstance.get(`${variables.LISTING_API_URL}/${listingId}`);
+          const listing = response.data;
+
+          setTitle(listing.title);
+          setPrice(listing.price);
+          setIsActive(listing.isActive);
+          setBrand(listing.product.brand);
+          setDescription(listing.product.description);
+          setSize(listing.product.size);
+
+          // Map colors back to Select's value format
+          const selectedColors = listing.product.colors.map(color => ({
+            label: color.name,
+            value: color.id
+          }));
+          setColor(selectedColors);
+
+          const existingImages = listing.product.images.map(image => ({
+            id: image.id,
+            url: `data:image/jpeg;base64,${image.fileBase64}`
+          }));
+          setImages(existingImages);
+
+        } catch (error) {
+          console.error('Error fetching listing details:', error);
+        }
+      };
+
+      fetchListingDetails();
+    }
+  }, [listingId]);
+
 
   const handleFileInputClick = useCallback(() => {
     document.getElementById('fileInput').click();
@@ -55,36 +113,45 @@ const ListingForm = () => {
 
   const handleImageChange = useCallback(async (event) => {
     const files = Array.from(event.target.files);
-    if (files.length === 0) return; // No files selected, do nothing
-  
+    if (files.length === 0) return;
+
     const totalImages = images.length + files.length;
-  
+
     if (totalImages > MAX_IMAGES) {
       files.length = MAX_IMAGES - images.length;
     }
-  
+
     const base64Images = await Promise.all(files.map(file => convertFileToBase64(file)));
-    
-    setImages(prevImages => {
-      const updatedImages = [...prevImages, ...base64Images];
-      return updatedImages.slice(0, MAX_IMAGES); // Make sure the total number of images does not exceed MAX_IMAGES
+
+    setNewImages(prevNewImages => {
+      const updatedNewImages = [...prevNewImages, ...base64Images];
+      return updatedNewImages.slice(0, MAX_IMAGES - images.length);
     });
   }, [images]);
 
-  const handleRemoveImage = useCallback((index) => {
-    setImages(prevImages => prevImages.filter((_, i) => i !== index));
+  const handleRemoveImage = useCallback((index, imageId) => {
+    const imageIdStr = String(imageId);
+
+    // Check if image is new
+    if (imageIdStr.startsWith('new-')) {
+      // Remove the new image from the newImages state
+      setNewImages(prevNewImages => prevNewImages.filter((_, i) => i !== index));
+    } else {
+      // Remove the existing image from the images state
+      setImageIdsToRemove(prevImageIdsToRemove => [...prevImageIdsToRemove, imageIdStr]);
+      setImages(prevImages => prevImages.filter((_, i) => i !== index));
+    }
   }, []);
 
   // Validate images using AI model
   const validateImages = async () => {
-    const promises = images.map(async (image) => {
-      const base64String = image.split(',')[1]; // Remove 'data:image/jpeg;base64' from image
-  
+    const promises = images.concat(newImages).map(async (image) => {
+      const base64String = typeof image === 'string' ? image.split(',')[1] : null; // Remove 'data:image/jpeg;base64' from image
+
       if (!base64String) {
         console.error("Empty Base64 string");
         return false;
       }
-  
       try {
         const response = await axios({
           method: 'POST',
@@ -97,8 +164,8 @@ const ListingForm = () => {
             'Content-Type': 'application/x-www-form-urlencoded'
           }
         });
-  
-        // Check if any image is a valid watch with confidence > 60%
+
+        // Check if any image is a valid watch with confidence > 50%
         const isValid = response.data.predictions.some(pred => pred.class === 'watches' && pred.confidence > 0.50);
         console.log('Image Validity:', isValid);
         return isValid;
@@ -107,15 +174,13 @@ const ListingForm = () => {
         return false;
       }
     });
-  
+
     const results = await Promise.all(promises);
     return results.every(isValid => isValid);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
-    console.log('userid: ',userId);
 
     const isListingValidated = await validateImages();
     const IsActive = true;
@@ -132,68 +197,109 @@ const ListingForm = () => {
     formData.append('IsActive', IsActive);
     formData.append('IsListingVerified', isListingValidated);
     formData.append('CustomerId', userId);
+    // Updating a listing
+    if (listingId) {
+      formData.append('Brand', brand);
+      formData.append('Description', description);
+      formData.append('Size', size);
+      if (imageIdsToRemove.length > 0) {
+        formData.append('ImageIdsToRemove', imageIdsToRemove);
+      }
+      color.forEach(c => formData.append('ColorNames', c.label));
+      const newImagesBlobs = await Promise.all(newImages.map(async (image, index) => {
+        const byteString = atob(image.split(',')[1]); // Remove 'data:image/jpeg;base64' from image
+        const mimeString = image.split(',')[0].split(':')[1].split(';')[0]; // Get mimetype image/jpeg
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ab], { type: mimeString });
+        return blob;
+      }));
 
-    // Append ProductCreateDTO fields
-    formData.append('Product.Brand', brand);
-    formData.append('Product.Description', description);
-    formData.append('Product.Size', size);
-    formData.append('Product.CategoryId', categoryId);
-    
-    color.forEach(c => formData.append('Product.ColorNames', c.label));
-
-        // Append images
-        images.forEach((image, index) => {
-          // Convert Base64 to Blob
-          const byteString = atob(image.split(',')[1]);
-          const mimeString = image.split(',')[0].split(':')[1].split(';')[0];
-          const ab = new ArrayBuffer(byteString.length);
-          const ia = new Uint8Array(ab);
-          for (let i = 0; i < byteString.length; i++) {
-              ia[i] = byteString.charCodeAt(i);
-          }
-          const blob = new Blob([ab], { type: mimeString });
-          formData.append('Product.Images', blob, `image${index}.jpg`);
+      newImagesBlobs.forEach((blob, index) => {
+        formData.append('NewImages', blob, `image${index}.jpg`);
       });
+      // Creating a listing
+    } else {
+      // Handle new images for a new listing
+      const allImages = [...images, ...newImages];
+
+      const imageBlobs = await Promise.all(allImages.map(async (image, index) => {
+        const byteString = atob(image.split(',')[1]); // Remove 'data:image/jpeg;base64' from image
+        const mimeString = image.split(',')[0].split(':')[1].split(';')[0]; // Get mimetype image/jpeg
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+          ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ab], { type: mimeString });
+        return blob;
+      }));
+
+      imageBlobs.forEach((blob, index) => {
+        formData.append('Product.Images', blob, `image${index}.jpg`);
+      });
+      // Append ProductCreateDTO fields
+      formData.append('Product.Brand', brand);
+      formData.append('Product.Description', description);
+      formData.append('Product.Size', size);
+      formData.append('Product.CategoryId', categoryId);
+      color.forEach(c => formData.append('Product.ColorNames', c.label));
+    }
 
     let errorMessage = '';
 
     if (!title) errorMessage += 'Title is required. ';
-    if (images.length === 0) errorMessage += 'At least one image is required. ';
+    if (listingId ? images.length === 0 && newImages.length === 0 : newImages.length === 0) errorMessage += 'At least one image is required. ';
     if (!price) errorMessage += 'Price is required. ';
     if (!description) errorMessage += 'Description is required. ';
     if (!gender) errorMessage += 'Gender selection is required. ';
     if (!brand) errorMessage += 'Brand is required. ';
     if (!size) errorMessage += 'Size is required. ';
     if (color.length === 0) errorMessage += 'Color is required. ';
-    
+
     if (errorMessage) {
       setError(errorMessage.trim());
       return;
     }
-  
+
     setError(''); // Clear the error if no issues
 
     try {
-      await axios.post(`${apiBaseURL}/listing`, formData, {
+      if (listingId) {
+        // Update existing listing
+        await axiosInstance.put(`${variables.LISTING_API_URL}/${listingId}`, formData, {
           headers: {
-              'Content-Type': 'multipart/form-data' // Important: This ensures the request is sent as multipart
+            'Content-Type': 'multipart/form-data'
           }
-      });
-      alert('Listing created successfully!');
-  } catch (error) {
+        });
+        alert('Listing updated successfully!');
+      } else {
+        // Create new listing
+        await axiosInstance.post(`${variables.LISTING_API_URL}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        alert('Listing created successfully!');
+      }
+      navigate('/customerDashboard');
+    } catch (error) {
       console.error('Error submitting listing:', error);
       setError('An error occurred while submitting the listing.');
-  }
+    }
   };
 
   return (
     <div className="listing-container">
-      <h2>Create a Listing</h2>
+      <h2>{listingId ? 'Update Listing' : 'Create a Listing'}</h2>
       <form onSubmit={handleSubmit} className="listing-form">
         <div className="image-section">
           <h3>Add Images</h3>
           <div className="file-input-wrapper">
-          {images.length < MAX_IMAGES && (
+            {images.length + newImages.length < MAX_IMAGES && (
               <>
                 <button type="button" className="custom-file-button" onClick={handleFileInputClick}>
                   Add Images
@@ -204,7 +310,7 @@ const ListingForm = () => {
                   multiple
                   onChange={handleImageChange}
                   accept="image/*"
-                  style={{ display: 'none' }} // Hide default file input
+                  style={{ display: 'none' }}
                 />
               </>
             )}
@@ -212,9 +318,15 @@ const ListingForm = () => {
           </div>
           <div className="image-preview-container">
             {images.map((image, index) => (
-              <div className="image-preview" key={index}>
-                <img src={image} alt={`Preview ${index}`} />
-                <button onClick={() => handleRemoveImage(index)} type="button">Remove</button>
+              <div className="image-preview" key={image.id}>
+                <img src={image.url} alt={`Preview ${index}`} />
+                <button onClick={() => handleRemoveImage(index, image.id)} type="button">Remove</button>
+              </div>
+            ))}
+            {newImages.map((image, index) => (
+              <div className="image-preview" key={`new-${index}`}>
+                <img src={image} alt={`New Preview ${index}`} />
+                <button onClick={() => handleRemoveImage(index, `new-${index}`)} type="button">Remove</button>
               </div>
             ))}
           </div>
@@ -242,7 +354,7 @@ const ListingForm = () => {
           />
         </div>
         <div className='product-section'>
-        <div className='gender-section'>
+          <div className='gender-section'>
             <label>
               <input
                 type="radio"
@@ -278,7 +390,7 @@ const ListingForm = () => {
             value={size}
             onChange={(e) => setSize(e.target.value)}
           />
-           <label htmlFor="color">Color:</label>
+          <label htmlFor="color">Color:</label>
           <Select
             isMulti
             name="color"

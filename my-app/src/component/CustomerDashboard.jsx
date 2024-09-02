@@ -33,7 +33,8 @@ function CustomerDashboard() {
   const fetchUserListings = async () => {
     try {
       const response = await axiosInstance.get(`${variables.LISTING_API_URL}/customer/${userId}`);
-      setListings(response.data);
+      const activeListings = response.data.filter(listing => !listing.deleteDate);
+      setListings(activeListings);
     } catch (error) {
       setError('Error getting user listings');
       console.error('Error getting user listings:', error);
@@ -68,26 +69,18 @@ function CustomerDashboard() {
   const handleSetStatus = async (id) => {
     try {
       await axiosInstance.put(
-        `${variables.LISTING_API_URL}/${id}/true`
+        `${variables.LISTING_API_URL}/toggleActive/${id}`
       );
-      alert(`Sale ${id} approved!`);
+      alert(`Sale ${id} status set!`);
+      fetchUserListings();
     } catch (error) {
-      console.error('Error approving sale:', error);
-      alert('Failed to approve the sale. Please try again.');
+      console.error('Error setting status:', error);
+      alert('Failed to set the status. Please try again.');
     }
   };
 
   const handleEdit = async (id) => {
-    const currentDateTime = new Date().toISOString();
-    try {
-      await axiosInstance.put(
-        `${variables.LISTING_API_URL}/${id}/false/${currentDateTime}`
-      );
-      alert(`Sale ${id} denied!`);
-    } catch (error) {
-      console.error('Error approving sale:', error);
-      alert('Failed to deny the sale. Please try again.');
-    }
+    navigate(`/customerDashboard/listingCreate?listingId=${id}`);
   };
 
   const handleDelete = async (id) => {
@@ -98,6 +91,7 @@ function CustomerDashboard() {
     try {
       await axiosInstance.put(`${variables.LISTING_API_URL}/delete/${id}/true/${currentDateTime}`);
       alert(`Listing ${id} deleted!`);
+      fetchUserListings();
     } catch (error) {
       console.error('Error deleting listing:', error);
       alert('Failed to delete the listing. Please try again.');
@@ -105,7 +99,7 @@ function CustomerDashboard() {
   };
 
   return (
-    <div className="App">
+    <div className="customer-dashboard">
       <main className="customer-dashboard-content">
         <div className="profile-section">
           <header className="profile-header">
@@ -124,7 +118,7 @@ function CustomerDashboard() {
             <h2>My Listings</h2>
             <button className="create-listing-btn" onClick={handleCreateListing}>Create New Listing</button>
           </div>
-          <div className="listings-grid">
+          <div className="customer-listings-grid">
           <ProductGallery
             products={listings}
             showCustomerButtons={true}

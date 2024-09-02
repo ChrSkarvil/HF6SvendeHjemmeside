@@ -95,3 +95,15 @@
     opacity: 1;
     transform: scale(1.05);
   }
+  
+  .customer-dashboard .image-card {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
+  
+  .customer-dashboard .image-card:hover {
+    transition: none;
+    transform: none;
+    opacity: 1;
+  }
