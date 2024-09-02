@@ -1,14 +1,15 @@
 import React, { useState, useMemo } from 'react';
+import { variables } from '../Variables';
 import axios from 'axios';
-import bcrypt from 'bcryptjs';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
+import { useDispatch } from 'react-redux';
+import { login } from '../redux/reducer/authReducer'; 
+import { useNavigate } from 'react-router-dom';
 
-const apiBaseURL = 'https://hf6svendeapi-d5ebbcchbdcwcybq.northeurope-01.azurewebsites.net/api';
-
-const Register = ({ isOpen, onClose }) => {
+const Register = ({ isOpen, onClose, toggleModal  }) => {
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [address, setAddress] = useState('');
@@ -19,6 +20,9 @@ const Register = ({ isOpen, onClose }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [countryValue, setCountryValue] = useState(null);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const options = useMemo(() => countryList().getData(), []);
   const defaultCountry = options.find(option => option.value === 'dk') || options[0];
@@ -43,25 +47,85 @@ const Register = ({ isOpen, onClose }) => {
 
   const handleRegister = async () => {
     if (validateForm()) {
-      const hashedPassword = await bcrypt.hash(password, 10);
-      const user = { 
-        email, 
-        profilePicture: './assets/default.jpg',
-        firstName: firstname, 
-        lastName: lastname, 
-        address, 
-        phone: number,
-        postalCode,
-        country: countryValue ? countryValue.label : 'Unknown',
-        password: hashedPassword
-      };
-      
       try {
-        await axios.post(`${apiBaseURL}/Register`, user); // Assuming the correct endpoint for registration
-        onClose(); // Close registration modal or redirect as needed
+        // Check if the email already exists
+        const existingUserResponse = await axios.get(`${variables.LOGIN_API_URL}/${email}`);
+  
+        // If response is not 404 and there is data, user already exists
+        if (existingUserResponse.data) {
+          setErrors({ email: 'Email already exists' });
+          return;
+        }
+  
       } catch (error) {
-        console.error('Registration error:', error);
-        setErrors({ general: 'Registration failed. Please try again.' });
+        // Check for 404 error (email not found)
+        if (error.response && error.response.status === 404) {
+          // Email does not exist, proceed with registration
+          try {
+            const user = { 
+              firstName: firstname, 
+              lastName: lastname, 
+              address, 
+              phone: number,
+              email, 
+              postalCode,
+              countryName: countryValue ? countryValue.label : 'Unknown',
+            };
+  
+            // Create the customer
+            const response = await axios.post(`${variables.CUSTOMER_API_URL}`, user);
+            const customerId = response.data.id;
+      
+            if (customerId) {
+              // If the customer was created successfully, create the login
+              const loginData = { 
+                email, 
+                password: password,
+                userType: 1, 
+                isActive: true,
+                customerId: customerId 
+              };
+      
+              await axios.post(`${variables.LOGIN_API_URL}`, loginData);
+  
+              // Log the user in after successful registration
+              const loginResponse = await axios.post(`${variables.TOKEN_API_URL}/login`, { email, password });
+              const { token, refreshToken, user } = loginResponse.data.authResponse;
+  
+              if (token && user && refreshToken) {
+                const userId = user.customerId || user.employeeId;
+                localStorage.setItem('token', token);
+                localStorage.setItem('refreshToken', refreshToken);
+                localStorage.setItem('user', JSON.stringify({
+                  email: user.email,
+                  userRole: user.userRole,
+                  userId: userId,
+                }));
+  
+                dispatch(login({
+                  email: user.email,
+                  isLoggedIn: true,
+                  userRole: user.role,
+                  userId: userId,
+                  token
+                }));
+  
+                navigate("/", { state: { user } });
+                onClose();
+              } else {
+                throw new Error('Login after registration failed');
+              }
+            } else {
+              throw new Error('Failed to get customer ID.');
+            }
+          } catch (registrationError) {
+            console.error('Registration error:', registrationError);
+            setErrors({ general: 'Registration failed. Please try again.' });
+          }
+        } else {
+          console.error('Error checking if email exists:', error);
+          setErrors({ general: 'Registration failed. Please try again.' });
+        }
       }
     }
   };
@@ -193,7 +257,7 @@ const Register = ({ isOpen, onClose }) => {
             className="link-button"
             onClick={(e) => {
               e.preventDefault();
-              onClose(); // Assuming you want to switch to the Login component from here
+              toggleModal('login'); 
             }}
           >
             Login

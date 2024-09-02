@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { variables } from '../Variables';
 import '../css/login.css';
 
-const LoginModal = ({ isOpen, onClose }) => {
+const LoginModal = ({ isOpen, onClose, toggleModal  }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
@@ -123,7 +123,7 @@ const LoginModal = ({ isOpen, onClose }) => {
             className="link-button"
             onClick={(e) => {
               e.preventDefault();
-              onClose(); 
+              toggleModal('register'); 
             }}
           >
             Register
