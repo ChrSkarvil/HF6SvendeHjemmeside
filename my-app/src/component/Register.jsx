@@ -58,9 +58,7 @@ const Register = ({ isOpen, onClose, toggleModal  }) => {
         }
   
       } catch (error) {
-        // Check for 404 error (email not found)
         if (error.response && error.response.status === 404) {
-          // Email does not exist, proceed with registration
           try {
             const user = { 
               firstName: firstname, 
@@ -72,12 +70,10 @@ const Register = ({ isOpen, onClose, toggleModal  }) => {
               countryName: countryValue ? countryValue.label : 'Unknown',
             };
   
-            // Create the customer
             const response = await axios.post(`${variables.CUSTOMER_API_URL}`, user);
             const customerId = response.data.id;
       
             if (customerId) {
-              // If the customer was created successfully, create the login
               const loginData = { 
                 email, 
                 password: password,
@@ -88,7 +84,6 @@ const Register = ({ isOpen, onClose, toggleModal  }) => {
       
               await axios.post(`${variables.LOGIN_API_URL}`, loginData);
   
-              // Log the user in after successful registration
               const loginResponse = await axios.post(`${variables.TOKEN_API_URL}/login`, { email, password });
               const { token, refreshToken, user } = loginResponse.data.authResponse;
   
