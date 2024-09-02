@@ -45,7 +45,9 @@ const Header = ({ toggleModal }) => {
 
   return (
     <header className="App-header">
-      <h1>Demmacs Watches</h1>
+      <a href='/' style={{ textDecoration: 'none', color: 'inherit' }}>
+        <h1>Demmacs Watches</h1>
+      </a>
       <div className="burger-menu" onClick={toggleMenu}>
         ☰  
       </div>
