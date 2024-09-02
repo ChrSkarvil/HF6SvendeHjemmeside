@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './component/Home';
 import Watches from './component/Watches';
 import About from './component/About';
@@ -16,6 +16,7 @@ import Breadcrumb from './component/Breadcrumb';
 import LoginModal from './component/LoginModal';
 import RegisterModal from './component/Register';
 import ListingCreate from './component/ListingCreate';
+import OrderPage from './component/OrderPage';
 import { UserProvider } from './component/UserContext';
 import './css/home.css';
 
@@ -23,7 +24,6 @@ function App() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
   const userRole = useSelector((state) => state.auth.userRole);
-
 
   const toggleModal = (type = null) => {
     setModalType(type);
@@ -43,9 +43,10 @@ function App() {
           <Route path="/customerDashboard/profile" element={<Profile />} />
           <Route path="/customerDashboard" element={<CustomerDashboard />} />
           <Route path="/customerDashboard/listingcreate" element={<ListingCreate />} />
-          <Route path="/admin" element={userRole !== "Admin" ? <Home/> : <AdminPanel/>} />
-          <Route path="/admin/handleListings" element={userRole !== "Admin" ? <Home/> : <HandleListings/>} />
-          <Route path="/admin/handleUsers" element={userRole !== "Admin" ? <Home/> : <HandleUsers/>} />
+          <Route path="/order/:id" element={<OrderPage />} />
+          <Route path="/admin" element={userRole !== "Admin" ? <Navigate to="/" /> : <AdminPanel />} />
+          <Route path="/admin/handleListings" element={userRole !== "Admin" ? <Navigate to="/" /> : <HandleListings />} />
+          <Route path="/admin/handleUsers" element={userRole !== "Admin" ? <Navigate to="/" /> : <HandleUsers />} />
         </Routes>
         {isModalOpen && modalType === 'login' && <LoginModal isOpen={isModalOpen} onClose={() => toggleModal(null)} toggleModal={toggleModal} />}
         {isModalOpen && modalType === 'register' && <RegisterModal isOpen={isModalOpen} onClose={() => toggleModal(null)} toggleModal={toggleModal} />}
