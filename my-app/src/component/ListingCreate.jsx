@@ -27,6 +27,7 @@ const ListingForm = ({ }) => {
   const [color, setColor] = useState([]);
   const [colorOptions, setColorOptions] = useState([]);
   const [userId, setUserId] = useState(userIdFromRedux);
+  const [isListingVerified, setIsListingVerified] = useState(true);
   const MAX_IMAGES = 15;
 
   const aiDetectionURL = 'https://detect.roboflow.com/watch-detection-pcn5i/1';
@@ -74,6 +75,7 @@ const ListingForm = ({ }) => {
           setBrand(listing.product.brand);
           setDescription(listing.product.description);
           setSize(listing.product.size);
+          setIsListingVerified(listing.isListingVerified)
 
           // Map colors back to Select's value format
           const selectedColors = listing.product.colors.map(color => ({
@@ -184,7 +186,11 @@ const ListingForm = ({ }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const isListingValidated = await validateImages();
+    // Validate only if there are new images
+    let isListingValidated = isListingVerified;
+    if (newImages.length > 0) {
+      isListingValidated = await validateImages();
+    }
     console.log('isvalidated?', isListingValidated);
     const IsActive = true;
     const categoryId = gender === 'male' ? 2 : gender === 'female' ? 3 : 0;
