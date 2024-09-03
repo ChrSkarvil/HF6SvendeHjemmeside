@@ -7,7 +7,7 @@ import axiosInstance from '../services/axiosInstance';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 
-const ListingForm = ({ }) => {
+const ListingForm = () => {
   const { userId: userIdFromRedux } = useSelector(state => state.auth);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -192,7 +192,7 @@ const ListingForm = ({ }) => {
       isListingValidated = await validateImages();
     }
     console.log('isvalidated?', isListingValidated);
-    const IsActive = true;
+    const listActive = true;
     const categoryId = gender === 'male' ? 2 : gender === 'female' ? 3 : 0;
 
     if (!userId) {
@@ -203,7 +203,6 @@ const ListingForm = ({ }) => {
     const formData = new FormData();
     formData.append('Title', title);
     formData.append('Price', price);
-    formData.append('IsActive', IsActive);
     formData.append('IsListingVerified', isListingValidated);
     formData.append('CustomerId', userId);
     // Updating a listing
@@ -211,6 +210,7 @@ const ListingForm = ({ }) => {
       formData.append('Brand', brand);
       formData.append('Description', description);
       formData.append('Size', size);
+      formData.append('IsActive', isActive);
       if (imageIdsToRemove.length > 0) {
         imageIdsToRemove.forEach(imageId => {
           formData.append('ImageIdsToRemove', imageId);
@@ -252,6 +252,7 @@ const ListingForm = ({ }) => {
       imageBlobs.forEach((blob, index) => {
         formData.append('Product.Images', blob, `image${index}.jpg`);
       });
+      formData.append('IsActive', listActive);
       // Append ProductCreateDTO fields
       formData.append('Product.Brand', brand);
       formData.append('Product.Description', description);

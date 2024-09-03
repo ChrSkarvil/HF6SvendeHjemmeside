@@ -13,7 +13,7 @@ function Breadcrumb() {
   useEffect(() => {
     const fetchProductTitle = async () => {
       const productId = pathnames[pathnames.length - 1];
-      if (pathnames.length > 1 && pathnames[pathnames.length - 2] === "product" && productId) {
+      if ((pathnames.length > 1 && pathnames[pathnames.length - 2] === "product" && productId) || (pathnames.length > 1 && pathnames[pathnames.length - 2] === "order")) {
         try {
           const response = await axios.get(`${variables.LISTING_API_URL}/${productId}`);
           setProductTitle(response.data.title);
@@ -35,7 +35,7 @@ function Breadcrumb() {
       const to = `/${pathnames.slice(0, index + 1).join('/')}`;
       const isLast = index === pathnames.length - 1;
       
-      if (isLast && pathnames[pathnames.length - 2] === "product") {
+      if ((isLast && pathnames[pathnames.length - 2] === "product") || (isLast && pathnames[pathnames.length - 2] === "order")) {
         return (
           <li key={to} className="breadcrumb-item active" aria-current="page">
             {loading ? 'Loading...' : productTitle || 'Product'}

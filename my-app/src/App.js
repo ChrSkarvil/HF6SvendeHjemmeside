@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Home from './component/Home';
-import Watches from './component/Watches';
 import About from './component/About';
 import Contact from './component/Contact';
 import Product from './component/Product';
@@ -47,6 +46,7 @@ function App() {
           <Route path="/admin" element={userRole !== "Admin" ? <Navigate to="/" /> : <AdminPanel />} />
           <Route path="/admin/handleListings" element={userRole !== "Admin" ? <Navigate to="/" /> : <HandleListings />} />
           <Route path="/admin/handleUsers" element={userRole !== "Admin" ? <Navigate to="/" /> : <HandleUsers />} />
+          <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         {isModalOpen && modalType === 'login' && <LoginModal isOpen={isModalOpen} onClose={() => toggleModal(null)} toggleModal={toggleModal} />}
         {isModalOpen && modalType === 'register' && <RegisterModal isOpen={isModalOpen} onClose={() => toggleModal(null)} toggleModal={toggleModal} />}

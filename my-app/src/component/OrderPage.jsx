@@ -126,7 +126,7 @@ function OrderPage() {
   };
 
   if (!product) {
-    return <div>Loading...</div>;
+    return;
   }
 
   const { title, price, product: { images } } = product;
