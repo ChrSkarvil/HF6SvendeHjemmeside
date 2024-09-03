@@ -3,19 +3,14 @@ import axiosInstance from '../services/axiosInstance';
 import { variables } from '../Variables';
 import '../css/handleUsers.css';
 import Footer from './Footer';
-import LoginModal from './LoginModal';
 import CustomPopup from './CustomPopup';  
 import { FaCheck, FaTimes } from 'react-icons/fa';
 
 function HandleUsers() {
-    const [isModalOpen, setModalOpen] = useState(false);
     const [users, setUsers] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
     const [popupMessage, setPopupMessage] = useState('');  
 
-    const toggleModal = () => {
-        setModalOpen(!isModalOpen);
-    };
 
     const fetchUsers = async () => {
         try {
@@ -122,7 +117,6 @@ function HandleUsers() {
                 </div>
             </main>
             <Footer />
-            <LoginModal isOpen={isModalOpen} onClose={toggleModal} />
             <CustomPopup message={popupMessage} onClose={() => setPopupMessage('')} />
         </div>
     );

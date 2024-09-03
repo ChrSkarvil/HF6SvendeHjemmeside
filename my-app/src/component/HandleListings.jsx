@@ -1,26 +1,22 @@
 import React, { useState, useEffect, useCallback  } from 'react';
 import axiosInstance from '../services/axiosInstance';
 import { useLocation } from 'react-router-dom';
-import LoginModal from './LoginModal';
 import { variables } from '../Variables'
 // import '../css/home.css';
 import '../css/handleListings.css';
 import Footer from './Footer';
 import ProductGallery from './ProductGallery';
+import CustomPopup from './CustomPopup';
 
 function HandleListings() {
-  const [isModalOpen, setModalOpen] = useState(false);
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [popupMessage, setPopupMessage] = useState('');  
 
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const listingType = queryParams.get('type') || 'unverified';
 
-
-  const toggleModal = () => {
-    setModalOpen(!isModalOpen);
-  };
 
   const fetchProducts = useCallback(async () => {
     let endpoint;
@@ -50,11 +46,11 @@ function HandleListings() {
       await axiosInstance.put(
         `${variables.LISTING_API_URL}/${id}/true`
       );
-      alert(`Sale ${id} approved!`);
+      showPopup(`Sale ${id} approved!`);
       fetchProducts();
     } catch (error) {
       console.error('Error approving sale:', error);
-      alert('Failed to approve the sale. Please try again.');
+      showPopup('Failed to approve the sale. Please try again.');
     }
   };
 
@@ -64,11 +60,11 @@ function HandleListings() {
       await axiosInstance.put(
         `${variables.LISTING_API_URL}/${id}/false/${currentDateTime}`
       );
-      alert(`Sale ${id} denied!`);
+      showPopup(`Sale ${id} denied!`);
       fetchProducts();
     } catch (error) {
       console.error('Error approving sale:', error);
-      alert('Failed to deny the sale. Please try again.');
+      showPopup('Failed to deny the sale. Please try again.');
     }
   };
 
@@ -79,17 +75,25 @@ function HandleListings() {
   
     try {
       await axiosInstance.put(`${variables.LISTING_API_URL}/delete/${id}/true/${currentDateTime}`);
-      alert(`Listing ${id} deleted!`);
+      showPopup(`Listing ${id} deleted!`);
       fetchProducts();
     } catch (error) {
       console.error('Error deleting listing:', error);
-      alert('Failed to delete the listing. Please try again.');
+      showPopup('Failed to delete the listing. Please try again.');
     }
   };
 
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
+
+  const showPopup = (message) => {
+    setPopupMessage(message);
+    setTimeout(() => {
+        setPopupMessage('');
+    }, 3000); 
+};
+
 
 
   const filteredProducts = products.filter(product => {
@@ -128,7 +132,7 @@ function HandleListings() {
         </div>
       </main>
       <Footer />
-      <LoginModal isOpen={isModalOpen} onClose={toggleModal} />
+      <CustomPopup message={popupMessage} onClose={() => setPopupMessage('')} />
     </div>
   );
 }
