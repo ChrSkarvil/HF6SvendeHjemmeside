@@ -15,6 +15,7 @@ import Breadcrumb from './component/Breadcrumb';
 import ResetPassword from './component/ResetPassword';
 import LoginModal from './component/LoginModal';
 import RegisterModal from './component/Register';
+import CustomPopup from './component/CustomPopup';
 import ListingCreate from './component/ListingCreate';
 import OrderPage from './component/OrderPage';
 import { UserProvider } from './component/UserContext';
@@ -23,6 +24,7 @@ import './css/home.css';
 function App() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
+  const [popupMessage, setPopupMessage] = useState('');
   const userRole = useSelector((state) => state.auth.userRole);
 
   const toggleModal = (type = null) => {
@@ -33,6 +35,10 @@ function App() {
   const handleCloseModal = () => {
     setModalOpen(false);
     setModalType(null);
+  };
+
+  const closePopup = () => {
+    setPopupMessage('');
   };
 
   return (
@@ -54,6 +60,9 @@ function App() {
           <Route path="/admin/handleUsers" element={userRole !== "Admin" ? <Navigate to="/" /> : <HandleUsers />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
+        
+        <CustomPopup message={popupMessage} onClose={closePopup} />
+        
         {isModalOpen && modalType === 'login' && <LoginModal isOpen={isModalOpen} onClose={handleCloseModal} toggleModal={toggleModal} />}
         {isModalOpen && modalType === 'register' && <RegisterModal isOpen={isModalOpen} onClose={handleCloseModal} toggleModal={toggleModal} />}
         {isModalOpen && modalType === 'resetPassword' && <ResetPassword isOpen={isModalOpen} onClose={handleCloseModal} />}

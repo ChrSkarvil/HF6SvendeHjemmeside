@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axiosInstance from '../services/axiosInstance';
-import LoginModal from './LoginModal';
 import { variables } from '../Variables';
 import '../css/handleUsers.css';
 import Footer from './Footer';
+import LoginModal from './LoginModal';
+import CustomPopup from './CustomPopup';  
 import { FaCheck, FaTimes } from 'react-icons/fa';
 
 function HandleUsers() {
     const [isModalOpen, setModalOpen] = useState(false);
     const [users, setUsers] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
+    const [popupMessage, setPopupMessage] = useState('');  
 
     const toggleModal = () => {
         setModalOpen(!isModalOpen);
@@ -29,10 +31,10 @@ function HandleUsers() {
             await axiosInstance.put(
                 `${variables.LOGIN_API_URL}/${id}/true`
             );
-            alert(`User ${id} reactivated!`);
+            showPopup(`User ${id} reactivated!`);
             fetchUsers();
         } catch (error) {
-            alert('Failed to reactivate the user. Please try again.');
+            showPopup('Failed to reactivate the user. Please try again.');
         }
     };
 
@@ -41,11 +43,18 @@ function HandleUsers() {
             await axiosInstance.put(
                 `${variables.LOGIN_API_URL}/${id}/false`
             );
-            alert(`User ${id} deactivated!`);
+            showPopup(`User ${id} deactivated!`);
             fetchUsers();
         } catch (error) {
-            alert('Failed to deactivate the user. Please try again.');
+            showPopup('Failed to deactivate the user. Please try again.');
         }
+    };
+
+    const showPopup = (message) => {
+        setPopupMessage(message);
+        setTimeout(() => {
+            setPopupMessage('');
+        }, 3000); 
     };
 
     useEffect(() => {
@@ -114,6 +123,7 @@ function HandleUsers() {
             </main>
             <Footer />
             <LoginModal isOpen={isModalOpen} onClose={toggleModal} />
+            <CustomPopup message={popupMessage} onClose={() => setPopupMessage('')} />
         </div>
     );
 }
