@@ -145,7 +145,9 @@ const ListingForm = ({ }) => {
 
   // Validate images using AI model
   const validateImages = async () => {
-    const promises = images.concat(newImages).map(async (image) => {
+    const imagesToValidate = listingId ? newImages : images.concat(newImages); // Validate only new images if updating
+
+    const promises = imagesToValidate.map(async (image) => {
       const base64String = typeof image === 'string' ? image.split(',')[1] : null; // Remove 'data:image/jpeg;base64' from image
 
       if (!base64String) {
@@ -183,6 +185,7 @@ const ListingForm = ({ }) => {
     event.preventDefault();
 
     const isListingValidated = await validateImages();
+    console.log('isvalidated?', isListingValidated);
     const IsActive = true;
     const categoryId = gender === 'male' ? 2 : gender === 'female' ? 3 : 0;
 
@@ -352,6 +355,7 @@ const ListingForm = ({ }) => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
+          <p>Your cut: ${(price * 0.95).toFixed()}</p>
         </div>
         <div className='product-section'>
           <div className='gender-section'>
