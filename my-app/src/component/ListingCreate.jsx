@@ -206,7 +206,9 @@ const ListingForm = ({ }) => {
       formData.append('Description', description);
       formData.append('Size', size);
       if (imageIdsToRemove.length > 0) {
-        formData.append('ImageIdsToRemove', imageIdsToRemove);
+        imageIdsToRemove.forEach(imageId => {
+          formData.append('ImageIdsToRemove', imageId);
+        });
       }
       color.forEach(c => formData.append('ColorNames', c.label));
       const newImagesBlobs = await Promise.all(newImages.map(async (image, index) => {
