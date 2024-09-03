@@ -8,10 +8,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000; /* Makes sure it's on top of other content */
+  z-index: 1000; 
 }
  
-/* The modal box itself */
 .login-modal {
   background-color: white;
   padding: 20px;
@@ -21,7 +20,6 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Close button styling */
 .login-modal button.close-button {
   position: absolute;
   top: 10px;
@@ -38,7 +36,6 @@
   border-radius: 4px;
 }
 
-/* Body styling for inputs and buttons */
 .login-modal input {
   display: block;
   width: calc(100% - 20px);
@@ -48,7 +45,6 @@
   border-radius: 4px;
 }
 
-/* Close button styling */
 .login-modal button.close-button {
   position: absolute;
   top: 10px;
@@ -65,7 +61,6 @@
   border-radius: 4px;
 }
 
-/* Body styling for inputs and buttons */
 .login-modal input {
   display: block;
   width: calc(100% - 20px);
@@ -75,7 +70,6 @@
   border-radius: 4px;
 }
 
-/* Style for login button */
 .login-modal button.login-button {
   padding: 10px 20px;
   border: none;
@@ -91,7 +85,6 @@
   background-color: #e65c00;
 }
 
-/* Style for link buttons */
 .login-modal button.link-button {
   border: none;
   background: none;
@@ -106,26 +99,22 @@
   color: #e65c00;
 }
 
-/* Styling for link text in paragraph */
 .login-modal p {
   margin-top: 10px;
   text-align: center;
 }
 
-/* Error message styling */
 .error-message {
   color: red;
   font-size: 12px;
   margin-top: 5px;
 }
 
-/* Styling for phone input container */
 .phone-input-container {
-  width: calc(100% - 20px); /* Adjust width to fit padding */
+  width: calc(100% - 20px);  
   margin: 10px 0;
 }
 
-/* Styling for country select dropdown */
 .country-select {
   font-size: 14px;  
 }

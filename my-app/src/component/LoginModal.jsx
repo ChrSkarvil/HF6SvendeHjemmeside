@@ -4,18 +4,17 @@ import { useDispatch } from 'react-redux';
 import { login } from '../redux/reducer/authReducer'; 
 import { useNavigate } from 'react-router-dom';
 import { variables } from '../Variables';
+import ResetPassword from './ResetPassword';
 import '../css/login.css';
 
-const LoginModal = ({ isOpen, onClose, toggleModal  }) => {
+const LoginModal = ({ isOpen, onClose, toggleModal }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');
+  const [isResetPasswordOpen, setIsResetPasswordOpen] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
-  // const [userRole, setUserRole] = useState("");
-  // const [isLoggedIn, setLoggedIn] = useState(false);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -31,7 +30,6 @@ const LoginModal = ({ isOpen, onClose, toggleModal  }) => {
   
       const { token, refreshToken, user } = response.data.authResponse;
 
-
       if (token && user && refreshToken) {
         // Save token and user data to local storage
         const userId = user.customerId || user.employeeId;
@@ -40,12 +38,10 @@ const LoginModal = ({ isOpen, onClose, toggleModal  }) => {
         localStorage.setItem('user', JSON.stringify({
           email: user.email,
           userRole: user.userRole,
-          userId : user.userId
+          userId: user.userId
         }));
         
 
-
-        // Update Redux state
         dispatch(login({
           email: user.email,
           isLoggedIn: true,
@@ -56,7 +52,6 @@ const LoginModal = ({ isOpen, onClose, toggleModal  }) => {
 
         console.log("Login Successfully");
 
-        // Redirect to home page
         navigate("/", { state: { user } });
         onClose();
       } else {
@@ -80,7 +75,6 @@ const LoginModal = ({ isOpen, onClose, toggleModal  }) => {
     }
   };
 
-
   const handleClose = () => {
     setEmail('');
     setPassword('');
@@ -88,49 +82,70 @@ const LoginModal = ({ isOpen, onClose, toggleModal  }) => {
     onClose();
   };
 
+  const handleForgotPassword = () => {
+    setIsResetPasswordOpen(true);
+  };
+
+  const closeResetPassword = () => {
+    setIsResetPasswordOpen(false);
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div className="login-modal-overlay">
-      <div className="login-modal">
-        <button className="close-button" onClick={handleClose}>×</button>
-        <h2>Login</h2>
-        {loginError && <div className="error-message">{loginError}</div>}
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={loginError ? 'error' : ''}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className={loginError ? 'error' : ''}
-        />
-        <button
-          className="login-button"
-          onClick={handleLogin}
-        >
-          Login
-        </button>
-        <p>
-          Don't have an account?{' '}
+    <>
+      <div className="login-modal-overlay">
+        <div className="login-modal">
+          <button className="close-button" onClick={handleClose}>×</button>
+          <h2>Login</h2>
+          {loginError && <div className="error-message">{loginError}</div>}
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={loginError ? 'error' : ''}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={loginError ? 'error' : ''}
+          />
           <button
-            type="button"
-            className="link-button"
-            onClick={(e) => {
-              e.preventDefault();
-              toggleModal('register'); 
-            }}
+            className="login-button"
+            onClick={handleLogin}
           >
-            Register
+            Login
           </button>
-        </p>
+          <p>
+            Don't have an account?{' '}
+            <button
+              type="button"
+              className="link-button"
+              onClick={(e) => {
+                e.preventDefault();
+                toggleModal('register'); 
+              }}
+            >
+              Register
+            </button>
+          </p>
+          <p>
+            <button
+              type="button"
+              className="link-button"
+              onClick={handleForgotPassword}
+            >
+              Forgot Password?
+            </button>
+          </p>
+        </div>
       </div>
-    </div>
+
+      <ResetPassword isOpen={isResetPasswordOpen} onClose={closeResetPassword} />
+    </>
   );
 };
 

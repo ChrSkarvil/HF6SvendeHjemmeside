@@ -12,6 +12,7 @@ import HandleUsers from './component/HandleUsers';
 import AdminPanel from './component/AdminPanel';
 import Header from './component/Header';
 import Breadcrumb from './component/Breadcrumb';
+import ResetPassword from './component/ResetPassword';
 import LoginModal from './component/LoginModal';
 import RegisterModal from './component/Register';
 import ListingCreate from './component/ListingCreate';
@@ -26,7 +27,12 @@ function App() {
 
   const toggleModal = (type = null) => {
     setModalType(type);
-    setModalOpen(type !== null); 
+    setModalOpen(type !== null);
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+    setModalType(null);
   };
 
   return (
@@ -48,8 +54,9 @@ function App() {
           <Route path="/admin/handleUsers" element={userRole !== "Admin" ? <Navigate to="/" /> : <HandleUsers />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
-        {isModalOpen && modalType === 'login' && <LoginModal isOpen={isModalOpen} onClose={() => toggleModal(null)} toggleModal={toggleModal} />}
-        {isModalOpen && modalType === 'register' && <RegisterModal isOpen={isModalOpen} onClose={() => toggleModal(null)} toggleModal={toggleModal} />}
+        {isModalOpen && modalType === 'login' && <LoginModal isOpen={isModalOpen} onClose={handleCloseModal} toggleModal={toggleModal} />}
+        {isModalOpen && modalType === 'register' && <RegisterModal isOpen={isModalOpen} onClose={handleCloseModal} toggleModal={toggleModal} />}
+        {isModalOpen && modalType === 'resetPassword' && <ResetPassword isOpen={isModalOpen} onClose={handleCloseModal} />}
       </Router>
     </UserProvider>
   );
