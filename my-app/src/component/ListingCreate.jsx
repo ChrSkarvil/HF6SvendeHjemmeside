@@ -7,7 +7,7 @@ import axiosInstance from '../services/axiosInstance';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 
-const ListingForm = ({ }) => {
+const ListingForm = () => {
   const { userId: userIdFromRedux } = useSelector(state => state.auth);
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -27,6 +27,7 @@ const ListingForm = ({ }) => {
   const [color, setColor] = useState([]);
   const [colorOptions, setColorOptions] = useState([]);
   const [userId, setUserId] = useState(userIdFromRedux);
+  const [isListingVerified, setIsListingVerified] = useState(true);
   const MAX_IMAGES = 15;
 
   const aiDetectionURL = 'https://detect.roboflow.com/watch-detection-pcn5i/1';
@@ -74,6 +75,7 @@ const ListingForm = ({ }) => {
           setBrand(listing.product.brand);
           setDescription(listing.product.description);
           setSize(listing.product.size);
+          setIsListingVerified(listing.isListingVerified)
 
           // Map colors back to Select's value format
           const selectedColors = listing.product.colors.map(color => ({
@@ -145,7 +147,9 @@ const ListingForm = ({ }) => {
 
   // Validate images using AI model
   const validateImages = async () => {
-    const promises = images.concat(newImages).map(async (image) => {
+    const imagesToValidate = listingId ? newImages : images.concat(newImages); // Validate only new images if updating
+
+    const promises = imagesToValidate.map(async (image) => {
       const base64String = typeof image === 'string' ? image.split(',')[1] : null; // Remove 'data:image/jpeg;base64' from image
 
       if (!base64String) {
@@ -182,8 +186,13 @@ const ListingForm = ({ }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const isListingValidated = await validateImages();
-    const IsActive = true;
+    // Validate only if there are new images
+    let isListingValidated = isListingVerified;
+    if (newImages.length > 0) {
+      isListingValidated = await validateImages();
+    }
+    console.log('isvalidated?', isListingValidated);
+    const listActive = true;
     const categoryId = gender === 'male' ? 2 : gender === 'female' ? 3 : 0;
 
     if (!userId) {
@@ -194,7 +203,6 @@ const ListingForm = ({ }) => {
     const formData = new FormData();
     formData.append('Title', title);
     formData.append('Price', price);
-    formData.append('IsActive', IsActive);
     formData.append('IsListingVerified', isListingValidated);
     formData.append('CustomerId', userId);
     // Updating a listing
@@ -202,8 +210,11 @@ const ListingForm = ({ }) => {
       formData.append('Brand', brand);
       formData.append('Description', description);
       formData.append('Size', size);
+      formData.append('IsActive', isActive);
       if (imageIdsToRemove.length > 0) {
-        formData.append('ImageIdsToRemove', imageIdsToRemove);
+        imageIdsToRemove.forEach(imageId => {
+          formData.append('ImageIdsToRemove', imageId);
+        });
       }
       color.forEach(c => formData.append('ColorNames', c.label));
       const newImagesBlobs = await Promise.all(newImages.map(async (image, index) => {
@@ -241,6 +252,7 @@ const ListingForm = ({ }) => {
       imageBlobs.forEach((blob, index) => {
         formData.append('Product.Images', blob, `image${index}.jpg`);
       });
+      formData.append('IsActive', listActive);
       // Append ProductCreateDTO fields
       formData.append('Product.Brand', brand);
       formData.append('Product.Description', description);
@@ -352,6 +364,7 @@ const ListingForm = ({ }) => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
+          <p>Your cut: ${(price * 0.95).toFixed()}</p>
         </div>
         <div className='product-section'>
           <div className='gender-section'>

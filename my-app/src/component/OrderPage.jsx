@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useParams, useNavigate } from 'react-router-dom';
 import { variables } from '../Variables';
-import Notification from './Notification'; 
+import Notification from './Notification';
 import '../css/orderPage.css';
 
 function OrderPage() {
   const { id } = useParams();
+  const { userId: userIdFromRedux } = useSelector(state => state.auth);
+  const [userId, setUserId] = useState(userIdFromRedux);
   const [product, setProduct] = useState(null);
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     address: '',
@@ -17,7 +21,7 @@ function OrderPage() {
     phone: ''
   });
   const [errors, setErrors] = useState({});
-  const [showNotification, setShowNotification] = useState(false); 
+  const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -31,6 +35,16 @@ function OrderPage() {
 
     fetchProduct();
   }, [id]);
+
+  useEffect(() => {
+    if (!userId) {
+      const savedUser = localStorage.getItem('user');
+      if (savedUser) {
+        const parsedUser = JSON.parse(savedUser);
+        setUserId(parsedUser.userId);
+      }
+    }
+  }, [userId]);
 
   const validateForm = () => {
     const newErrors = {};
@@ -70,12 +84,40 @@ function OrderPage() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (validateForm()) {
       console.log('Order submitted:', formData);
-      setShowNotification(true); 
+      setShowNotification(true);
+      const orderData = {
+        createDate: new Date().toISOString(),
+        customerId: userId,
+        paymentId: 1,
+        deliveryId: 2,
+        orderItems: [
+          {
+            price: product.price,
+            quantity: 1,
+            listingId: product.id
+          }
+        ]
+      };
+      try {
+        const response = await axios.post(`${variables.ORDER_API_URL}`, orderData);
+
+        if (response.status === 201) {
+          console.log('Order successfully created:', response.data);
+          setShowNotification(true);
+          setTimeout(() => {
+            navigate('/');
+        }, 2000);
+        } else {
+          console.error('Failed to create order:', response.data);
+        }
+      } catch (error) {
+        console.error('Error creating order:', error);
+      }
     }
   };
 
@@ -84,7 +126,7 @@ function OrderPage() {
   };
 
   if (!product) {
-    return <div>Loading...</div>;
+    return;
   }
 
   const { title, price, product: { images } } = product;
