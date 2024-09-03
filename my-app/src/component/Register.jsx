@@ -48,10 +48,8 @@ const Register = ({ isOpen, onClose, toggleModal  }) => {
   const handleRegister = async () => {
     if (validateForm()) {
       try {
-        // Check if the email already exists
         const existingUserResponse = await axios.get(`${variables.LOGIN_API_URL}/${email}`);
   
-        // If response is not 404 and there is data, user already exists
         if (existingUserResponse.data) {
           setErrors({ email: 'Email already exists' });
           return;

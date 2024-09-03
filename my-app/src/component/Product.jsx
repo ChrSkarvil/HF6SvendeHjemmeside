@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import ImageModal from './ImageModal';
+import LoginModal from './LoginModal';
+import { useSelector } from 'react-redux';
 import '../css/productDetail.css';
 import '../css/products.css';
 import { variables } from '../Variables';
@@ -11,7 +13,11 @@ function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const navigate = useNavigate();
+  
+
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -50,7 +56,15 @@ function ProductDetails() {
   };
 
   const handleBuyNow = () => {
-    navigate(`/order/${id}`);
+    if (isLoggedIn) {
+      navigate(`/order/${id}`);
+    } else {
+      setIsLoginModalOpen(true);
+    }
+  };
+
+  const handleLoginModalClose = () => {
+    setIsLoginModalOpen(false);
   };
 
   if (!product) {
@@ -94,7 +108,7 @@ function ProductDetails() {
         <p><strong>Size:</strong> {product.product.size}</p>
         <p><strong>Gender:</strong> {product.product.gender}</p>
         <p><strong>Customer Name:</strong> {customerName}</p>
-        <button className="buy-now"  onClick={handleBuyNow}>Buy now</button>
+        <button className="buy-now" onClick={handleBuyNow}>Buy now</button>
         <button className="make-offer">Make an offer</button>
         <button className="contact-seller">Contact seller</button>
       </div>
@@ -106,6 +120,14 @@ function ProductDetails() {
           onClose={closeModal}
           onNext={handleNextImage}
           onPrevious={handlePreviousImage}
+        />
+      )}
+
+      {isLoginModalOpen && (
+        <LoginModal
+          isOpen={isLoginModalOpen}
+          onClose={handleLoginModalClose}
+          toggleModal={() => {}}
         />
       )}
     </div>
