@@ -162,7 +162,7 @@ function Home() {
         )}
 
         {filteredProducts.length === 0 && !searchQuery && (
-          <div className="no-products">No products match the selected filters</div>
+          <div className="no-products">No products found</div>
         )}
 
         <ProductGallery

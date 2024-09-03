@@ -9,8 +9,6 @@ const Contact = () => {
   });
   const [status, setStatus] = useState('');
 
-
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -32,46 +30,45 @@ const Contact = () => {
   };
 
   return (
-    <div className="App">
+    <div className="contact-container">
+      <h2 className="contact-title">Contact Us</h2>
+      <form onSubmit={handleSubmit} className="contact-form">
+        <label htmlFor="name" className="form-label">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+          className="form-input"
+        />
 
-      
-      <div>
-        <form onSubmit={handleSubmit} className="contact-form">
-          <label htmlFor="name">Name:</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
+        <label htmlFor="email" className="form-label">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          required
+          className="form-input"
+        />
 
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
+        <label htmlFor="message" className="form-label">Message:</label>
+        <textarea
+          id="message"
+          name="message"
+          value={formData.message}
+          onChange={handleChange}
+          required
+          className="form-textarea"
+        />
 
-          <label htmlFor="message">Message:</label>
-          <textarea
-            id="message"
-            name="message"
-            value={formData.message}
-            onChange={handleChange}
-            required
-          />
+        <button type="submit" className="form-button">Send</button>
+      </form>
 
-          <button type="submit">Send</button>
-        </form>
-
-        {status && <p className="status-message">{status}</p>}
-      </div>
-
+      {status && <p className="status-message">{status}</p>}
     </div>
   );
 };

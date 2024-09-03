@@ -1,97 +1,120 @@
-Centering the container vertically and horizontally
 .contact-container {
-  max-width: 400px;
+  max-width: 500px;
   margin: 0 auto;
-  padding: 20px;
-  background-color: #FDF5D8;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  box-sizing: border-box;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
+}
+
+.contact-title {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-family: 'Arial', sans-serif;
 }
 
 .contact-form {
-  padding-top: 90px;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
-.contact-form label {
-  margin-top: 25px;
+.form-label {
+  margin-bottom: 0.5rem;
   font-weight: bold;
-  color: #333;
-  text-align: center;
-  width: 100%;
+  color: #555;
 }
 
-
- 
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  max-width: 400px;
-  padding: 12px;
-  margin-top: 5px;
-  border-radius: 5px;
-  border: 1px solid #CE8C29;
-  font-size: 1rem;
-  background-color: #FFF4E6;
-  color: #333;
+.form-input,
+.form-textarea {
+  width: 95%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 0.9rem;
 }
 
-.contact-form textarea {
+.form-input:focus,
+.form-textarea:focus {
+  border-color: #ff6600;
+  outline: none;
+  box-shadow: 0 0 5px rgba(255, 102, 0, 0.2);
+}
+
+.form-textarea {
+  min-height: 120px;
   resize: vertical;
-  min-height: 100px;
 }
 
-.contact-form button {
-  width: 100%;
-  max-width: 300px;
-  margin-top: 20px;
-  padding: 12px;
-  background-color: #CE8C29;
+.form-button {
+  background-color: #ff6600;
   color: white;
+  padding: 0.8rem;
   border: none;
-  border-radius: 5px;
-  cursor: pointer;
+  border-radius: 4px;
   font-size: 1rem;
+  cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.contact-form button:hover {
-  background-color: #B06D22;
+.form-button:hover {
+  background-color: #e65c00;
 }
 
 .status-message {
-  margin-top: 20px;
-  color: green;
+  margin-top: 1rem;
+  color: #ff6600;
   font-weight: bold;
   text-align: center;
 }
 
-
-/* Adjustments for smaller screens */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .contact-container {
-    padding: 15px;
-    width: 90%;
-    max-width: 400px;
-    margin: auto;
-    box-sizing: border-box;
+    padding: 1.5rem;
   }
 
-  .contact-form {
-    width: 100%;
-    text-align: center;
+  .contact-title {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
   }
 
-  .contact-form button {
-    width: 100%;
+  .form-input,
+  .form-textarea {
+    padding: 0.6rem;
+    font-size: 0.85rem;
+  }
+
+  .form-button {
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-container {
+    padding: 4rem;
+    margin: 0 1rem;
+  }
+
+  .contact-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .form-input,
+  .form-textarea {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .form-button {
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .status-message {
+    font-size: 0.9rem;
   }
 }
