@@ -24,23 +24,23 @@ const About = () => {
           <h2>Customize Your Watch</h2>
           <p>Want something uniquely yours? We offer customization options that let you design your watch to match your style. Choose from various straps, dials, and features to create a timepiece that’s truly one-of-a-kind.</p>
           <p>Start your customization journey today and make a statement with a watch that reflects your individuality.</p>
-          <Link to="/customize" className="cta-button">Customize Your Watch</Link>
+          <Link to="/about" className="cta-button">Customize Your Watch</Link>
         </section>
         <section className="team-section">
           <h2>Meet the Team</h2>
           <div className="team-members">
             <div className="team-member">
-              <img src="/assets/skele.jpg" alt="John Doe" />
+              <img src="/assets/default.jpg" alt="John Doe" />
               <h3>Christian</h3>
               <p>Founder & CEO</p>
             </div>
             <div className="team-member">
-              <img src="/assets/skele.jpg" alt="Jane Smith" />
+              <img src="/assets/default.jpg" alt="Jane Smith" />
               <h3>Skov</h3>
               <p>Creative Director</p>
             </div>
             <div className="team-member">
-              <img src="/assets/skele.jpg" alt="Emily Johnson" />
+              <img src="/assets/default.jpg" alt="Emily Johnson" />
               <h3>Skarvil</h3>
               <p>Marketing Specialist</p>
             </div>

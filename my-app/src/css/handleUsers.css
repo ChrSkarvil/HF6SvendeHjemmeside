@@ -98,9 +98,22 @@
 }
 
 .fixed-header .search-container {
-  padding-top: 20px;
+  padding-top: 10px;
   margin-left: -60px;
 }
+
+.user-approve-btn.disabled,
+.user-deny-btn.disabled {
+    background: #888; 
+    opacity: 0.6; 
+}
+
+.user-gallery .user-approve-btn:hover, .user-deny-btn:hover {
+  opacity: 0.8;  
+}
+
+
+
 
 /* Responsive styles */
 @media (max-width: 1200px) {

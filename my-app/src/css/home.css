@@ -78,6 +78,7 @@ html, body {
 
 .profile-container {
   position: relative;
+  cursor: pointer;
 }
 
 .profile-placeholder {
