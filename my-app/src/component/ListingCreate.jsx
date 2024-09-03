@@ -6,6 +6,9 @@ import { variables } from '../Variables';
 import axiosInstance from '../services/axiosInstance';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
+import Footer from './Footer';
+import CustomPopup from './CustomPopup';
+
 
 const ListingForm = () => {
   const { userId: userIdFromRedux } = useSelector(state => state.auth);
@@ -29,6 +32,9 @@ const ListingForm = () => {
   const [userId, setUserId] = useState(userIdFromRedux);
   const [isListingVerified, setIsListingVerified] = useState(true);
   const MAX_IMAGES = 15;
+
+  const [popupMessage, setPopupMessage] = useState('');  
+
 
   const aiDetectionURL = 'https://detect.roboflow.com/watch-detection-pcn5i/1';
   const apiKey = 'VRERCE01WIVmSiPNKe5t';
@@ -183,6 +189,15 @@ const ListingForm = () => {
     return results.every(isValid => isValid);
   };
 
+  
+  const showPopup = (message) => {
+    setPopupMessage(message);
+    setTimeout(() => {
+        setPopupMessage('');
+        navigate('/customerDashboard');
+    }, 3000); 
+};
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -287,7 +302,7 @@ const ListingForm = () => {
             'Content-Type': 'multipart/form-data'
           }
         });
-        alert('Listing updated successfully!');
+        showPopup('Listing updated successfully!');
       } else {
         // Create new listing
         await axiosInstance.post(`${variables.LISTING_API_URL}`, formData, {
@@ -295,9 +310,8 @@ const ListingForm = () => {
             'Content-Type': 'multipart/form-data'
           }
         });
-        alert('Listing created successfully!');
+        showPopup('Listing created successfully!');
       }
-      navigate('/customerDashboard');
     } catch (error) {
       console.error('Error submitting listing:', error);
       setError('An error occurred while submitting the listing.');
@@ -305,6 +319,7 @@ const ListingForm = () => {
   };
 
   return (
+    <div className='listing-create'>
     <div className="listing-container">
       <h2>{listingId ? 'Update Listing' : 'Create a Listing'}</h2>
       <form onSubmit={handleSubmit} className="listing-form">
@@ -417,6 +432,9 @@ const ListingForm = () => {
           <button type="submit">Submit</button>
         </div>
       </form>
+    </div>
+    <CustomPopup message={popupMessage} onClose={() => setPopupMessage('')} />
+    <Footer />
     </div>
   );
 };

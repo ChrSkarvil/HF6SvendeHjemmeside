@@ -7,6 +7,7 @@ import Footer from './Footer';
 import { FaUser } from 'react-icons/fa';
 import ProductGallery from './ProductGallery';
 import '../css/customerDashboard.css';
+import CustomPopup from './CustomPopup';
 
 function CustomerDashboard() {
   const { userId: userIdFromRedux } = useSelector(state => state.auth);
@@ -15,6 +16,7 @@ function CustomerDashboard() {
   const [user, setUser] = useState(null);
   const [listings, setListings] = useState([]);
   const [userId, setUserId] = useState(userIdFromRedux);
+  const [popupMessage, setPopupMessage] = useState('');  
 
   // Fetch user profile data
   const fetchUserProfile = useCallback(async () => {
@@ -67,11 +69,11 @@ function CustomerDashboard() {
       await axiosInstance.put(
         `${variables.LISTING_API_URL}/toggleActive/${id}`
       );
-      alert(`Sale ${id} status set!`);
+      showPopup(`Sale ${id} status set!`);
       fetchUserListings();
     } catch (error) {
       console.error('Error setting status:', error);
-      alert('Failed to set the status. Please try again.');
+      showPopup('Failed to set the status. Please try again.');
     }
   };
 
@@ -86,13 +88,20 @@ function CustomerDashboard() {
   
     try {
       await axiosInstance.put(`${variables.LISTING_API_URL}/delete/${id}/true/${currentDateTime}`);
-      alert(`Listing ${id} deleted!`);
+      showPopup(`Listing ${id} deleted!`);
       fetchUserListings();
     } catch (error) {
       console.error('Error deleting listing:', error);
-      alert('Failed to delete the listing. Please try again.');
+      showPopup('Failed to delete the listing. Please try again.');
     }
   };
+
+  const showPopup = (message) => {
+    setPopupMessage(message);
+    setTimeout(() => {
+        setPopupMessage('');
+    }, 3000); 
+};
 
   return (
     <div className="customer-dashboard">
@@ -125,6 +134,7 @@ function CustomerDashboard() {
           </div>
         </div>
       </main>
+      <CustomPopup message={popupMessage} onClose={() => setPopupMessage('')} />
       <Footer />
     </div>
   );
