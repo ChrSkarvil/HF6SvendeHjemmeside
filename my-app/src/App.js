@@ -51,9 +51,9 @@ function App() {
           <Route path="/product/:id" element={<Product />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/customerDashboard/profile" element={<Profile />} />
-          <Route path="/customerDashboard" element={<CustomerDashboard />} />
-          <Route path="/customerDashboard/listingcreate" element={<ListingCreate />} />
+          <Route path="/customerDashboard/profile" element={userRole !== "Customer" ? <Navigate to="/" /> : <Profile />} />
+          <Route path="/customerDashboard" element={userRole !== "Customer" ? <Navigate to="/" /> : <CustomerDashboard />} />
+          <Route path="/customerDashboard/listingcreate" element={userRole !== "Customer" ? <Navigate to="/" /> : <ListingCreate />} />
           <Route path="/order/:id" element={<OrderPage />} />
           <Route path="/admin" element={userRole !== "Admin" ? <Navigate to="/" /> : <AdminPanel />} />
           <Route path="/admin/handleListings" element={userRole !== "Admin" ? <Navigate to="/" /> : <HandleListings />} />
