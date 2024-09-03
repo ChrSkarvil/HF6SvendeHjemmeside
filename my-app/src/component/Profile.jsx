@@ -9,11 +9,13 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import Select from 'react-select';
 import countryList from 'react-select-country-list';
+import CustomPopup from './CustomPopup';
 
 const Profile = () => {
   const { userId: userIdFromRedux } = useSelector(state => state.auth);
   const navigate = useNavigate();
   const [userId, setUserId] = useState(userIdFromRedux);
+  const [popupMessage, setPopupMessage] = useState('');  
 
   // State for profile
   const [firstname, setFirstname] = useState('');
@@ -161,13 +163,14 @@ const Profile = () => {
             countryName: countryValue?.label,
           }
         );
-        alert('Profile updated');
         setTimeout(() => {
-          navigate('/customerDashboard');
-        }, 2000);
+          showPopup('Profile updated', false);
+        }, 500); 
       } catch (error) {
         console.error('Error updating profile:', error);
-        alert('Failed to update profile. Please try again.');
+        setTimeout(() => {
+          showPopup('Failed to update profile. Please try again.',true);
+        }, 500); 
       }
     }
   };
@@ -186,16 +189,13 @@ const Profile = () => {
             isActive: true
           }
         );
-        alert('Password changed successfully');
+        showPopup('Password changed successfully', false);
         setCurrentPassword('');
         setNewPassword('');
         setConfirmPassword('');
-        setTimeout(() => {
-          navigate('/customerDashboard');
-        }, 2000);
       } catch (error) {
         console.error('Error changing password:', error);
-        alert('Failed to change password. Please try again.');
+        showPopup('Failed to change password. Please try again.',true);
       }
     }
   };
@@ -208,6 +208,14 @@ const Profile = () => {
   const handleCountryChange = (selectedOption) => {
     setCountryValue(selectedOption);
   };
+
+  const showPopup = (message, error) => {
+    setPopupMessage(message);
+    setTimeout(() => {
+        if(!error)navigate('/customerDashboard')
+        setPopupMessage('');
+    }, 3000); 
+};
 
   return (
     <div className="profile-page-container">
@@ -328,6 +336,7 @@ const Profile = () => {
           </form>
         )}
       </div>
+      <CustomPopup message={popupMessage} onClose={() => setPopupMessage('')} />
     </div>
   );
 };
