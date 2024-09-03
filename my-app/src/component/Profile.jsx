@@ -14,7 +14,6 @@ const Profile = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const { userId } = useSelector((state) => state.auth);
 
-  const [user, setUser] = useState(null);
   const [firstname, setFirstname] = useState('');
   const [lastname, setLastname] = useState('');
   const [email, setEmail] = useState('');
@@ -33,7 +32,6 @@ const Profile = () => {
         const response = await axiosInstance.get(`${variables.CUSTOMER_API_URL}/${userId}`);
         const userData = response.data;
         const phoneNumber = userData.phone ? userData.phone.toString() : '';
-        setUser(userData);
         setFirstname(userData.firstName);
         setLastname(userData.lastName);
         setEmail(userData.email);
@@ -49,7 +47,7 @@ const Profile = () => {
     if (userId) {
       fetchUserProfile();
     }
-  }, [userId]);
+  }, [userId, options]);
 
   const handleProfileUpdate = (e) => {
     e.preventDefault();

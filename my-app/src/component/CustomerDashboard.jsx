@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect, useCallback  } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate  } from 'react-router-dom';
 import { variables } from '../Variables';
 import axiosInstance from '../services/axiosInstance';
@@ -10,37 +10,33 @@ import '../css/customerDashboard.css';
 
 function CustomerDashboard() {
   const { userId: userIdFromRedux } = useSelector(state => state.auth);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   
   const [user, setUser] = useState(null);
   const [listings, setListings] = useState([]);
   const [userId, setUserId] = useState(userIdFromRedux);
-  const [error, setError] = useState(null);
 
   // Fetch user profile data
-  const fetchUserProfile = async () => {
+  const fetchUserProfile = useCallback(async () => {
     try {
       const response = await axiosInstance.get(`${variables.CUSTOMER_API_URL}/${userId}`);
       setUser(response.data);
     } catch (error) {
-      setError('Error getting user profile');
       console.error('Error getting user profile:', error);
     }
-  };
+  }, [userId]);
 
   // Fetch user listings
-  const fetchUserListings = async () => {
+  const fetchUserListings = useCallback(async () => {
     try {
       const response = await axiosInstance.get(`${variables.LISTING_API_URL}/customer/${userId}`);
       const activeListings = response.data.filter(listing => !listing.deleteDate);
       setListings(activeListings);
     } catch (error) {
-      setError('Error getting user listings');
       console.error('Error getting user listings:', error);
     }
-  };
-
+  }, [userId]);
+  
   useEffect(() => {
     if (!userId) {
       const savedUser = localStorage.getItem('user');
@@ -56,7 +52,7 @@ function CustomerDashboard() {
       fetchUserProfile();
       fetchUserListings();
     }
-  }, [userId]);
+  }, [userId, fetchUserProfile, fetchUserListings]);
 
   const handleCreateListing = () => {
     navigate('/customerDashboard/listingCreate');
