@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit'; // Make sure this line is present
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = (() => {
   const savedUser = localStorage.getItem('user');
