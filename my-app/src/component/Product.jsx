@@ -86,6 +86,7 @@ function ProductDetails() {
 
   const { title, price, createDate, customerName } = product;
   const images = product.product.images;
+  const colors = product.product.colors || [];
 
   return (
     <div className="product-details">
@@ -117,6 +118,7 @@ function ProductDetails() {
         <p><strong>Price:</strong> ${price}</p>
         <p><strong>Create Date:</strong> {new Date(createDate).toLocaleDateString()}</p>
         <p><strong>Brand:</strong> {product.product.brand}</p>
+        <p><strong>Colors:</strong> {colors.length > 0 ? colors.map(color => color.name).join(', ') : 'No colors available'}</p>
         <p><strong>Description:</strong> {product.product.description}</p>
         <p><strong>Size:</strong> {product.product.size}</p>
         <p><strong>Gender:</strong> {product.product.gender}</p>
