@@ -18,6 +18,7 @@ import RegisterModal from './component/Register';
 import CustomPopup from './component/CustomPopup';
 import ListingCreate from './component/ListingCreate';
 import OrderPage from './component/OrderPage';
+import TestAi from './component/TestAi';
 import { UserProvider } from './component/UserContext';
 import './css/home.css';
 
@@ -58,6 +59,7 @@ function App() {
           <Route path="/admin" element={userRole !== "Admin" ? <Navigate to="/" /> : <AdminPanel />} />
           <Route path="/admin/handleListings" element={userRole !== "Admin" ? <Navigate to="/" /> : <HandleListings />} />
           <Route path="/admin/handleUsers" element={userRole !== "Admin" ? <Navigate to="/" /> : <HandleUsers />} />
+          <Route path="/testai" element={<TestAi />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
         
