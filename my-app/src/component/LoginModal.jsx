@@ -38,7 +38,8 @@ const LoginModal = ({ isOpen, onClose, toggleModal }) => {
         localStorage.setItem('user', JSON.stringify({
           email: user.email,
           userRole: user.userRole,
-          userId: user.userId
+          userId: user.userId,
+          fullName: user.fullName
         }));
         
 
@@ -47,6 +48,7 @@ const LoginModal = ({ isOpen, onClose, toggleModal }) => {
           isLoggedIn: true,
           userRole: user.role,
           userId: userId,
+          fullName: user.fullName,
           token 
         }));
 

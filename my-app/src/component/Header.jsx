@@ -11,8 +11,9 @@ const Header = ({ toggleModal }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn); // Check if the user is logged in
-  const userRole = useSelector(state => state.auth.userRole); // Get users role
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const userRole = useSelector(state => state.auth.userRole);
+  const fullName = useSelector(state => state.auth.fullName);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -59,7 +60,8 @@ const Header = ({ toggleModal }) => {
           {isLoggedIn ? (
             <li className='profile-container'>
               <div className='profile-placeholder' onClick={toggleDropdown}>
-                <FaUser size={30} />
+                <FaUser size={30} /> 
+                <span className='welcome-message'> Welcome {fullName}</span>
               </div>
               {dropdownOpen && (
                 <div className={`dropdown-menu ${dropdownOpen ? 'open' : ''}`} ref={dropdownRef}>
@@ -67,7 +69,7 @@ const Header = ({ toggleModal }) => {
                     <Link to="/admin" className='dropdown-item' onClick={closeDropdown}>Admin Panel</Link>
                   )}
                   {isLoggedIn && userRole === 'Customer' && (
-                  <Link to="/customerDashboard" className='dropdown-item' onClick={closeDropdown}>Listing & Profile</Link>
+                    <Link to="/customerDashboard" className='dropdown-item' onClick={closeDropdown}>Listing & Profile</Link>
                   )}
                   <button className='dropdown-item button' onClick={() => { handleLogout(); closeDropdown(); }}>Logout</button>
                 </div>
