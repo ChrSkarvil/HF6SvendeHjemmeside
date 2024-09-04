@@ -9,11 +9,13 @@ import '../css/products.css';
 import { variables } from '../Variables';
 
 function ProductDetails() {
+  const { userId: userIdFromRedux } = useSelector(state => state.auth);
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+  const [userId, setUserId] = useState(userIdFromRedux);
   const navigate = useNavigate();
   
 
@@ -67,9 +69,20 @@ function ProductDetails() {
     setIsLoginModalOpen(false);
   };
 
+  useEffect(() => {
+    if (!userId) {
+      const savedUser = localStorage.getItem('user');
+      if (savedUser) {
+        const parsedUser = JSON.parse(savedUser);
+        setUserId(parsedUser.userId);
+      }
+    }
+  }, [userId]);
+
   if (!product) {
     return <div></div>;
   }
+
 
   const { title, price, createDate, customerName } = product;
   const images = product.product.images;
@@ -108,9 +121,13 @@ function ProductDetails() {
         <p><strong>Size:</strong> {product.product.size}</p>
         <p><strong>Gender:</strong> {product.product.gender}</p>
         <p><strong>Customer Name:</strong> {customerName}</p>
-        <button className="buy-now" onClick={handleBuyNow}>Buy now</button>
-        <button className="make-offer">Make an offer</button>
-        <button className="contact-seller">Contact seller</button>
+        {userId !== product.customerId && (
+          <>
+            <button className="buy-now" onClick={handleBuyNow}>Buy now</button>
+            <button className="make-offer">Make an offer</button>
+            <button className="contact-seller">Contact seller</button>
+          </>
+        )}
       </div>
 
       {isModalOpen && (
